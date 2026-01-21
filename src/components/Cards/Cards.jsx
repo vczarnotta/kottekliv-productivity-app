@@ -1,14 +1,25 @@
-import React from 'react'
 import './Cards.css'
 
-const Card = ({ title, description, icon, size}) => {
+const Card = ({ children, title, span = 1 }) => {
+
+  const addSpan = {
+    gridColumn: `span ${span}`
+  }
+
   return (
-    <div className={`card-base ${size}`}>
-      {icon && <img src={icon} className={`card-icon-base ${iconClass}`} alt="icon" />}
-      {title && <h3 className="card-title">{title}</h3>}
+    <div
+    className={"card-base"}
+    style={addSpan}
+    >
+
+      {/* Om titel finns, skapa h2 */}
+      {title && <h2 className="card-title">{title}</h2>}
+
       <div className="card-content">
-        {description}
+        {/* Tar emot children för att kunna anpassa innehållet */}
+        {children}
       </div>
+
     </div>
   );
 };

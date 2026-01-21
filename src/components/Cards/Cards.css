@@ -18,10 +18,3 @@
   font-size: var(--font-size-lg);
   font-weight: 700;
 }
-
-/* icon */
-.card-icon-base {
-  width: 36px;
-  height: 36px;
-  margin-bottom: var(--space-sm);
-}

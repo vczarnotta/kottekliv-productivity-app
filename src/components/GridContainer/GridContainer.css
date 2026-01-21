@@ -1,0 +1,15 @@
+.grid-layout {
+  display: grid;
+  /*Använder variabeln från jsx-filen*/
+  grid-template-columns: repeat(var(--columns), minmax(0, 1fr));
+  gap: var(--space-md);
+  margin: var(--space-sm);
+  max-width: 1200px;
+  width: 100%;
+}
+
+.grid-layout.full-height {
+  flex: 1;
+}
+
+/* Media queries behöver läggas till */
