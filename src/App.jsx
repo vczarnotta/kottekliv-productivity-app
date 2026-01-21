@@ -22,7 +22,7 @@ function App() {
     <div className='body-container'>
       <Header changePage={setActivePage}/>
       <main>
-        {pages[activePage] || <Home />}
+        {pages[activePage]}
       </main>
     </div>
   )
