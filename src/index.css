@@ -45,12 +45,16 @@
 body {
   background-color: var(--color-bg);
   margin: 0;
+}
+
+.main-container {
   display: flex;
-  min-height: 100vh;
 }
 
 main {
+  flex: 1;
   display: flex;
-  flex-wrap: wrap;
-  height: fit-content;
+  flex-direction: column;
+  margin: var(--space-lg);
+  align-items: center;
 }
