@@ -1,6 +1,9 @@
 import "./Header.css"
+import menuItems from "./navData"
 
-function Header () {
+/* Kanske lägga till visuell effekt för aktiva sidan? */
+
+function Header ({changePage}) {
 
   return (
     <header>
@@ -8,9 +11,15 @@ function Header () {
         
         <nav>
           <ul>
-              <li>Item 1</li>
-              <li>Item 2</li>
-              <li>Item 3</li>
+              {/* Gå igenom arrayen och mappa ut */}
+              {menuItems.map((item) => (
+                <li key={item.title}>
+                  <a onClick={ () => changePage(item.title)}>
+                    <span className="icon">{item.icon}</span>
+                    <span>{item.title}</span>
+                  </a>
+                </li>
+              ))}
           </ul>
         </nav>
     </header>

@@ -5,9 +5,6 @@ import Card from "../components/Cards/Cards"
 function Home() {
   return(
     <div className="main-container">
-      <Header />
-
-      <main>
         <GridContainer columns={4}>
           <Card
             // Här hämtas tiden från historik
@@ -38,7 +35,6 @@ function Home() {
             children={<p>Här listas uppgifter från ToDos</p>}
           />
         </GridContainer>
-      </main>
     </div>
   )
 }

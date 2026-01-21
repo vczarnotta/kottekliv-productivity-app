@@ -41,20 +41,29 @@
   --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
+* {
+  box-sizing: border-box;
+}
 
 body {
   background-color: var(--color-bg);
   margin: 0;
 }
 
-.main-container {
-  display: flex;
-}
-
 main {
   flex: 1;
+  padding: var(--space-lg);
+}
+
+.body-container {
+  display: flex;
+  text-align: center;
+  height: 100%;
+}
+
+.main-container {
   display: flex;
   flex-direction: column;
-  margin: var(--space-lg);
   align-items: center;
+  height: 100%;
 }

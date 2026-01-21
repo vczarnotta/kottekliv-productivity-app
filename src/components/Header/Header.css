@@ -1,8 +1,6 @@
 header {
-  min-width: 160px;
-  width: 200px;
-  height: 100vh;
   background-color: var(--color-bg-surface);
+  padding: var(--space-md);
 
   /* Headern stannar kvar även vid scroll */
   position: sticky;
@@ -10,16 +8,29 @@ header {
 }
 
 h1 {
-  margin: 0;
-  padding-top: var(--space-md);
   font-size: var(--font-size-xl);
-}
-
-nav { 
-  padding: 1rem;
 }
 
 ul {
   list-style: none;
   padding: 0;
+}
+
+li {
+  padding: var(--space-sm);
+  text-align: start;
+  height: 40px;
+}
+
+li:hover {
+  cursor: pointer;
+}
+
+.icon {
+  margin-right: var(--space-md);
+}
+
+/*Den vägrade centrera sig med bara .icon*/
+.icon svg {
+  transform: translateY(2px);
 }

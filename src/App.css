@@ -1,3 +1,7 @@
 #root {
   text-align: center;
 }
+
+html, body, #root {
+  height: 100vh;
+}
