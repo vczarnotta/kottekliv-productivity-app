@@ -1,0 +1,46 @@
+/* Base Button Styles */
+.btn-base {
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+}
+
+.btn-base:active {
+  transform: scale(0.98);
+}
+
+/* Light Mode Template */
+.btn-light {
+  background-color: #3b82f6;
+  color: white;
+}
+
+.btn-light:hover {
+  background-color: #2563eb;
+  box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.3);
+}
+
+/* Dark Mode Template */
+.btn-dark {
+  background-color: #6366f1;
+  color: white;
+}
+
+.btn-dark:hover {
+  background-color: #4f46e5;
+  box-shadow: 0 4px 10px -2px rgba(99, 102, 241, 0.5);
+}
+
+/* Disabled State */
+.btn-base:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

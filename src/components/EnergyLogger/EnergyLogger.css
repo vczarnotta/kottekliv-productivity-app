@@ -1,0 +1,24 @@
+.button-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.energy-level {
+  background-color: var(--color-accent);
+  color: var(--color-bg);
+  padding: var(--space-sm);
+  width: var(--space-lg);
+  height: var(--space-lg);
+  border-radius: var(--radius-pill);    
+}
+
+.energy-description {
+  flex-grow: 1;
+}

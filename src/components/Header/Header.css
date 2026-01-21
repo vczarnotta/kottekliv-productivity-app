@@ -1,0 +1,21 @@
+header {
+  min-width: 200px;
+  max-width: 20vw;
+  height: 100vh;
+  background-color: var(--color-bg-surface);
+}
+
+h1 {
+  margin: 0;
+  padding-top: var(--space-md);
+  font-size: var(--font-size-xl);
+}
+
+nav { 
+  padding: 1rem;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
