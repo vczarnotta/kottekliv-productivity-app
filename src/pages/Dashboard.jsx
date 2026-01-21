@@ -3,10 +3,7 @@ import Card from "../components/Cards/Cards"
 
 function Dashboard() {
   return(
-    <>
-      <Header />
-      
-      <main>
+    <div className="main-container">
         <Card 
           // Lägg koppling till antalet tasks här
           title={"0/0"}
@@ -16,8 +13,7 @@ function Dashboard() {
           title={"Titel"}
           description={"Beskrivning"}
         />
-      </main>
-    </>
+    </div>
   )
 }
 
