@@ -33,4 +33,5 @@ li:hover {
 /*Den vägrade centrera sig med bara .icon*/
 .icon svg {
   transform: translateY(2px);
+  color: var(--color-accent);
 }
