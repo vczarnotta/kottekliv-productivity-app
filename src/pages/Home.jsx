@@ -1,4 +1,3 @@
-import Header from "../components/Header/Header"
 import GridContainer from "../components/GridContainer/GridContainer"
 import Card from "../components/Cards/Cards"
 
@@ -27,11 +26,11 @@ function Home() {
         {/* fullheight={true} sträcker ut containern för att fylla resten av sidan */}
         <GridContainer columns={2} fullheight={true}>
           <Card
-            title={<p>Starta timer</p>}
+            title={"Starta timer"}
           />
 
           <Card
-            title={<p>Uppgifter</p>}
+            title={"Uppgifter"}
             children={<p>Här listas uppgifter från ToDos</p>}
           />
         </GridContainer>
