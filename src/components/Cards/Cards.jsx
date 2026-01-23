@@ -1,5 +1,9 @@
 import './Cards.css'
 
+/**
+ * @param {string} title - Rubriken på kortet.
+ * @param {number} span - Hur många kolumner kortet ska ta upp (default 1).
+ */
 const Card = ({ children, title, span = 1 }) => {
 
   const addSpan = {

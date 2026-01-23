@@ -1,8 +1,10 @@
 import "./Header.css"
 import menuItems from "./navData"
 
-/* Kanske lägga till visuell effekt för aktiva sidan? */
-
+/**
+ * @param {Function} changePage - Funktion från App.jsx för att uppdatera sid-state.
+ * @param {string} activePage - Den nuvarande aktiva sidans titel.
+ */
 function Header ({changePage, activePage}) {
 
   return (
@@ -11,12 +13,13 @@ function Header ({changePage, activePage}) {
         
         <nav>
           <ul>
-              {/* Gå igenom arrayen och mappa ut */}
               {menuItems.map((item) => (
                 <li
                   key={item.title}
+                  /* Sätter klassen "active" om knappen matchar nuvarande sida */
                   className={activePage === item.title ? "active" : ""}
                 >
+                  {/* Vid klick anropas changePage för att byta vy i huvudkomponenten */}
                   <a onClick={ () => changePage(item.title)}>
                     <span className="icon">{item.icon}</span>
                     <span>{item.title}</span>

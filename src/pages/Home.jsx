@@ -5,26 +5,26 @@ import Card from "../components/Cards/Cards"
 function Home() {
   return(
     <div className="main-container">
+        {/* En grid med 4 kolumner för sammanfattande statistik */}
         <GridContainer columns={4}>
           <Card
-            // Här hämtas tiden från historik
             title={"1h"}
             children={<p>Fokustid idag</p>}
           />
 
           <Card
-            // Här hämtas tiden från historik
             title={"12h"}
             children={<p>Fokustid senaste veckan</p>}
           />
 
+          {/* span={2} gör att detta kort tar upp två kolumner i gridden */}
           <Card
-            //Här dyker ett peppande citat upp
             title={<p>PEPP!!!</p>}
             span={2}
           />
         </GridContainer>
 
+        {/* fullheight={true} sträcker ut containern för att fylla resten av sidan */}
         <GridContainer columns={2} fullheight={true}>
           <Card
             title={<p>Starta timer</p>}

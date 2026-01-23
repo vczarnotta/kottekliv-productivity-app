@@ -7,6 +7,7 @@ import Tasks from  "./pages/Tasks"
 import Timer from "./pages/Timer"
 import History from "./pages/History"
 
+//Mappar sidnamn till komponenter för dynamisk rendering
 const pages = {
   Home: <Home />,
   Dashboard: <Dashboard />,
@@ -20,8 +21,11 @@ function App() {
 
   return(
     <div className='body-container'>
+      {/* Header tar emot funktionen för att byta sida samt nuvarande status */}
       <Header changePage={setActivePage} activePage={activePage}/>
+
       <main>
+        {/* Renderar den sida som matchar nuvarande state */}
         {pages[activePage]}
       </main>
     </div>
