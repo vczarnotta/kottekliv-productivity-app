@@ -20,10 +20,17 @@ li {
   padding: var(--space-sm);
   text-align: start;
   height: 40px;
+  transition: color 0.2s ease;
+  color: var(--color-text-muted);
 }
 
 li:hover {
   cursor: pointer;
+}
+
+li.active {
+  color: var(--color-text);
+  font-weight: 500;
 }
 
 .icon {

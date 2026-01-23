@@ -3,7 +3,7 @@ import menuItems from "./navData"
 
 /* Kanske lägga till visuell effekt för aktiva sidan? */
 
-function Header ({changePage}) {
+function Header ({changePage, activePage}) {
 
   return (
     <header>
@@ -13,7 +13,10 @@ function Header ({changePage}) {
           <ul>
               {/* Gå igenom arrayen och mappa ut */}
               {menuItems.map((item) => (
-                <li key={item.title}>
+                <li
+                  key={item.title}
+                  className={activePage === item.title ? "active" : ""}
+                >
                   <a onClick={ () => changePage(item.title)}>
                     <span className="icon">{item.icon}</span>
                     <span>{item.title}</span>

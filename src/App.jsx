@@ -20,7 +20,7 @@ function App() {
 
   return(
     <div className='body-container'>
-      <Header changePage={setActivePage}/>
+      <Header changePage={setActivePage} activePage={activePage}/>
       <main>
         {pages[activePage]}
       </main>
