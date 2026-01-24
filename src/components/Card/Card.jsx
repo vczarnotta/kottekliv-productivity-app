@@ -1,4 +1,4 @@
-import './Cards.css'
+import './Card.css'
 
 /**
  * @param {string} title - Rubriken på kortet.

@@ -1,5 +1,4 @@
-import Header from "../components/Header/Header"
-import Card from "../components/Cards/Cards"
+import Card from "../components/Card/Card"
 
 function Dashboard() {
   return(
