@@ -17,7 +17,7 @@ const pages = {
 }
 
 function App() {
-  const [ activePage, setActivePage ] = useState("Tasks")
+  const [ activePage, setActivePage ] = useState("Home")
 
   return(
     <div className='body-container'>
