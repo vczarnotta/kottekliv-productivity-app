@@ -2,6 +2,8 @@ import { useReducer, useState, useEffect } from "react";
 import Button from "../Button/Button";
 import "./TodoList.css";
 
+
+// get saved list from previous session, or return empty list
 const getSavedTodos = () => {
         const savedData = localStorage.getItem("users-todo-list")
 
