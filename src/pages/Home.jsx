@@ -1,5 +1,5 @@
 import GridContainer from "../components/GridContainer/GridContainer"
-import Card from "../components/Cards/Cards"
+import Card from "../components/Card/Card"
 
 function Home() {
   return(
@@ -18,7 +18,7 @@ function Home() {
 
           {/* span={2} gör att detta kort tar upp två kolumner i gridden */}
           <Card
-            title={<p>PEPP!!!</p>}
+            title={"PEPP!!!"}
             span={2}
           />
         </GridContainer>
