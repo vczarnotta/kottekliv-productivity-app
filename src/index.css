@@ -3,15 +3,23 @@
   line-height: 1.5;
   font-weight: 400;
 
-  /*Färgpalett*/
-  --color-bg: #f2f2f2;
+  /* --- FÄRGPALETT LIGHT MODE --- */
+  --color-bg: #f9f8f7;
   --color-bg-surface: #ffffff;
-  --color-border-muted: #e5e7eb;
-  --color-text: #0f0f0f;
-  --color-text-muted: #6b6b6b;
-  --color-accent: #2563eb;
+  --color-border-muted: #eceae7;
+  
+  --color-text: #3c3836;
+  --color-text-muted: #7c6f64;
 
-  /*Typografi*/
+  --color-primary: #a65d43;
+  --color-primary-hover: #8c4e38;
+  --color-on-primary: #fcf9f7;
+
+  --color-secondary: #eaddd7;
+  --color-secondary-hover: #decbc3;
+  --color-on-secondary: #6b3e2d;
+
+  /* --- TYPOGRAFI --- */
   --font-size-xs: 0.75rem; /* 12px */
   --font-size-sm: 0.875rem; /* 14px */
   --font-size-base: 1rem; /* 16px */
@@ -20,7 +28,7 @@
   --font-size-xl: 1.5rem; /* 24px */
   --font-size-xxl: 2rem; /* 32px */
 
-  /*Marginaler och padding*/
+  /* --- MARGINALER OCH PADDING --- */
   --space-xs: 0.25rem;  /* 4px */
   --space-sm: 0.5rem;   /* 8px */
   --space-md: 1rem;     /* 16px */
@@ -28,26 +36,38 @@
   --space-xl: 2rem;     /* 32px */
   --space-xxl: 2.5rem;  /* 40px */
 
-  /*Radier*/
+  /* --- RADIER --- */
   --radius-sm: 0.5rem;   /* 8px */
   --radius-md: 1rem;     /* 16px */
   --radius-lg: 1.5rem;   /* 24px */
   --radius-xl: 2rem;     /* 32px */
   --radius-pill: 999px;
 
-  /*Skuggor*/
+  /* --- SKUGGOR --- */
   --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
   --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.05);
   --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
-* {
-  box-sizing: border-box;
+/* FÄRGPALETT DARK MODE */
+#root.dark {
+  --color-bg: #1c1b1a;
+  --color-bg-surface: #262423;
+  --color-border-muted: #3c3836;
+  --color-text: #ebdbb2;
+  --color-text-muted: #a89984;
+
+  --color-primary: #bd6e51;
+  --color-primary-hover: #d18266;
+  --color-on-primary: #1c1b1a;
+
+  --color-secondary: #3c3836;
+  --color-secondary-hover: #4a4440;
+  --color-on-secondary: #ebdbb2;
 }
 
-body {
-  background-color: var(--color-bg);
-  margin: 0;
+* {
+  box-sizing: border-box;
 }
 
 main {
@@ -66,4 +86,8 @@ main {
   flex-direction: column;
   align-items: center;
   height: 100%;
+}
+
+h1, h2, h3 {
+  color: var(--color-text);
 }
