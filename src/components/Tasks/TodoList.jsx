@@ -1,9 +1,16 @@
-import { useReducer, useState } from "react";
+import { useReducer, useState, useEffect } from "react";
 import Button from "../Button/Button";
 import "./TodoList.css";
 
-// list is empty at first
-const initialState = [];
+const getSavedTodos = () => {
+        const savedData = localStorage.getItem("users-todo-list")
+
+        return savedData ? JSON.parse(savedData) : [];
+
+    // typeof(localStorage.getItem("users-todo-list")) ----> string ----> empty string = falsy
+    }
+
+
 
 
 function toDoreducer(state, action) {
@@ -17,11 +24,17 @@ function toDoreducer(state, action) {
     }
 }
 
-
 function TodoList() {
 
     const [text, setText] = useState("");
-    const [state, dispatch] = useReducer(toDoreducer, initialState);
+    const [state, dispatch] = useReducer(toDoreducer, getSavedTodos());
+
+
+    // spara i localstorage
+    useEffect(() => {
+        localStorage.setItem("users-todo-list", JSON.stringify(state));
+        
+    }, [state]);
 
     const handleSubmit = (event) => { // avoids weird refresh i think?
         event.preventDefault();
@@ -31,6 +44,8 @@ function TodoList() {
         dispatch({ type: "ADD", payload: text}) 
         setText("");
     };
+
+    
 
 
 
@@ -56,7 +71,9 @@ function TodoList() {
                 </li>
             ))}
         </ul>
-        <button onClick={console.log(state)}>console log</button>
+
+        {/* bugfix // dev */}
+        <button onClick={() => console.log(localStorage.getItem("users-todo-list"))}>console log</button>
     </>
     )
 }
