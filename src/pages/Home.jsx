@@ -1,7 +1,12 @@
 import GridContainer from "../components/GridContainer/GridContainer"
 import Card from "../components/Card/Card"
+import { TodoContext } from "../context/TodoContext"
+import { useContext } from "react"
+import TodoListDisplay from "../components/Tasks/TodoListDisplay"
 
 function Home() {
+  const {state, totalItems} = useContext(TodoContext);
+
   return(
     <div className="main-container">
         {/* En grid med 4 kolumner för sammanfattande statistik */}
@@ -30,8 +35,12 @@ function Home() {
           />
 
           <Card
-            title={"Uppgifter"}
-            children={<p>Här listas uppgifter från ToDos</p>}
+            title={`Uppgifter (${totalItems})`}
+            children={
+              <>
+                <TodoListDisplay showDeleteButton={false}></TodoListDisplay>
+              </>
+            }
           />
         </GridContainer>
     </div>
