@@ -1,4 +1,5 @@
 import "./Header.css"
+import ThemeToggle from "../ThemeToggle/ThemeToggle";
 import menuItems from "./navData"
 
 /**
@@ -9,6 +10,7 @@ function Header ({changePage, activePage}) {
 
   return (
     <header>
+      <div className="main-part">
         <h1>Projektnamn</h1>
         
         <nav>
@@ -28,6 +30,11 @@ function Header ({changePage, activePage}) {
               ))}
           </ul>
         </nav>
+      </div>
+      
+      <div className="theme-part">
+        <ThemeToggle />
+      </div>
     </header>
   );
 }

@@ -1,14 +1,27 @@
 header {
+  display: flex;
+  flex-direction: column;
   background-color: var(--color-bg-surface);
-  padding: var(--space-md);
+  border-right: 1px solid var(--color-border-muted);
 
   /* Headern stannar kvar även vid scroll */
   position: sticky;
   top: 0;
 }
 
+.main-part {
+  flex: 1;
+  padding: var(--space-lg) var(--space-md);
+}
+
+.theme-part {
+  border-top: 1px solid var(--color-border-muted);
+  padding: var(--space-sm);
+}
+
 h1 {
   font-size: var(--font-size-xl);
+  margin-bottom: var(--space-lg);
 }
 
 ul {
@@ -17,7 +30,7 @@ ul {
 }
 
 li {
-  padding: var(--space-sm);
+  padding: var(--space-xs);
   text-align: start;
   height: 40px;
   transition: color 0.2s ease;
@@ -40,5 +53,5 @@ li.active {
 /*Den vägrade centrera sig med bara .icon*/
 .icon svg {
   transform: translateY(2px);
-  color: var(--color-accent);
+  color: var(--color-primary);
 }

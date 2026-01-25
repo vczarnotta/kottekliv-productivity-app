@@ -1,0 +1,10 @@
+.theme-toggle-content {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.theme-toggle-content svg {
+  font-size: var(--font-size-lg);
+  stroke-width: 0.5px; /* Gör ikonen tjockare */
+}

@@ -3,7 +3,7 @@
   /*Använder variabeln från jsx-filen*/
   grid-template-columns: repeat(var(--columns), 1fr);
   gap: var(--space-md);
-  margin: var(--space-sm);
+  margin: var(--space-xs);
   max-width: 1200px;
   width: 100%;
 }
