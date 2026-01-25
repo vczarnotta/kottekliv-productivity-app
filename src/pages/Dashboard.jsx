@@ -5,7 +5,9 @@ import Card from "../components/Card/Card"
 function Dashboard() {
   return(
     <div className="main-container">
-      <p>Denna sida kan rensas, testade bara lägga in knapparna</p>
+      <Card 
+        children={<p>Denna sida kan rensas, testade bara lägga in knapparna</p>}
+      />
       <GridContainer columns={2}>
         <Button 
           label={"Klicka här"}
