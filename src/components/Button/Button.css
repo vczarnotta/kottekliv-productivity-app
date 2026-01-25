@@ -2,7 +2,7 @@
 .button-base {
   font-size: var(--font-size-base);
   font-weight: 600;
-  padding: var(--space-md) var(--space-xl);
+  padding: var(--space-sm) var(--space-xl);
   border-radius: var(--radius-sm);
   cursor: pointer;
   border: none;
