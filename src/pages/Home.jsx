@@ -5,7 +5,7 @@ import { useContext } from "react"
 import TodoListDisplay from "../components/Tasks/TodoListDisplay"
 
 function Home() {
-  const {state, totalItems} = useContext(TodoContext);
+  const {totalItems} = useContext(TodoContext);
 
   return(
     <div className="main-container">
