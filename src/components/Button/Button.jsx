@@ -1,15 +1,15 @@
-import React from 'react';
 import './Button.css'
 
-function MyButton({children, onClick, isDarkMode = false, ...props }){
-  const themeClass = isDarkMode ? 'btn-dark' : 'btn-light';
+/* Tar emot variant primary och secondary, default är primary */
+function Button({label, onClick, variant="primary"}){
   return(
     <button 
-    className={`btn-base ${themeClass}`}
+    className={`button-base ${variant}`}
     onClick = {onClick}
-    > {children}
+    >
+      {label}
     </button>
   )
 }
 
-export default MyButton
+export default Button

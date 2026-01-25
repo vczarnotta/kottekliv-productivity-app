@@ -13,7 +13,7 @@
 .energy-level {
   background-color: var(--color-accent);
   color: var(--color-bg);
-  padding: var(--space-sm);
+  padding: var(--space-xs);
   width: var(--space-lg);
   height: var(--space-lg);
   border-radius: var(--radius-pill);    
