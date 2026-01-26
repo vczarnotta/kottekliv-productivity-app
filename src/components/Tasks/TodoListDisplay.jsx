@@ -6,7 +6,7 @@ import { TodoContext } from "../../context/TodoContext";
 function TodoListDisplay({ showDeleteButton = false }) {
 
     // importerar global info
-    const { state, dispatch, totalItems } = useContext(TodoContext);
+    const { state, dispatch } = useContext(TodoContext);
 
     // returnerar en unordered list med alla tasks.
     return (

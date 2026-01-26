@@ -3,8 +3,8 @@ import ThemeToggle from "../ThemeToggle/ThemeToggle";
 import menuItems from "./navData"
 
 /**
- * @param {Function} changePage - Funktion från App.jsx för att uppdatera sid-state.
- * @param {string} activePage - Den nuvarande aktiva sidans titel.
+ * @param {Function} changePage - Funktion från App.jsx för att uppdatera sid-state
+ * @param {string} activePage - Den nuvarande aktiva sidans titel
  */
 function Header ({changePage, activePage}) {
 

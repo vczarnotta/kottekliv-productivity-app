@@ -29,15 +29,10 @@ function HistoryPage() {
       </GridContainer>
 
       {/* Grid med 2 kolumner som tar upp all resterande höjd */}
-      <GridContainer columns={2} fullheight={true}>
+      <GridContainer columns={1} fullheight={true}>
         <Card 
           title={"Visar en graf"}
-          children={<p>Exempelvis över arbetad tid per dag</p>}
-        />
-
-        <Card 
-          title={"Visar en graf"}
-          children={<p>Exempelvis över energinivå</p>}
+          children={<p>Ska gå att ändra mellan olika vyer</p>}
         />
       </GridContainer>
 
