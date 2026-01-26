@@ -2,7 +2,7 @@ import GridContainer from "../components/GridContainer/GridContainer"
 import Button from "../components/Button/Button"
 import Card from "../components/Card/Card"
 
-function Dashboard() {
+function DashboardPage() {
   return(
     <div className="main-container">
       <Card 
@@ -22,4 +22,4 @@ function Dashboard() {
   )
 }
 
-export default Dashboard
+export default DashboardPage
