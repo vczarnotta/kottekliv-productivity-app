@@ -1,0 +1,41 @@
+.overlay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(4px);
+  height: 100%;
+  width: 100%;
+  z-index: 1000;
+}
+
+.container {
+  background-color: var(--color-bg-surface);
+  padding: var(--space-md);
+  padding-top: var(--space-xl);
+  border-radius: var(--radius-md);
+  min-width: 300px;
+  position: relative;
+}
+
+.close-button {
+  position: absolute;
+  top: var(--space-md);
+  right: var(--space-md);
+  font-size: var(--font-size-md);
+  background-color: transparent;
+  border-color: transparent;
+}
+
+.close-button svg {
+  color: var(--color-text-muted);
+}
+
+.close-button svg:hover {
+  color: var(--color-text);
+  cursor: pointer;
+}
+

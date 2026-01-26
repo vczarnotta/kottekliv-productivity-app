@@ -1,7 +1,12 @@
+import { useState } from "react"
 import GridContainer from "../components/GridContainer/GridContainer"
 import Card from "../components/Card/Card"
+import Modal from "../components/Modal/Modal"
 
 function HistoryPage() {
+  const [ showAddSession, setShowAddSession ] = useState(false)
+  const [ showHistorySesstion, setShowHistorySession ] = useState(false)
+
   return(
     <div className="main-container">
 
@@ -10,11 +15,13 @@ function HistoryPage() {
         <Card 
           title={"Logga pass"}
           children={<p>Här är en knapp som leder till att skapa ett pass i efterhand</p>}
+          onClick={() => setShowAddSession(true)}
         />
 
         <Card
           title={"Redigera historik"}
           children={<p>Här kan man klicka och komma till en lista med historiska pass</p>}
+          onClick={() => setShowHistorySession(true)}
         />
 
         <Card 
@@ -35,6 +42,18 @@ function HistoryPage() {
           children={<p>Ska gå att ändra mellan olika vyer</p>}
         />
       </GridContainer>
+
+      {/* Pop-up rutor */}
+      {showAddSession && 
+        <Modal onClose={() => setShowAddSession(false)}>
+          
+        </Modal>
+      }
+      {showHistorySesstion &&
+        <Modal onClose={() => setShowHistorySession(false)}>
+
+        </Modal>
+      }
 
     </div>
   )
