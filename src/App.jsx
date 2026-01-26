@@ -1,19 +1,19 @@
 import { useState } from 'react'
 import './App.css'
 import Header from './components/Header/Header'
-import Home from './pages/Home'
-import Dashboard from './pages/Dashboard'
-import Tasks from  "./pages/Tasks"
-import Timer from "./pages/Timer"
-import History from "./pages/History"
+import HomePage from './pages/HomePage'
+import DashboardPage from './pages/DashboardPage'
+import TaskPage from  "./pages/TaskPage"
+import TimerPage from "./pages/TimerPage"
+import HistoryPage from "./pages/HistoryPage"
 
 //Mappar sidnamn till komponenter för dynamisk rendering
 const pages = {
-  Home: <Home />,
-  Dashboard: <Dashboard />,
-  Tasks: <Tasks />,
-  Timer: <Timer />,
-  History: <History />
+  Home: <HomePage />,
+  Dashboard: <DashboardPage />,
+  Tasks: <TaskPage />,
+  Timer: <TimerPage />,
+  History: <HistoryPage />
 }
 
 function App() {

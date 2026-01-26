@@ -4,7 +4,7 @@ import { TodoContext } from "../context/TodoContext"
 import { useContext } from "react"
 import TodoListDisplay from "../components/Tasks/TodoListDisplay"
 
-function Home() {
+function HomePage() {
   const {totalItems} = useContext(TodoContext);
 
   return(
@@ -47,4 +47,4 @@ function Home() {
   )
 }
 
-export default Home
+export default HomePage

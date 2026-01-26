@@ -1,7 +1,7 @@
 import GridContainer from "../components/GridContainer/GridContainer"
 import Card from "../components/Card/Card"
 
-function History() {
+function HistoryPage() {
   return(
     <div className="main-container">
 
@@ -45,4 +45,4 @@ function History() {
   )
 }
 
-export default History
+export default HistoryPage

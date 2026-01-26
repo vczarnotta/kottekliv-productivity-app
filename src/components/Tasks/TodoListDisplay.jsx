@@ -8,11 +8,6 @@ function TodoListDisplay({ showDeleteButton = false }) {
     // importerar global info
     const { state, dispatch, totalItems } = useContext(TodoContext);
 
-    // vara extra tydlig med att listan är tom
-    if (totalItems === 0) {
-        return <p>Inga uppgifter ännu!</p>;
-    }
-
     // returnerar en unordered list med alla tasks.
     return (
         <ul>
