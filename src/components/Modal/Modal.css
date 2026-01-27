@@ -39,3 +39,6 @@
   cursor: pointer;
 }
 
+h2 {
+  font-size: var(--font-size-lg);
+}

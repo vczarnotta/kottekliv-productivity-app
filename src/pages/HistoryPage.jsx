@@ -1,6 +1,7 @@
 import { useState } from "react"
 import GridContainer from "../components/GridContainer/GridContainer"
 import Card from "../components/Card/Card"
+import Input from "../components/Input/Input"
 import Modal from "../components/Modal/Modal"
 
 function HistoryPage() {
@@ -46,7 +47,12 @@ function HistoryPage() {
       {/* Pop-up rutor */}
       {showAddSession && 
         <Modal onClose={() => setShowAddSession(false)}>
-          
+          <h2>Logga arbetspass</h2>
+          <Input 
+            label={"Användarnamn"}
+            id={"userName"}
+            placeholder={"AnnaAndersson"}
+          />
         </Modal>
       }
       {showHistorySesstion &&

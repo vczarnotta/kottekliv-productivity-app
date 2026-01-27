@@ -1,59 +1,25 @@
-.inputContainer {
+.input-container {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  width: 400px;
-  text-align: center;
-  margin: auto;
-  margin-bottom: 1rem;
-
+  gap: var(--space-xs);
+  margin-top: var(--space-sm);
 }
 
-.inputLabel {
-  font-size: 14px;
-  font-weight: 500;
+label {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
 }
 
-/* Base style for the input field */
-.inputField {
-  padding: 10px 16px;
-  border-radius: 8px;
-  border: 1px solid;
+input {
+  background-color: var(--color-bg-surface);
+  color: var(--color-text);
+  font-size: var(--font-size-sm);
+  border-radius: var(--radius-sm);
+  padding: var(--space-sm) var(--space-md);
+  border: 1px solid var(--color-border-muted);
   outline: none;
-  transition: all 0.2s ease-in-out;
-  font-size: 16px;
 }
 
-/* Light Mode Template Styles */
-.labelLight { color: #374151;}
-.inputLight {
-  background-color: #ffffff;
-  border-color: #d1d5db;
-  color: #111827;
-}
-.inputLight:focus {
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
-}
-
-/* Dark Mode Template Styles */
-.labelDark { color: #e5e7eb; }
-.inputDark {
-  background-color: #1f2937;
-  border-color: #374151;
-  color: #ffffff;
-}
-.inputDark::placeholder { color: #9ca3af; }
-.inputDark:focus {
-  border-color: #8b5cf6;
-  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.3);
-}
-
-/* Error States */
-.inputError { border-color: #ef4444 !important; }
-.errorText {
-  color: #ef4444;
-  font-size: 12px;
-  font-style: italic;
-  margin-top: 4px;
+input:focus {
+  border-color: var(--color-primary);
 }
