@@ -10,6 +10,7 @@ function HistoryPage() {
 
   const saveSession = (newSession) => {
     setSessions([...sessions, { ...newSession, id: Date.now() }]);
+    /* Behöver läggas till i historiklistan på något vis... */
   };
 
   return(
