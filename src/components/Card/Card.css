@@ -18,3 +18,19 @@
   font-size: var(--font-size-lg);
   font-weight: 700;
 }
+
+.is-clickable {
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.is-clickable:hover {
+  background-color: var(--color-bg-surface-hover);
+  border-color: var(--color-secondary);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.is-clickable:active {
+  transform: scale(0.98);
+}

@@ -6,6 +6,7 @@
   /* --- FÄRGPALETT LIGHT MODE --- */
   --color-bg: #f9f8f7;
   --color-bg-surface: #ffffff;
+  --color-bg-surface-hover: #fcfaf9;
   --color-border-muted: #eceae7;
   
   --color-text: #3c3836;
@@ -46,13 +47,14 @@
   /* --- SKUGGOR --- */
   --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
   --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.05);
-  --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.2);
+  --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.1);
 }
 
 /* FÄRGPALETT DARK MODE */
 #root.dark {
   --color-bg: #1c1b1a;
   --color-bg-surface: #262423;
+  --color-bg-surface-hover: #2e2c2b;
   --color-border-muted: #3c3836;
   --color-text: #ebdbb2;
   --color-text-muted: #a89984;

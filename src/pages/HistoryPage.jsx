@@ -1,7 +1,19 @@
+import { useState } from "react"
 import GridContainer from "../components/GridContainer/GridContainer"
 import Card from "../components/Card/Card"
+import AddSessionModal from "../components/AddSessionModal/AddSessionModal"
+import ShowHistorySessionModal from "../components/ShowHistorySessionModal/showHistorySessionModal"
 
 function HistoryPage() {
+  const [ showAddSession, setShowAddSession ] = useState(false)
+  const [ showHistorySession, setShowHistorySession ] = useState(false)
+  const [sessions, setSessions] = useState([]);
+
+  const saveSession = (newSession) => {
+    setSessions([...sessions, { ...newSession, id: Date.now() }]);
+    /* Behöver läggas till i historiklistan på något vis... */
+  };
+
   return(
     <div className="main-container">
 
@@ -9,12 +21,14 @@ function HistoryPage() {
       <GridContainer columns={4}>
         <Card 
           title={"Logga pass"}
-          children={<p>Här är en knapp som leder till att skapa ett pass i efterhand</p>}
+          children={<p>Fyll i tidigare pass och pauser manuellt.</p>}
+          onClick={() => setShowAddSession(true)}
         />
 
         <Card
           title={"Redigera historik"}
-          children={<p>Här kan man klicka och komma till en lista med historiska pass</p>}
+          children={<p>Hantera och korrigera dina sparade pass.</p>}
+          onClick={() => setShowHistorySession(true)}
         />
 
         <Card 
@@ -35,6 +49,20 @@ function HistoryPage() {
           children={<p>Ska gå att ändra mellan olika vyer</p>}
         />
       </GridContainer>
+
+      {/* Pop-up rutor */}
+      {showAddSession && (
+        <AddSessionModal
+          onClose={() => setShowAddSession(false)}
+          onSave={saveSession}
+        />
+      )}
+
+      {showHistorySession &&
+        <ShowHistorySessionModal
+          onClose={() => setShowHistorySession(false)}
+        />
+      }
 
     </div>
   )
