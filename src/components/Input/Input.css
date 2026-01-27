@@ -24,6 +24,10 @@ label {
   font-size: var(--font-size-sm);
 }
 
+input::placeholder {
+  color: var(--color-text-muted);
+}
+
 .select-container {
   position: relative; 
   display: flex;
@@ -41,4 +45,11 @@ select {
   right: var(--space-md);
   pointer-events: none; /* Gör att klick går igenom ikonen */
   color: var(--color-text-muted);
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator,
+input[type="time"]::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  /* AI hjälp att lägga ett filter som ungefär matchar vår text-muted färg på standardikonerna */
+  filter: invert(47%) sepia(7%) saturate(915%) hue-rotate(341deg) brightness(93%) contrast(85%);
 }

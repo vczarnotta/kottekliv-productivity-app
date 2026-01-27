@@ -15,8 +15,8 @@ const Input = ({label, id, type = 'text', options = [], ...rest}) => {
 
       {type === "select" ? (
         <div className='select-container'>
-          <select id={id}>
-            <option value="" disabled selected>Välj {label}</option>
+          <select id={id} defaultValue="">
+            <option value="" disabled >Välj {label}</option>
 
             {options.map((option, index) => (
               <option key={index}>
