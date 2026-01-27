@@ -16,6 +16,8 @@
   background-color: var(--color-bg-surface);
   padding: var(--space-md);
   padding-top: var(--space-xl);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--color-border-muted);
   border-radius: var(--radius-md);
   min-width: 300px;
   position: relative;

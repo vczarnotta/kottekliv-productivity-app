@@ -2,17 +2,11 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-xs);
-  margin-top: var(--space-sm);
 }
 
-label {
-  color: var(--color-text-muted);
-  font-size: var(--font-size-sm);
-}
-
-input {
+input, select {
   background-color: var(--color-bg-surface);
-  color: var(--color-text);
+  color: var(--color-text-muted);
   font-size: var(--font-size-sm);
   border-radius: var(--radius-sm);
   padding: var(--space-sm) var(--space-md);
@@ -20,6 +14,31 @@ input {
   outline: none;
 }
 
-input:focus {
+input:focus,
+select:focus {
   border-color: var(--color-primary);
+}
+
+label {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+}
+
+.select-container {
+  position: relative; 
+  display: flex;
+  align-items: center;
+}
+
+select {
+  width: 100%;
+  appearance: none; /* Tar bort webbläsarens egen pil */
+  padding-right: var(--space-xl);
+}
+
+.select-icon {
+  position: absolute;
+  right: var(--space-md);
+  pointer-events: none; /* Gör att klick går igenom ikonen */
+  color: var(--color-text-muted);
 }

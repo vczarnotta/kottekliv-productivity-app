@@ -1,12 +1,16 @@
 import { useState } from "react"
 import GridContainer from "../components/GridContainer/GridContainer"
 import Card from "../components/Card/Card"
-import Input from "../components/Input/Input"
-import Modal from "../components/Modal/Modal"
+import AddSessionModal from "../components/AddSessionModal/AddSessionModal"
 
 function HistoryPage() {
   const [ showAddSession, setShowAddSession ] = useState(false)
-  const [ showHistorySesstion, setShowHistorySession ] = useState(false)
+  const [ showHistorySession, setShowHistorySession ] = useState(false)
+  const [sessions, setSessions] = useState([]);
+
+  const saveSession = (newSession) => {
+    setSessions([...sessions, { ...newSession, id: Date.now() }]);
+  };
 
   return(
     <div className="main-container">
@@ -45,20 +49,17 @@ function HistoryPage() {
       </GridContainer>
 
       {/* Pop-up rutor */}
-      {showAddSession && 
-        <Modal onClose={() => setShowAddSession(false)}>
-          <h2>Logga arbetspass</h2>
-          <Input 
-            label={"Användarnamn"}
-            id={"userName"}
-            placeholder={"AnnaAndersson"}
-          />
-        </Modal>
-      }
-      {showHistorySesstion &&
-        <Modal onClose={() => setShowHistorySession(false)}>
+      {showAddSession && (
+        <AddSessionModal
+          onClose={() => setShowAddSession(false)}
+          onSave={saveSession}
+        />
+      )}
 
-        </Modal>
+      {showHistorySession &&
+        <showHistorySessionModal
+          onClose={() => setShowHistorySession(false)}
+        />
       }
 
     </div>
