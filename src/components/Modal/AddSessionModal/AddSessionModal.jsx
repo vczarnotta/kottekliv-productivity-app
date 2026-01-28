@@ -50,7 +50,7 @@ function AddSessionModal({ onClose, onSave }) {
               name={"startTime"}
               type="time"
               id="start-time"
-              label="Start time"
+              label="Start Time"
             />
           </div>
           
@@ -59,7 +59,7 @@ function AddSessionModal({ onClose, onSave }) {
               name={"endTime"}
               type="time"
               id="end-time"
-              label="End time"
+              label="End Time"
             />
           </div>
         </div>
