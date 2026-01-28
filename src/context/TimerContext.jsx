@@ -30,10 +30,10 @@ import { createContext, useReducer, useRef } from "react";
 // // current session + all sessions -> grab from localstorage in the future
 // let initialstate = {
 //   isRunning: false,
-//   msDuration: 0,
+//   msAccumulated: 0,
 //   msStartTime: 0,
 //   msEndTime: 0,
-//   sessions: [], // saves session object. {id, startTime, endTime, msDuration}  (later i can use sessions.startTime in a filter/function to sort what days it happened)
+//   sessions: [], // saves session object. {id, startTime, endTime, msAccumulated}  (later i can use sessions.startTime in a filter/function to sort what days it happened)
 // }
 
 // get saved list from previous session, or return empty list
@@ -46,27 +46,63 @@ const getSavedTimers = () => {
 };
 
 
-// useReducer (how i interact with the timer and save it)
+// timer data handling (using ms)
+// I can later convert that to human readable time
+// ALL USE ----> payload: {nowMs: Date.now()}
 const timerReducer = (state, action) => {
   switch (action.type) {
-    case "SAVE":
-      // saving format
-      const newSession = {
-        id: crypto.randomUUID(),
-        msDuration: state.msDuration,
-        msStartTime: state.msStartTime,
-        msEndTime: state.msEndTime,
-      }
-      // resets and saves
+    
+    // start + set current time
+    case "START":
       return {
         ...state,
-        isRunning: false,
-        msDuration: 0,
-        msStartTime: 0,
-        msEndTime: 0,
-        sessions: [...state.sessions, newSession]
+        isRunning: true,
+        msStartTime: action.payload.nowMs
       };
-    
+      
+      // pause + add total worked time
+      case "PAUSE":
+        const sessionDuration = action.payload.nowMs - state.msStartTime;
+        
+        return {
+          ...state,
+          isRunning: false,
+          msAccumulated: state.msAccumulated + sessionDuration
+        };
+        
+      // update what time user sees on screen
+      case "TICK":
+        return {
+          ...state,
+          msDisplay: state.msAccumulated + (action.payload.nowMs - state.msStartTime)
+        };
+      
+      // format + unique id + save + reset
+      case "SAVE":
+        let finalDuration = state.msAccumulated;
+
+        // if timer still active, add last ramaining time on top
+        if (state.isRunning) {
+          finalDuration += (action.payload.nowMs - state.msStartTime);
+        }
+
+        // saving format
+        const newSession = {
+          id: crypto.randomUUID(),
+          msStartTime: state.msStartTime,
+          msEndTime: action.payload.nowMs,
+          msAccumulated: finalDuration,
+        }
+        // resets and saves
+        return {
+          ...state,
+          isRunning: false,
+          msAccumulated: 0,
+          msStartTime: 0,
+          msEndTime: 0,
+          sessions: [...state.sessions, newSession]
+        };
+      
     default:
       return state;
   }
