@@ -2,7 +2,7 @@ import { useState } from "react"
 import GridContainer from "../components/GridContainer/GridContainer"
 import Card from "../components/Card/Card"
 import AddSessionModal from "../components/Modal/AddSessionModal/AddSessionModal"
-import ShowHistorySessionModal from "../components/Modal/ShowHistorySessionModal/showHistorySessionModal"
+import ShowHistorySessionModal from "../components/Modal/ShowHistorySessionModal/ShowHistorySessionModal"
 
 function HistoryPage() {
   const [ showAddSession, setShowAddSession ] = useState(false)

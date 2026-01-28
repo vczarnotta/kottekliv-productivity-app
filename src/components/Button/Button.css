@@ -13,6 +13,12 @@
   transform: scale(0.98);
 }
 
+/* Small button */
+.button-base.small {
+  padding: var(--space-xs) var(--space-md);
+  font-size: var(--font-size-sm);
+}
+
 /* Primary button */
 .primary {
   background-color: var(--color-primary);
