@@ -33,14 +33,14 @@ function AddSessionModal({ onClose, onSave }) {
         <Input
           name={"category"}
           type={"select"} 
-          label={"Category*"}
+          label={"Category"}
           options={["Deep Work", "Admin", "Meeting", "Break", "Other"]}
         />
 
         <Input 
           name={"date"}
           type={"date"}
-          label={"Date*"}
+          label={"Date"}
           defaultValue={new Date().toISOString().split('T')[0]} // Default to today's date
         />
 
@@ -50,7 +50,7 @@ function AddSessionModal({ onClose, onSave }) {
               name={"startTime"}
               type="time"
               id="start-time"
-              label="Start time*"
+              label="Start time"
             />
           </div>
           
@@ -59,7 +59,7 @@ function AddSessionModal({ onClose, onSave }) {
               name={"endTime"}
               type="time"
               id="end-time"
-              label="End time*"
+              label="End time"
             />
           </div>
         </div>
