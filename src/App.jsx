@@ -1,19 +1,19 @@
 import { useState } from 'react'
 import './App.css'
 import Header from './components/Header/Header'
-import Home from './pages/Home'
-import Dashboard from './pages/Dashboard'
-import Tasks from  "./pages/Tasks"
-import Timer from "./pages/Timer"
-import History from "./pages/History"
+import HomePage from './pages/HomePage'
+import DashboardPage from './pages/DashboardPage'
+import TaskPage from  "./pages/TaskPage"
+import TimerPage from "./pages/TimerPage"
+import HistoryPage from "./pages/HistoryPage"
 
-//Mappar sidnamn till komponenter för dynamisk rendering
+// Maps page names to components for dynamic rendering
 const pages = {
-  Home: <Home />,
-  Dashboard: <Dashboard />,
-  Tasks: <Tasks />,
-  Timer: <Timer />,
-  History: <History />
+  Home: <HomePage />,
+  Dashboard: <DashboardPage />,
+  Tasks: <TaskPage />,
+  Timer: <TimerPage />,
+  History: <HistoryPage />
 }
 
 function App() {
@@ -21,11 +21,11 @@ function App() {
 
   return(
     <div className='body-container'>
-      {/* Header tar emot funktionen för att byta sida samt nuvarande status */}
+      {/* The Header receives the function to change pages and the current active state */}
       <Header changePage={setActivePage} activePage={activePage}/>
 
       <main>
-        {/* Renderar den sida som matchar nuvarande state */}
+        {/* Renders the component that matches the current activePage state */}
         {pages[activePage]}
       </main>
     </div>

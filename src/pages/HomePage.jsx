@@ -4,38 +4,38 @@ import { TodoContext } from "../context/TodoContext"
 import { useContext } from "react"
 import TodoListDisplay from "../components/Tasks/TodoListDisplay"
 
-function Home() {
+function HomePage() {
   const {totalItems} = useContext(TodoContext);
 
   return(
     <div className="main-container">
-        {/* En grid med 4 kolumner för sammanfattande statistik */}
+        {/* A 4-column grid for summary statistics and quote */}
         <GridContainer columns={4}>
           <Card
             title={"1h"}
-            children={<p>Fokustid idag</p>}
+            children={<p>Deep work today</p>}
           />
 
           <Card
             title={"12h"}
-            children={<p>Fokustid senaste veckan</p>}
+            children={<p>Deep work this week</p>}
           />
 
-          {/* span={2} gör att detta kort tar upp två kolumner i gridden */}
+          {/* span={2} makes this card occupy two columns in the grid */}
           <Card
-            title={"PEPP!!!"}
+            title={"LET'S GO!"}
             span={2}
           />
         </GridContainer>
 
-        {/* fullheight={true} sträcker ut containern för att fylla resten av sidan */}
+        {/* fullheight={true} stretches the container to fill the rest of the page */}
         <GridContainer columns={2} fullheight={true}>
           <Card
-            title={"Starta timer"}
+            title={"Start Timer"}
           />
 
           <Card
-            title={`Uppgifter (${totalItems})`}
+            title={`Tasks (${totalItems})`}
             children={
               <>
                 <TodoListDisplay showDeleteButton={false}></TodoListDisplay>
@@ -47,4 +47,4 @@ function Home() {
   )
 }
 
-export default Home
+export default HomePage

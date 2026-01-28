@@ -2,13 +2,13 @@ import { useContext } from "react";
 import { TodoContext } from "../../context/TodoContext";
 
 
-// kan välja om "ta bort" knapp skall synas
+// Can choose if "delete" button should be visible
 function TodoListDisplay({ showDeleteButton = false }) {
 
-    // importerar global info
-    const { state, dispatch, totalItems } = useContext(TodoContext);
+    // imports global info
+    const { state, dispatch } = useContext(TodoContext);
 
-    // returnerar en unordered list med alla tasks.
+    // returns an unordered list with all tasks
     return (
         <ul>
         {state.map((task) => (

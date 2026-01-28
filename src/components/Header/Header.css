@@ -3,10 +3,6 @@ header {
   flex-direction: column;
   background-color: var(--color-bg-surface);
   border-right: 1px solid var(--color-border-muted);
-
-  /* Headern stannar kvar även vid scroll */
-  position: sticky;
-  top: 0;
 }
 
 .main-part {
@@ -50,7 +46,6 @@ li.active {
   margin-right: var(--space-md);
 }
 
-/*Den vägrade centrera sig med bara .icon*/
 .icon svg {
   transform: translateY(2px);
   color: var(--color-primary);

@@ -1,6 +1,6 @@
 import TodoList from "../components/Tasks/TodoList"
 
-function Tasks() {
+function TaskPage() {
   return(
     <div className="main-container">
       <TodoList></TodoList>
@@ -8,4 +8,4 @@ function Tasks() {
   )
 }
 
-export default Tasks
+export default TaskPage

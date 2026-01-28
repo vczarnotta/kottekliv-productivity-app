@@ -6,5 +6,5 @@
 
 .theme-toggle-content svg {
   font-size: var(--font-size-lg);
-  stroke-width: 0.5px; /* Gör ikonen tjockare */
+  stroke-width: 0.5px; /* Makes the icon thicker */
 }
