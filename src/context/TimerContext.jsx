@@ -1,4 +1,4 @@
-import { createContext, useReducer, useRef } from "react";
+import { createContext, useEffect, useReducer, useRef } from "react";
 
 // inside out.
 //
@@ -91,7 +91,7 @@ const timerReducer = (state, action) => {
           id: crypto.randomUUID(),
           msStartTime: state.msStartTime,
           msEndTime: action.payload.nowMs,
-          msAccumulated: finalDuration,
+          msTotalWorked: finalDuration,
         }
         // resets and saves
         return {
@@ -110,16 +110,51 @@ const timerReducer = (state, action) => {
 
 
 
+
 export const TimerContext = createContext();
 
 
+
 export function TimerProvider({children}) {
+
+  // import and initiate timer (logic + storage)
+  const [state, dispatch] = useReducer(timerReducer, {
+    isRunning: false,
+    msAccumulated: 0,
+    msStartTime: 0,
+    msDisplay: 0,
+    sessions: getSavedTimers(),
+  });
+
+
+  // make timer run when true
+  useEffect(() => {
+    let interval;
+
+    if (state.isRunning) {
+      interval = setInterval(() => {
+        dispatch({ type: "TICK", payload: { nowMs: Date.now() } });
+      }, 10)
+    }
+
+    return () => clearInterval(interval);
+  }, [state.isRunning]);
+
+  // save to localstorage when new session is added
+  useEffect(() => {
+    localStorage.setItem("user-timers", JSON.stringify(state.sessions));
+  }, [state.sessions]);
+
+  // functions that UI can use
+  const start = () => dispatch({ type: "START", payload: { nowMs: Date.now() } });
+  const pause = () => dispatch({ type: "PAUSE", payload: { nowMs: Date.now() } });
+  const save = () => dispatch({ type: "SAVE", payload: { nowMs: Date.now() } });
 
 
   const test = "yas queen slay!";
 
   return (
-    <TimerContext.Provider value={{test}}>
+    <TimerContext.Provider value={{test, state, start, pause, save}}>
       {children}
     </TimerContext.Provider>
   )
