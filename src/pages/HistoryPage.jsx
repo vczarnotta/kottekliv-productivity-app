@@ -2,11 +2,11 @@ import { useState } from "react"
 import GridContainer from "../components/GridContainer/GridContainer"
 import Card from "../components/Card/Card"
 import AddSessionModal from "../components/Modal/AddSessionModal/AddSessionModal"
-import ShowHistorySessionModal from "../components/Modal/ShowHistorySessionModal/ShowHistorySessionModal"
+import ShowSessionHistoryModal from "../components/Modal/ShowSessionHistoryModal/ShowSessionHistoryModal"
 
 function HistoryPage() {
   const [ showAddSession, setShowAddSession ] = useState(false)
-  const [ showHistorySession, setShowHistorySession ] = useState(false)
+  const [ showSessionHistory, setShowSessionHistory ] = useState(false)
   const [sessions, setSessions] = useState([]);
 
   const saveSession = (newSession) => {
@@ -28,7 +28,7 @@ function HistoryPage() {
         <Card
           title={"Edit History"}
           children={<p>Manage and correct your saved sessions.</p>}
-          onClick={() => setShowHistorySession(true)}
+          onClick={() => setShowSessionHistory(true)}
         />
 
         <Card 
@@ -58,9 +58,9 @@ function HistoryPage() {
         />
       )}
 
-      {showHistorySession &&
-        <ShowHistorySessionModal
-          onClose={() => setShowHistorySession(false)}
+      {showSessionHistory &&
+        <ShowSessionHistoryModal
+          onClose={() => setShowSessionHistory(false)}
         />
       }
 

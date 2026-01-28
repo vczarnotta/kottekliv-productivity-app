@@ -13,7 +13,7 @@
 }
 
 .container {
-  background-color: var(--color-bg-surface);
+  background-color: var(--color-bg);
   padding: var(--space-lg);
   padding-top: var(--space-xl);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
