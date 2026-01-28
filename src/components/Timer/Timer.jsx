@@ -1,49 +1,24 @@
-import { useState, useEffect } from "react";
+import { useContext } from "react";
+import { TimerContext } from "../../context/TimerContext";
+import Button from "../Button/Button";
 import styles from "./Timer.module.css";
 
 function Timer() {
-  const [milliseconds, setMilliseconds] = useState(0);
-  const [timerToggle, setTimerToggle] = useState(false);
+  const {currentTimer, start, pause, save, state } = useContext(TimerContext);
 
-  // using live ms to create the different times
-  const time = {
-    hours: Math.floor(milliseconds / 3600000),
-    minutes: Math.floor(milliseconds / 60000)%60,
-    seconds: Math.floor(milliseconds / 1000)%60, // 10*10
-    milliseconds: milliseconds
-  }
-
-  // full reset
-  const resetTimer = () => {
-    setTimerToggle(false)
-    setMilliseconds(0)
-  }
-
-  // TOGGLE TIMER
-  useEffect(() => {
-
-    if (timerToggle === true) {
-      //every "interval" gets an id when using SetInterval
-      const intervalId = setInterval(() => {
-        setMilliseconds(prev => prev + 100);
-      }, 100) // updating every 1ms made it slow, so 100ms instead
-
-      // removes the previous interval, so only 1 interval runs
-      return () => {
-        clearInterval(intervalId)
-      }
-    } 
-
-  }, [timerToggle])
 
   return (
     <>
-      <div className="time-display">{`${time.hours}h : ${time.minutes}min : ${time.seconds}s`}</div>
+      <h1>Timer:</h1>
+      <h2>{currentTimer()}</h2>
+      <h3>{state.sessions[0].msTotalWorked}</h3>
       <div className={styles.buttons}>
-        <button onClick={() => setTimerToggle(true)}>Start</button>
-        <button onClick={() => setTimerToggle(false)}>Stop</button>
-        <button onClick={resetTimer}>Reset</button>
+        <Button size="small" onClick={start}>Start</Button>
+        <Button size="small" onClick={pause}>Pause</Button>
+        <Button size="small" onClick={save}>Save</Button>
+        <button style={{color: "black"}} onClick={() => {console.log(state.sessions)}}>console log history</button>
       </div>
+      <h3>Timer History:</h3>
     </>
   )
 }
