@@ -1,7 +1,7 @@
 import { GoHome, GoCheckbox, GoClock, GoGraph } from "react-icons/go"
 import { RxDashboard } from "react-icons/rx";
 
-//Central lista för att enkelt lägga till/ta bort menyval
+// Centralized list for easily adding or removing menu items
 const menuItems = [
   {title: "Home",
     icon: <GoHome />,

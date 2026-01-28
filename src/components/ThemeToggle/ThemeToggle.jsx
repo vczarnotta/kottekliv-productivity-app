@@ -5,22 +5,22 @@ import Button from "../Button/Button"
 import { CiDark, CiLight } from "react-icons/ci";
 
 function ThemeToggle() {
-  // Om värde finns i localStorage, returnera från sträng till true/false annars true
+  // If a value exists in localStorage, parse it from string to boolean, otherwise default to true
   const [ isLight, setIsLight ] = useState(() =>{
     const savedTheme = localStorage.getItem("theme")
     return savedTheme === null ? true : savedTheme === "true"
   })
   
-  //Lägger till och tar bort klassen dark från #root när state ändras
+  // Adds or removes the "dark" class from the #root element whenever state changes
   useEffect(() => {
     const root = document.querySelector("#root")
     isLight ? root.classList.remove("dark") : root.classList.add("dark")
 
-    // Spara värdet i localstorage som sträng
+    // Save the value in localStorage as a string
     localStorage.setItem("theme", isLight);
   }, [isLight])
 
-  // Ändrar state när knappen trycks
+  // Toggles the state when the button is clicked
   const handleTheme = () => {
     setIsLight(!isLight)
   }
@@ -31,11 +31,11 @@ function ThemeToggle() {
         <span className="theme-toggle-content">
           {isLight ? 
             <>
-              <CiDark /> Mörkt tema
+              <CiDark /> Dark Mode
             </>
             : 
             <>
-              <CiLight /> Ljust tema
+              <CiLight /> Light Mode
             </>}
         </span>
       }

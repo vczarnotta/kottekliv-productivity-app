@@ -3,25 +3,25 @@ import ThemeToggle from "../ThemeToggle/ThemeToggle";
 import menuItems from "./navData"
 
 /**
- * @param {Function} changePage - Funktion från App.jsx för att uppdatera sid-state
- * @param {string} activePage - Den nuvarande aktiva sidans titel
+ * @param {Function} changePage - Function from App.jsx to update the page state
+ * @param {string} activePage - The title of the currently active page
  */
 function Header ({changePage, activePage}) {
 
   return (
     <header>
       <div className="main-part">
-        <h1>Projektnamn</h1>
+        <h1>Project Name</h1>
         
         <nav>
           <ul>
               {menuItems.map((item) => (
                 <li
                   key={item.title}
-                  /* Sätter klassen "active" om knappen matchar nuvarande sida */
+                  /* Adds the "active" class if the item matches the current page */
                   className={activePage === item.title ? "active" : ""}
                 >
-                  {/* Vid klick anropas changePage för att byta vy i huvudkomponenten */}
+                  {/* Calls changePage to switch views in the main component when clicked */}
                   <a onClick={ () => changePage(item.title)}>
                     <span className="icon">{item.icon}</span>
                     <span>{item.title}</span>

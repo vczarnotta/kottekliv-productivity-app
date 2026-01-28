@@ -10,7 +10,7 @@
   justify-content: space-between;
 }
 
-.energy-level {
+.performance-level {
   background-color: var(--color-accent);
   color: var(--color-bg);
   padding: var(--space-xs);
@@ -19,6 +19,6 @@
   border-radius: var(--radius-pill);    
 }
 
-.energy-description {
+.performance-description {
   flex-grow: 1;
 }

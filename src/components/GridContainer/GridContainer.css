@@ -1,6 +1,6 @@
 .grid-layout {
   display: grid;
-  /*Använder variabeln från jsx-filen*/
+  /* Uses the variable from jsx-file */
   grid-template-columns: repeat(var(--columns), 1fr);
   gap: var(--space-md);
   margin: var(--space-xs);
@@ -12,4 +12,4 @@
   flex: 1;
 }
 
-/* Media queries behöver läggas till */
+/* Media queries needs to be added */

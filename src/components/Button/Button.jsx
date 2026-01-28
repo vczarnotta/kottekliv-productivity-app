@@ -1,10 +1,10 @@
 import './Button.css'
 
-/* Tar emot variant primary och secondary, default är primary */
-function Button({label, onClick, variant="primary"}){
+/* Accepts primary and secondary variants, defaults is primary */
+function Button({label, onClick, variant="primary", size="medium"}){
   return(
     <button 
-    className={`button-base ${variant}`}
+    className={`button-base ${variant} ${size}`}
     onClick = {onClick}
     >
       {label}
