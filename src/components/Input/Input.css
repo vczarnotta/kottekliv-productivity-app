@@ -38,6 +38,7 @@ select {
   width: 100%;
   appearance: none; /* Removes the browser's default arrow */
   padding-right: var(--space-xl);
+  text-overflow: ellipsis
 }
 
 .select-icon {

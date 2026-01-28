@@ -30,12 +30,29 @@ function AddSessionModal({ onClose, onSave }) {
           placeholder={"e.g. Report writing, Planning..."}
         />
 
-        <Input
-          name={"category"}
-          type={"select"} 
-          label={"Category"}
-          options={["Deep Work", "Admin", "Meeting", "Break", "Other"]}
-        />
+        <div className="input-row">
+          <Input
+            name={"category"}
+            type={"select"} 
+            label={"Category"}
+            options={["Deep Work", "Admin", "Meeting", "Break", "Other"]}
+          />
+
+          <Input
+            name={"performance"} 
+            type={"select"}
+            label={"Performance"}
+
+            options={[
+              "1 - Poor", 
+              "2 - Fair", 
+              "3 - Good", 
+              "4 - Very Good", 
+              "5 - Excellent"
+            ]}
+          />
+        </div>
+        
 
         <Input 
           name={"date"}
@@ -44,24 +61,20 @@ function AddSessionModal({ onClose, onSave }) {
           defaultValue={new Date().toISOString().split('T')[0]} // Default to today's date
         />
 
-        <div className="time-container">
-          <div className="time">
+        <div className="input-row">
             <Input
               name={"startTime"}
               type="time"
               id="start-time"
               label="Start Time"
             />
-          </div>
           
-          <div className="time">
             <Input 
               name={"endTime"}
               type="time"
               id="end-time"
               label="End Time"
             />
-          </div>
         </div>
 
         <Button 

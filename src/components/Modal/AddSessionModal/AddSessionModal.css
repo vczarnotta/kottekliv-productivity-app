@@ -5,11 +5,11 @@ form {
 	margin-top: var(--space-md)
 }
 
-.time-container {
+.input-row {
 	display: flex;
 	gap: var(--space-md)
 }
 
-.time {
+.input-row > * {
 	flex: 1;
 }
