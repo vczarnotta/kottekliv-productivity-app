@@ -1,40 +1,4 @@
-import { createContext, useEffect, useReducer, useRef } from "react";
-
-// inside out.
-//
-// Flow:
-// Start timer -> Save worked time (id + localstorage) -> add to total (ms) -> reset current timer (if id is in list) 
-//
-// Store: 
-// Start -> Date()
-// End -> Date()
-// current session -> ms
-// total time worked -> ms
-// id -> crypto
-// 
-// using helper functions to convert for display when needed.
-//
-//
-// Interact:
-// Start
-// Pause
-// Save
-//
-//
-// Tools:
-// Toggle -> useEffect()
-// time -> setinterval + Date() + useRef
-// Storage -> useReducer()
-// Memory -> Localstorage
-
-// // current session + all sessions -> grab from localstorage in the future
-// let initialstate = {
-//   isRunning: false,
-//   msAccumulated: 0,
-//   msStartTime: 0,
-//   msEndTime: 0,
-//   sessions: [], // saves session object. {id, startTime, endTime, msAccumulated}  (later i can use sessions.startTime in a filter/function to sort what days it happened)
-// }
+import { createContext, useEffect, useReducer } from "react";
 
 // get saved list from previous session, or return empty list
 const getSavedTimers = () => {
@@ -70,7 +34,7 @@ const timerReducer = (state, action) => {
           msAccumulated: state.msAccumulated + sessionDuration
         };
         
-      // update what time user sees on screen
+      // auto update what time user sees on screen
       case "TICK":
         return {
           ...state,
@@ -100,6 +64,7 @@ const timerReducer = (state, action) => {
           msAccumulated: 0,
           msStartTime: 0,
           msEndTime: 0,
+          msDisplay: 0,
           sessions: [...state.sessions, newSession]
         };
       
@@ -109,11 +74,31 @@ const timerReducer = (state, action) => {
 }
 
 
+/**
+ * All tools you get from TimerContext.
+ *
+ * @typedef {Object} TimerContextValue
+ * @property {{ isRunning: boolean, msDisplay: number, msAccumulated: number, msStartTime: number, sessions: any[] }} state - Current timer state in ms.
+ * @property {() => void} start - Start or resume the timer.
+ * @property {() => void} pause - Pause and keep progress.
+ * @property {() => void} save - Save current session and reset.
+ * @property {() => number} currentTimer - Get current time in ms.
+ * @property {string} test - Debug string for experiments.
+ */
 
-
+/**
+ * Global timer context.
+ *
+ * Tools:
+ * - `state`: current timer state in ms.
+ * - `start()`: start or resume the timer.
+ * - `pause()`: pause and keep progress.
+ * - `save()`: save current session and reset.
+ * - `currentTimer()`: get current time in ms.
+ *
+ * @type {import("react").Context<TimerContextValue>}
+ */
 export const TimerContext = createContext();
-
-
 
 export function TimerProvider({children}) {
 
@@ -134,7 +119,7 @@ export function TimerProvider({children}) {
     if (state.isRunning) {
       interval = setInterval(() => {
         dispatch({ type: "TICK", payload: { nowMs: Date.now() } });
-      }, 10)
+      }, 100)
     }
 
     return () => clearInterval(interval);
@@ -149,12 +134,12 @@ export function TimerProvider({children}) {
   const start = () => dispatch({ type: "START", payload: { nowMs: Date.now() } });
   const pause = () => dispatch({ type: "PAUSE", payload: { nowMs: Date.now() } });
   const save = () => dispatch({ type: "SAVE", payload: { nowMs: Date.now() } });
-
+  const currentTimer = () => state.msDisplay;
 
   const test = "yas queen slay!";
 
   return (
-    <TimerContext.Provider value={{test, state, start, pause, save}}>
+    <TimerContext.Provider value={{test, state, start, pause, save, currentTimer}}>
       {children}
     </TimerContext.Provider>
   )
