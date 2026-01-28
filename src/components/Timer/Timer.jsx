@@ -11,7 +11,6 @@ function Timer() {
     <>
       <h1>Timer:</h1>
       <h2>{currentTimer()}</h2>
-      <h3>{state.sessions[0].msTotalWorked}</h3>
       <div className={styles.buttons}>
         <Button size="small" onClick={start}>Start</Button>
         <Button size="small" onClick={pause}>Pause</Button>
