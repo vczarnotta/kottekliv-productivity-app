@@ -65,7 +65,7 @@ function AddSessionModal({ onClose, onSave }) {
         </div>
 
         <Button 
-          label={"Save session"}
+          label={"Save Session"}
           type={"submit"}
         />
 
