@@ -1,16 +1,30 @@
+import { useState } from "react";
 import Modal from "../Modal";
 import mockSessions from "./mockSessions";
 import Card from "../../Card/Card"
 import Button from "../../Button/Button";
-import "./ShowHistorySessionModal.css"
+import "./ShowSessionHistoryModal.css"
 
-function ShowHistorySessionModal({onClose}) {
-  const editSession = () => {
-
+function ShowSessionHistoryModal({onClose}) {
+  //TODO: Switch mocksessions to localstorage
+  const [sessions, setSessions] = useState(mockSessions)
+  
+  //State to know which session is being edited
+  const [ editingId, setEditingId ] = useState(null)
+  
+  const editSession = (id) => {
+    setEditingId(id)
   }
 
-  const deleteSession = () => {
+  //TODO: add logic for when in edit mode
 
+  const deleteSession = (id) => {
+    if (window.confirm("Are you sure you want to delete this session?")) {
+      const updatedSessions = sessions.filter(session => session.id !== id);
+      setSessions(updatedSessions);
+
+      //TODO: Update localstorage here
+    }
   }
 
   return(
@@ -19,8 +33,16 @@ function ShowHistorySessionModal({onClose}) {
       
       
       <div className="session-list">
-        {mockSessions.map((session) => (
-          <div>
+        {sessions.map((session) => (
+          //Check if editing mode is active or not for the specific session
+          editingId === session.id ? (
+            //editing mode
+            <Card>
+              {/* Just to see edit mode works */}
+              <p>{session.sessionName || "Untitled Session"} is in edit mode</p>
+            </Card>
+          ) : (
+            //not editing mode
             <Card key={session.id}>
               <div className="content">
 
@@ -40,25 +62,24 @@ function ShowHistorySessionModal({onClose}) {
                 <div className="button-row">
                   <Button
                     label="Edit"
-                    onClick={editSession}
+                    onClick={() => editSession(session.id)}
                     size="small"
                   />
 
                   <Button
                     label="Delete"
-                    onClick={deleteSession}
+                    onClick={() => deleteSession(session.id)}
                     variant="secondary"
                     size="small"
                   />
                 </div>
               </div>
             </Card>
-
-          </div>
+          )
         ))}
       </div>
     </Modal>
   )
 }
 
-export default ShowHistorySessionModal
+export default ShowSessionHistoryModal
