@@ -2,10 +2,10 @@ import './Input.css'
 import { IoIosArrowDown } from "react-icons/io"
 
 /**
- * @param {string} label - Texten som visas ovanför fältet
- * @param {string} id - Ett unikt ID för att koppla ihop label och input
- * @param {string} type - Typ av input (text, number, date, etc.)
- * @param {array} options - En lista med objekt för dropdown-menyn (används endast om type="select")
+ * @param {string} label - The text displayed above the field
+ * @param {string} id - A unique ID to link the label and input
+ * @param {string} type - Type of input (text, number, date, etc.)
+ * @param {array} options - A list of objects for the dropdown menu (only used if type="select")
  */
 const Input = ({label, id, type = 'text', options = [], ...rest}) => {
 
@@ -16,7 +16,7 @@ const Input = ({label, id, type = 'text', options = [], ...rest}) => {
       {type === "select" ? (
         <div className='select-container'>
           <select id={id} defaultValue="">
-            <option value="" disabled >Välj {label}</option>
+            <option value="" disabled >Select {label}</option>
 
             {options.map((option, index) => (
               <option key={index}>

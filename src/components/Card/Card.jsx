@@ -1,9 +1,9 @@
 import './Card.css'
 
 /**
- * @param {string} title - Rubriken på kortet
- * @param {number} span - Hur många kolumner kortet ska ta upp (default 1)
- * @param {function} onClick - Funktionen som ska ske om kortet ska vara klickbart
+ * @param {string} title - The title of the card
+ * @param {number} span - Number of columns the card should occupy (default 1)
+ * @param {function} onClick - Function to execute if the card is clickable
  */
 const Card = ({ children, title, span = 1, onClick }) => {
 
@@ -19,11 +19,11 @@ const Card = ({ children, title, span = 1, onClick }) => {
     role={onClick ? "button" : undefined}
     >
 
-      {/* Om titel finns, skapa h2 */}
+      {/* Render h2 if title exists */}
       {title && <h2 className="card-title">{title}</h2>}
 
       <div className="card-content">
-        {/* Tar emot children för att kunna anpassa innehållet */}
+        {/* Accepts children for custom content */}
         {children}
       </div>
 

@@ -27,16 +27,16 @@ function TodoList() {
         type="text"
         value={text}
         onChange={(event => setText(event.target.value))}
-        placeholder="Lägg til en grejs" 
+        placeholder="Add a new task..." 
       /> 
       <Button 
         type="submit"
         onClick={() => {console.log()}}
-        label={"Lägg till"} 
+        label={"Add Task"} 
       />
     </form>
 
-    <h3>{totalItems} saved items on the list</h3>
+    <h3>{totalItems} items on your list</h3>
 
     <ul>
       {state.map((task) => (

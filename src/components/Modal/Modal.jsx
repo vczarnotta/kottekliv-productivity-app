@@ -3,7 +3,7 @@ import { IoMdClose } from "react-icons/io";
 import "./Modal.css"
 
 /**
- * @param {function} onClose - Funktionen som stänger fönstret
+ * @param {function} onClose - Function to close the modal
  */
 function Modal({children, onClose}) {
 
@@ -11,7 +11,7 @@ function Modal({children, onClose}) {
     onClose()
   }
   
-  //Stoppar klick inne i modalen från att vandra ner till overlay och stänga fönstret
+  // Prevents clicks inside the modal from bubbling up to the overlay and closing the window
   const stopClick = (e) => {
     e.stopPropagation()
   }

@@ -11,42 +11,42 @@ function HistoryPage() {
 
   const saveSession = (newSession) => {
     setSessions([...sessions, { ...newSession, id: Date.now() }]);
-    /* Behöver läggas till i historiklistan på något vis... */
+    /* TODO: Implement storage logic */
   };
 
   return(
     <div className="main-container">
 
-      {/* Grid med 4 kolumner */}
+      {/* Grid with 4 columns */}
       <GridContainer columns={4}>
         <Card 
-          title={"Logga pass"}
-          children={<p>Fyll i tidigare pass och pauser manuellt.</p>}
+          title={"Log Session"}
+          children={<p>Manually log previous sessions and breaks.</p>}
           onClick={() => setShowAddSession(true)}
         />
 
         <Card
-          title={"Redigera historik"}
-          children={<p>Hantera och korrigera dina sparade pass.</p>}
+          title={"Edit History"}
+          children={<p>Manage and correct your saved sessions.</p>}
           onClick={() => setShowHistorySession(true)}
         />
 
         <Card 
-          title={"Energitoppen"}
-          children={<p>Här visas vilken tid användaren har bäst energi i snitt</p>}
+          title={"Performance peak"}
+          children={<p>Displays the time of day when the user typically has the highest performance levels.</p>}
         />
 
         <Card 
-          title={"Genomsnittlig tid mellan pauser"}
-          children={<p>Hjälper användaren förstå om han/hon behöver ta paus oftare pga för långa pass</p>}
+          title={"Average Time Between Breaks"}
+          children={<p>Helps the user understand if they need more frequent breaks during long sessions.</p>}
         />
       </GridContainer>
 
-      {/* Grid med 2 kolumner som tar upp all resterande höjd */}
+      {/* Grid with 1 column that takes up the remaining height */}
       <GridContainer columns={1} fullheight={true}>
         <Card 
-          title={"Visar en graf"}
-          children={<p>Ska gå att ändra mellan olika vyer</p>}
+          title={"Data Visualization"}
+          children={<p>Placeholder for graphs. Should support switching between different views.</p>}
         />
       </GridContainer>
 

@@ -1,13 +1,13 @@
 import "./GridContainer.css"
 
 /**
- * En flexibel wrapper som skapar ett rutnät (grid).
- * @param {number} columns - Antal kolumner i gridden.
- * @param {boolean} fullheight - Om sant, sträcker sig containern vertikalt (100%).
+ * A flexible wrapper component that creates a grid layout
+ * @param {number} columns - Number of columns in the grid
+ * @param {boolean} fullheight - If true, the container stretches to 100% height
  */
 function GridContainer({ children, columns = 0, fullheight = false }) {
 
-    // Vi skickar med antalet kolumner som en CSS-variabel var(--columns).
+    // Pass the column count as a CSS custom property --columns
     const style = {
         "--columns": columns
     }

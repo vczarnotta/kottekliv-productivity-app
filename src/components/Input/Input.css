@@ -36,20 +36,20 @@ input::placeholder {
 
 select {
   width: 100%;
-  appearance: none; /* Tar bort webbläsarens egen pil */
+  appearance: none; /* Removes the browser's default arrow */
   padding-right: var(--space-xl);
 }
 
 .select-icon {
   position: absolute;
   right: var(--space-md);
-  pointer-events: none; /* Gör att klick går igenom ikonen */
+  pointer-events: none; /* Ensures clicks pass through the icon to the select element */
   color: var(--color-text-muted);
 }
 
 input[type="date"]::-webkit-calendar-picker-indicator,
 input[type="time"]::-webkit-calendar-picker-indicator {
   cursor: pointer;
-  /* AI hjälp att lägga ett filter som ungefär matchar vår text-muted färg på standardikonerna */
+  /* AI-assisted filter to match our text-muted color for the standard icons */
   filter: invert(47%) sepia(7%) saturate(915%) hue-rotate(341deg) brightness(93%) contrast(85%);
 }

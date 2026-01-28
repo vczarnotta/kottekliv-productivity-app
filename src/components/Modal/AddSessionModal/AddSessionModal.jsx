@@ -18,7 +18,7 @@ function AddSessionModal({ onClose, onSave }) {
 
   return(
     <Modal onClose={onClose}>
-      <h2>Logga arbetspass</h2>
+      <h2>Log Session</h2>
       <form 
         action="submit"
         onSubmit={handleForm}
@@ -26,22 +26,22 @@ function AddSessionModal({ onClose, onSave }) {
         <Input 
           name={"sessionName"}
           id={"sessionName"}
-          label={"Namnge pass"}
-          placeholder={"Namnge passet..."}
+          label={"Session Name"}
+          placeholder={"e.g. Report writing, Planning..."}
         />
 
         <Input
           name={"category"}
           type={"select"} 
-          label={"Kategori"}
-          options={["Fokusarbete", "Admin", "Möte", "Paus", "Övrigt"]}
+          label={"Category*"}
+          options={["Deep Work", "Admin", "Meeting", "Break", "Other"]}
         />
 
         <Input 
           name={"date"}
           type={"date"}
-          label={"Datum"}
-          defaultValue={new Date().toISOString().split('T')[0]} //Default dagens datum
+          label={"Date*"}
+          defaultValue={new Date().toISOString().split('T')[0]} // Default to today's date
         />
 
         <div className="time-container">
@@ -50,7 +50,7 @@ function AddSessionModal({ onClose, onSave }) {
               name={"startTime"}
               type="time"
               id="start-time"
-              label="Starttid"
+              label="Start time*"
             />
           </div>
           
@@ -59,13 +59,13 @@ function AddSessionModal({ onClose, onSave }) {
               name={"endTime"}
               type="time"
               id="end-time"
-              label="Sluttid"
+              label="End time*"
             />
           </div>
         </div>
 
         <Button 
-          label={"Spara"}
+          label={"Save session"}
           type={"submit"}
         />
 
