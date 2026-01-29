@@ -13,3 +13,8 @@ form {
 .input-row > * {
 	flex: 1;
 }
+
+.required-info {
+	color: var(--color-text-muted);
+	font-size: var(--font-size-xs);
+}
