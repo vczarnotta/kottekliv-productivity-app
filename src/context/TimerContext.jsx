@@ -134,12 +134,13 @@ export function TimerProvider({children}) {
   const start = () => dispatch({ type: "START", payload: { nowMs: Date.now() } });
   const pause = () => dispatch({ type: "PAUSE", payload: { nowMs: Date.now() } });
   const save = () => dispatch({ type: "SAVE", payload: { nowMs: Date.now() } });
-  const currentTimer = () => state.msDisplay;
+  const currentTimer = () => new Date(state.msDisplay).getSeconds();
+  const startTime = new Date(-156563567);
 
   const test = "yas queen slay!";
 
   return (
-    <TimerContext.Provider value={{test, state, start, pause, save, currentTimer}}>
+    <TimerContext.Provider value={{test, state, start, pause, save, currentTimer, startTime}}>
       {children}
     </TimerContext.Provider>
   )

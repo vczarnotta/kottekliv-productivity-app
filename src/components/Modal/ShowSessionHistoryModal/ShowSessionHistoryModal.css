@@ -29,13 +29,16 @@
   gap: var(--space-xs);
   font-size: var(--font-size-sm);
   background: var(--color-bg);
-  color: var(--color-text-muted);
   padding: var(--space-xs) var(--space-sm);
   border-radius: var(--radius-sm);
 }
 
 .separator {
   opacity: 0.4;
+}
+
+.active-time {
+  font-size: var(--font-size-xs);
 }
 
 /* Buttons */

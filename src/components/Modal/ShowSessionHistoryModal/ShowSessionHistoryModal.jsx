@@ -59,6 +59,8 @@ function ShowSessionHistoryModal({onClose}) {
                   <span>{session.startTime} - {session.endTime}</span>
                 </p>
 
+                <p className="active-time">Active time: {session.activeTime}</p>
+
                 <div className="button-row">
                   <Button
                     label="Edit"

@@ -7,6 +7,7 @@ const mockSessions = [
     date: "2026-01-28",
     startTime: "08:30",
     endTime: "10:00",
+    activeTime: "1h 25min",
     performance: "5 - Excellent"
   },
   {
@@ -16,6 +17,7 @@ const mockSessions = [
     date: "2026-01-28",
     startTime: "10:15",
     endTime: "11:00",
+    activeTime: "42min",
     performance: "3 - Good"
   },
   {
@@ -25,6 +27,7 @@ const mockSessions = [
     date: "2026-01-28",
     startTime: "12:00",
     endTime: "13:00",
+    activeTime: "1h",
     performance: "4 - Very Good"
   },
   {
@@ -34,6 +37,7 @@ const mockSessions = [
     date: "2026-01-27",
     startTime: "14:00",
     endTime: "15:30",
+    activeTime: "1h 15min",
     performance: "2 - Fair"
   },
   {
@@ -43,6 +47,7 @@ const mockSessions = [
     date: "2026-01-27",
     startTime: "09:00",
     endTime: "09:45",
+    activeTime: "40min",
     performance: "4 - Very Good"
   }
 ];
