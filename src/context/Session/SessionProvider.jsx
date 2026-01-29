@@ -1,4 +1,4 @@
-import { useReducer } from "react"
+import { useMemo, useReducer } from "react"
 import SessionContext from "./SessionContext"
 
 function SessionReducer(state, action) {
@@ -27,6 +27,15 @@ function SessionProvider({children}) {
 
   const [ state, dispatch ] = useReducer(SessionReducer, initialState)
 
+  //Sort the sessions newest to oldest
+  const sortedSessions = useMemo(() => {
+    return [...state].sort((a, b) => {
+        const dateTimeA = `${a.date} ${a.startTime}`;
+        const dateTimeB = `${b.date} ${b.startTime}`;
+      return dateTimeB.localeCompare(dateTimeA)
+    })
+  }, [state])
+
   const addSession = (completeSession) => {
     dispatch({ type: "ADD", payload: completeSession })
   }
@@ -42,7 +51,7 @@ function SessionProvider({children}) {
   };
 
   return(
-    <SessionContext.Provider value={{ sessions: state, addSession, deleteSession, editSession }}>
+    <SessionContext.Provider value={{ sessions: sortedSessions, addSession, deleteSession, editSession }}>
       {children}
     </SessionContext.Provider>
   )
