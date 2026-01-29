@@ -51,7 +51,7 @@ function ShowSessionHistoryModal({onClose}) {
 
                 <div>
                   <p className="category-text">{session.category}</p>
-                  <p className="performance-text">Performance - {session.performance.split('-')[1]}</p>
+                  {session.performance && <p className="performance-text">Performance - {session.performance.split('-')[1]}</p>}
                 </div>
 
                 <p className="time-info">

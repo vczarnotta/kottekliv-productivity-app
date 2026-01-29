@@ -56,10 +56,9 @@ function AddSessionModal({ onClose }) {
           <Input
             name={"performance"} 
             type={"select"}
-            label={"Performance*"}
+            label={"Performance"}
             selectLabel={"Select Performance"}
             defaultValue={""}
-            required
 
             options={[
               "1 - Poor", 
