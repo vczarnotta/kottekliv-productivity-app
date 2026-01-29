@@ -29,6 +29,8 @@ function ShowSessionHistoryModal({onClose}) {
   return(
     <Modal onClose={onClose}>
       <h2>Session History</h2>
+
+      {sessions.length === 0 && <p className="empty-message">No saved sessions found.</p>}
       
       
       <div className="session-list">

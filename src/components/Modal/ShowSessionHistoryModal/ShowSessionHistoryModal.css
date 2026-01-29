@@ -50,3 +50,10 @@
 .button-row > * {
   flex: 1;
 }
+
+/* Empty message */
+
+.empty-message {
+  margin-top: var(--space-lg);
+  color: var(--color-text-muted);
+}

@@ -97,7 +97,7 @@ function AddSessionModal({ onClose }) {
               required
             />
         </div>
-        
+
         <Button 
           label={"Save Session"}
           type={"submit"}
