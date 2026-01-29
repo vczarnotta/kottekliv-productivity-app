@@ -98,10 +98,9 @@ function AddSessionModal({ onClose }) {
             />
         </div>
 
-        <Button 
-          label={"Save Session"}
-          type={"submit"}
-        />
+        <Button type={"submit"}>
+          Save Session
+        </Button>
 
         <p className="required-info">* Required fields</p>
       </form>

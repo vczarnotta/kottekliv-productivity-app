@@ -62,17 +62,19 @@ function ShowSessionHistoryModal({onClose}) {
 
                 <div className="button-row">
                   <Button
-                    label="Edit"
                     onClick={() => startEdit(session.id)}
                     size="small"
-                  />
+                  >
+                    Edit
+                  </Button>
 
                   <Button
-                    label="Delete"
                     onClick={() => deleteSession(session.id)}
                     variant="secondary"
                     size="small"
-                  />
+                  >
+                    Delete
+                  </Button>
                 </div>
               </div>
             </Card>
