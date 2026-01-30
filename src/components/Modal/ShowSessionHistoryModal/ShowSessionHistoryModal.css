@@ -27,6 +27,7 @@
 .time-info {
   display: flex;
   gap: var(--space-xs);
+  justify-content: center;
   font-size: var(--font-size-sm);
   background: var(--color-bg);
   padding: var(--space-xs) var(--space-sm);
@@ -56,4 +57,18 @@
 .empty-message {
   margin-top: var(--space-lg);
   color: var(--color-text-muted);
+}
+
+/* Edit specific */
+.time-edit-content {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-bg);
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius-sm);
+  gap: var(--space-md);
+}
+
+.time-edit-content .time-info > * {
+  flex: 1;
 }
