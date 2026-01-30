@@ -9,14 +9,14 @@ function DashboardPage() {
         children={<p>This page can be cleared, just testing the buttons</p>}
       />
       <GridContainer columns={2}>
-        <Button 
-          label={"Click here"}
-        />
+        <Button>
+          Click here
+        </Button>
 
-        <Button 
-          label={"Click here"}
-          variant="secondary"
-        />
+        <Button variant="secondary">
+          Click here
+        </Button>
+
       </GridContainer>
     </div>
   )

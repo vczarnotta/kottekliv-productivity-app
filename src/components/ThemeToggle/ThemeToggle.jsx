@@ -26,22 +26,18 @@ function ThemeToggle() {
   }
 
   return(
-    <Button 
-      label={
-        <span className="theme-toggle-content">
-          {isLight ? 
-            <>
-              <CiDark /> Dark Mode
-            </>
-            : 
-            <>
-              <CiLight /> Light Mode
-            </>}
-        </span>
-      }
-      onClick={handleTheme}
-      variant={"secondary"}
-    />
+    <Button variant={"secondary"} onClick={handleTheme}>
+      <span className="theme-toggle-content">
+        {isLight ? 
+          <>
+            <CiDark /> Dark Mode
+          </>
+          : 
+          <>
+            <CiLight /> Light Mode
+          </>}
+      </span>
+    </Button>
   )
 }
 
