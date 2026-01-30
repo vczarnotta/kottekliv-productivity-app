@@ -1,0 +1,52 @@
+.session-list {
+  display: flex;
+  flex-direction: column;
+  margin-top: var(--space-md);
+  gap: var(--space-md);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  gap: var(--space-sm);
+}
+
+/* Category */
+.category-text {
+  text-transform: uppercase;
+  font-size: var(--font-size-sm);
+}
+
+/* Performance */
+.performance-text {
+  font-size: var(--font-size-sm);
+}
+
+/* Time */
+.time-info {
+  display: flex;
+  gap: var(--space-xs);
+  font-size: var(--font-size-sm);
+  background: var(--color-bg);
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius-sm);
+}
+
+.separator {
+  opacity: 0.4;
+}
+
+.active-time {
+  font-size: var(--font-size-xs);
+}
+
+/* Buttons */
+.button-row {
+  display: flex;
+  gap: var(--space-sm);
+}
+
+.button-row > * {
+  flex: 1;
+}
