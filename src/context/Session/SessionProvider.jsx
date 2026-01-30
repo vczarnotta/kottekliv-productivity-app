@@ -12,7 +12,7 @@ function SessionReducer(state, action) {
       newState = state.filter(session => session.id !== action.payload)
       break
     case "EDIT":
-      newState = state.map(session => session.id === action.payload.id ? action.payload : session) 
+      newState = state.map(session => session.id === action.payload.id ? { ...session, ...action.payload } : session) 
       break
     default:
       return state
