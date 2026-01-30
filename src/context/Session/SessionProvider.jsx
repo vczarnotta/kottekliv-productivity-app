@@ -5,14 +5,29 @@ function SessionReducer(state, action) {
   let newState = null
 
   switch(action.type) {
-    case "ADD":
-      newState = [action.payload, ...state]
+    case "ADD": {
+      //Set default value if no input is given
+      const sessionToAdd = {
+        ...action.payload,
+        sessionName: action.payload.sessionName || "Untitled Session",
+        performance: action.payload.performance || "0 - Not Rated"
+      }
+      newState = [sessionToAdd, ...state]
       break 
+    }
     case "DELETE":
       newState = state.filter(session => session.id !== action.payload)
       break
     case "EDIT":
-      newState = state.map(session => session.id === action.payload.id ? { ...session, ...action.payload } : session) 
+      newState = state.map(session => 
+        session.id === action.payload.id 
+        ? { 
+            ...session,
+            ...action.payload,
+            sessionName: action.payload.sessionName || "Untitled Session",
+            performance: action.payload.performance || "0 - Not Rated"
+        } 
+        : session) 
       break
     default:
       return state
