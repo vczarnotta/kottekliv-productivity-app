@@ -9,7 +9,7 @@ function Timer() {
     <>
       <h1>Timer:</h1>
       <h2>{currentTimer()}</h2>
-      <button style={{color: "black"}} onClick={() => {console.log(state.sessions)}}>console log history</button>
+      <button style={{color: "black"}} onClick={() => {console.log("Last session:", state.lastSession)}}>console log last session</button>
     </>
   )
 }
