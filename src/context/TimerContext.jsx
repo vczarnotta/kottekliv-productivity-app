@@ -111,7 +111,7 @@ const timerReducer = (state, action) => {
  * @property {() => void} startTimer - Start or resume the timer.
  * @property {() => void} pauseTimer - Pause and keep progress.
  * @property {() => void} saveTimer - Save current session and reset (validates non-zero time).
- * @property {() => number} currentTimer - Get current time in ms.
+ * @property {() => number} currentTimer - Get current time in human readable format.
  * @property {string} test - Debug string for experiments.
  */
 
@@ -123,7 +123,7 @@ const timerReducer = (state, action) => {
  * - `startTimer()`: start or resume the timer.
  * - `pauseTimer()`: pause and keep progress.
  * - `saveTimer()`: save current session with human-readable format and reset.
- * - `currentTimer()`: get current time in ms.
+ * - `currentTimer()`: get current time in human readable format.
  *
  * @type {import("react").Context<TimerContextValue>}
  */
@@ -164,7 +164,7 @@ export function TimerProvider({children}) {
     }
     dispatch({ type: "SAVE", payload: { nowMs: Date.now() } });
   };
-  const currentTimer = () => state.msDisplay;
+  const currentTimer = () => formatActiveTime(state.msDisplay);
 
   const test = "yas queen slay!";
 
