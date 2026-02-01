@@ -34,13 +34,6 @@ function formatDate(date) {
   return date.toISOString().split("T")[0];
 }
 
-// get saved list from previous session, or return empty list
-const getSavedTimers = () => {
-  const savedData = localStorage.getItem("user-timers")
-
-  return savedData ? JSON.parse(savedData) : [];
-};
-
 // timer data handling (using ms)
 // ALL USE ----> payload: {nowMs: Date.now()}
 const timerReducer = (state, action) => {
@@ -51,7 +44,8 @@ const timerReducer = (state, action) => {
       return {
         ...state,
         isRunning: true,
-        msStartTime: action.payload.nowMs
+        // Only set msStartTime if this is first start (not resume)
+        msStartTime: state.msStartTime === 0 ? action.payload.nowMs : state.msStartTime
       };
       
       // pause + add total worked time
@@ -80,22 +74,27 @@ const timerReducer = (state, action) => {
           finalDuration += (action.payload.nowMs - state.msStartTime);
         }
 
-        // saving format
+        // convert ms -> Date object so the helper functions can handle it
+        const startDate = new Date(state.msStartTime);
+        const endDate = new Date(action.payload.nowMs);
+
+        // saving format with human-readable times
         const newSession = {
           id: crypto.randomUUID(),
-          msStartTime: state.msStartTime,
-          msEndTime: action.payload.nowMs,
-          msTotalWorked: finalDuration,
+          startDate: formatDate(startDate),      // "2026-01-28"
+          startTime: formatTime(startDate),      // "08:30"
+          endTime: formatTime(endDate),          // "10:00"
+          activeTime: formatActiveTime(finalDuration) // "1h 30min"
         }
+        
         // resets and saves
         return {
           ...state,
           isRunning: false,
           msAccumulated: 0,
           msStartTime: 0,
-          msEndTime: 0,
           msDisplay: 0,
-          sessions: [...state.sessions, newSession]
+          lastSession: newSession  // Single object, not array
         };
       
     default:
@@ -108,10 +107,10 @@ const timerReducer = (state, action) => {
  * All tools you get from TimerContext.
  *
  * @typedef {Object} TimerContextValue
- * @property {{ isRunning: boolean, msDisplay: number, msAccumulated: number, msStartTime: number, sessions: any[] }} state - Current timer state in ms.
- * @property {() => void} start - Start or resume the timer.
- * @property {() => void} pause - Pause and keep progress.
- * @property {() => void} save - Save current session and reset.
+ * @property {{ isRunning: boolean, msDisplay: number, msAccumulated: number, msStartTime: number, lastSession: {id: string, startDate: string, startTime: string, endTime: string, activeTime: string} | null }} state - Current timer state.
+ * @property {() => void} startTimer - Start or resume the timer.
+ * @property {() => void} pauseTimer - Pause and keep progress.
+ * @property {() => void} saveTimer - Save current session and reset (validates non-zero time).
  * @property {() => number} currentTimer - Get current time in ms.
  * @property {string} test - Debug string for experiments.
  */
@@ -120,9 +119,10 @@ const timerReducer = (state, action) => {
  * Global timer context.
  *
  * Tools:
- * - `state`: current timer state in ms.
- * - `start()`: start or resume the timer.
- * - `save()`: save current session and reset.
+ * - `state`: current timer state with lastSession object.
+ * - `startTimer()`: start or resume the timer.
+ * - `pauseTimer()`: pause and keep progress.
+ * - `saveTimer()`: save current session with human-readable format and reset.
  * - `currentTimer()`: get current time in ms.
  *
  * @type {import("react").Context<TimerContextValue>}
@@ -137,7 +137,7 @@ export function TimerProvider({children}) {
     msAccumulated: 0,
     msStartTime: 0,
     msDisplay: 0,
-    sessions: getSavedTimers(),
+    lastSession: null,
   });
 
 
@@ -153,11 +153,6 @@ export function TimerProvider({children}) {
 
     return () => clearInterval(interval);
   }, [state.isRunning]);
-
-  // save to localstorage when new session is added
-  useEffect(() => {
-    localStorage.setItem("user-timers", JSON.stringify(state.sessions));
-  }, [state.sessions]);
 
   // functions that UI can use
   const startTimer = () => dispatch({ type: "START", payload: { nowMs: Date.now() } });
