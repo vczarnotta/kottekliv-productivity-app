@@ -157,7 +157,13 @@ export function TimerProvider({children}) {
   // functions that UI can use
   const startTimer = () => dispatch({ type: "START", payload: { nowMs: Date.now() } });
   const pauseTimer = () => dispatch({ type: "PAUSE", payload: { nowMs: Date.now() } });
-  const saveTimer = () => dispatch({ type: "SAVE", payload: { nowMs: Date.now() } });
+  const saveTimer = () => {
+    if (state.msAccumulated === 0) {
+      alert("Cannot save a session with 0 time! gotta work harder smh");
+      return;
+    }
+    dispatch({ type: "SAVE", payload: { nowMs: Date.now() } });
+  };
   const currentTimer = () => state.msDisplay;
 
   const test = "yas queen slay!";
