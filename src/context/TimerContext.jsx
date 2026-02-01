@@ -1,17 +1,47 @@
 import { createContext, useEffect, useReducer } from "react";
 
+// Convert ms to human readable format
+// Examples: "45s", "3min 20s", "1h 30min", "2h 0min"
+function formatActiveTime(ms) {
+  const totalSeconds = Math.floor(ms / 1000);
+  const hours = Math.floor(totalSeconds / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
+  const seconds = totalSeconds % 60;
+  
+  // If there are hours, always show hours and minutes (even if 0min)
+  if (hours > 0) {
+    return `${hours}h ${minutes}min`;
+  }
+  
+  // If there are minutes, show minutes and seconds
+  if (minutes > 0) {
+    return `${minutes}min ${seconds}s`;
+  }
+  
+  // Less than a minute, just show seconds
+  return `${seconds}s`;
+}
+
+// Extract HH:MM from Date object (so i know when session started and ended) (Sun Feb 01 2026 17:26:40 GMT+0100 ---> 17:26)
+function formatTime(date) {
+  const hour = date.getHours().toString().padStart(2, "0");
+  const minute = date.getMinutes().toString().padStart(2, "0");
+  return `${hour}:${minute}`;
+}
+
+// Get YYYY-MM-DD from Date object (Sun Feb 01 2026 17:26:40 GMT+0100 ---> 2026-02-01)
+function formatDate(date) {
+  return date.toISOString().split("T")[0];
+}
+
 // get saved list from previous session, or return empty list
 const getSavedTimers = () => {
   const savedData = localStorage.getItem("user-timers")
 
   return savedData ? JSON.parse(savedData) : [];
-
-// typeof(localStorage.getItem("users-todo-list")) ----> string ----> empty string == falsy
 };
 
-
 // timer data handling (using ms)
-// I can later convert that to human readable time
 // ALL USE ----> payload: {nowMs: Date.now()}
 const timerReducer = (state, action) => {
   switch (action.type) {
@@ -92,7 +122,6 @@ const timerReducer = (state, action) => {
  * Tools:
  * - `state`: current timer state in ms.
  * - `start()`: start or resume the timer.
- * - `pause()`: pause and keep progress.
  * - `save()`: save current session and reset.
  * - `currentTimer()`: get current time in ms.
  *
