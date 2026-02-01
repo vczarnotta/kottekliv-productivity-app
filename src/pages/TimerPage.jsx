@@ -20,13 +20,20 @@ function TimerPage() {
   //Create new session when save button is clicked
   const handleSave = () => {
     saveTimer()
-    const timerData = state.sessions
+    
+    // Now state.lastSession is a single object, not array
+    const timerData = state.lastSession
+    
+    // Check if save was successful (timerData exists)
+    if (!timerData) {
+      return; // saveTimer blocked it (0 time)
+    }
 
     const newSession = {
       id: timerData.id,
       sessionName: formData.sessionName || "Untitled Session",
       category: formData.category,
-      date: timerData.date,
+      date: timerData.startDate,  
       startTime: timerData.startTime,
       endTime: timerData.endTime,
       activeTime: timerData.activeTime,
