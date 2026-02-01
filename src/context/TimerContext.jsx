@@ -158,7 +158,7 @@ export function TimerProvider({children}) {
   const startTimer = () => dispatch({ type: "START", payload: { nowMs: Date.now() } });
   const pauseTimer = () => dispatch({ type: "PAUSE", payload: { nowMs: Date.now() } });
   const saveTimer = () => {
-    if (state.msAccumulated === 0) {
+    if (state.msAccumulated === 0 && !state.isRunning) {
       alert("Cannot save a session with 0 time! gotta work harder smh");
       return;
     }
