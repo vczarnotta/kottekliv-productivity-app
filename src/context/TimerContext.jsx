@@ -168,8 +168,10 @@ export function TimerProvider({children}) {
 
   const test = "yas queen slay!";
 
+  const newestSession = state.lastSession
+
   return (
-    <TimerContext.Provider value={{test, state, startTimer, pauseTimer, saveTimer, currentTimer}}>
+    <TimerContext.Provider value={{test, state, startTimer, pauseTimer, saveTimer, currentTimer, newestSession}}>
       {children}
     </TimerContext.Provider>
   )
