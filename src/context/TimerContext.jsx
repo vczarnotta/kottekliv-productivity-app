@@ -67,25 +67,9 @@ const timerReducer = (state, action) => {
       
       // format + unique id + save + reset
       case "SAVE":
-        let finalDuration = state.msAccumulated;
 
-        // if timer still active, add last ramaining time on top
-        if (state.isRunning) {
-          finalDuration += (action.payload.nowMs - state.msStartTime);
-        }
-
-        // convert ms -> Date object so the helper functions can handle it
-        const startDate = new Date(state.msStartTime);
-        const endDate = new Date(action.payload.nowMs);
-
-        // saving format with human-readable times
-        const newSession = {
-          id: crypto.randomUUID(),
-          startDate: formatDate(startDate),      // "2026-01-28"
-          startTime: formatTime(startDate),      // "08:30"
-          endTime: formatTime(endDate),          // "10:00"
-          activeTime: formatActiveTime(finalDuration) // "1h 30min"
-        }
+        // incoming data
+        const sessionData = action.payload.sessionData;
         
         // resets and saves
         return {
@@ -94,7 +78,7 @@ const timerReducer = (state, action) => {
           msAccumulated: 0,
           msStartTime: 0,
           msDisplay: 0,
-          lastSession: newSession  // Single object, not array
+          lastSession: sessionData  // Single object, not array
         };
       
     default:
@@ -157,12 +141,35 @@ export function TimerProvider({children}) {
   // functions that UI can use
   const startTimer = () => dispatch({ type: "START", payload: { nowMs: Date.now() } });
   const pauseTimer = () => dispatch({ type: "PAUSE", payload: { nowMs: Date.now() } });
+
   const saveTimer = () => {
     if (state.msAccumulated === 0 && !state.isRunning) {
       alert("Cannot save a session with 0 time! gotta work harder smh");
-      return;
+      return null;
     }
-    dispatch({ type: "SAVE", payload: { nowMs: Date.now() } });
+
+    const now = Date.now();
+    let finalDuration = state.msAccumulated;
+
+    if (state.isRunning) {
+      finalDuration += (now - state.msStartTime);
+    }
+
+    const startDate = new Date(state.msStartTime);
+    const endDate = new Date(now);
+
+    const sessionData = {
+      id: crypto.randomUUID(),
+      startDate: formatDate(startDate),      // "2026-01-28"
+      startTime: formatTime(startDate),      // "08:30"
+      endTime: formatTime(endDate),          // "10:00"
+      activeTime: formatActiveTime(finalDuration) // "1h 30min"
+    };
+
+    dispatch({ type: "SAVE", payload: { sessionData } });
+
+
+    return sessionData;
   };
   const currentTimer = () => formatActiveTime(state.msDisplay);
 
