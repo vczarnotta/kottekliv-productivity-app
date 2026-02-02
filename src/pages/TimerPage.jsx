@@ -9,12 +9,12 @@ import SessionContext from "../context/Session/SessionContext"
 import { useState, useContext } from "react"
 
 function TimerPage() {
-  const [ formData, setFormData ] = useState({sessionName: "Untitled Session", category: "Other"})
+  const [ formData, setFormData ] = useState({sessionName: "", category: "Other"})
   const [ currentId, setCurrentId ] = useState(null)
   const [ isModalOpen, setIsModalOpen ] = useState(false)
   const [ chosenPerformance, setChosenPerformance ] = useState(null)
 
-  const { startTimer, pauseTimer, saveTimer, state } = useContext(TimerContext);
+  const { startTimer, pauseTimer, saveTimer } = useContext(TimerContext);
   const { addSession, editSession } = useContext(SessionContext)
 
   //Create new session when save button is clicked
@@ -41,6 +41,7 @@ function TimerPage() {
     addSession(newSession) //Adds to history
     setCurrentId(timerData.id) //Saves id to know which session to add performance to
     setIsModalOpen(true) //Opens the performance modal
+    setFormData({sessionName: "", category: "Other"}) //Reset formData
   }
 
   /**
@@ -73,10 +74,10 @@ function TimerPage() {
         onChange={(e) => setFormData({...formData, category: e.target.value})}
 
         options={[
-          "Deep Work", 
-          "Admin", 
-          "Meeting", 
-          "Break", 
+          "Deep Work",
+          "Admin",
+          "Meeting",
+          "Break",
           "Other"
         ]}
       />
