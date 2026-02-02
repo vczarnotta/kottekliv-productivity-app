@@ -41,33 +41,47 @@ const timerReducer = (state, action) => {
     
     // start + set current time
     case "START":
+      // Scenario 1: Allra första start (ingen tidigare session)
+      if (state.msStartTime === 0) {
+        return {
+          ...state,
+          isRunning: true,
+          msStartTime: action.payload.nowMs,
+        };
+      }
+      
+      // Scenario 2: Resume från paus
+      // Beräkna hur länge vi varit pausade
+      const pauseDuration = action.payload.nowMs - state.msPauseStart;
+      
       return {
         ...state,
         isRunning: true,
-        // Only set msStartTime if this is first start (not resume)
-        msStartTime: state.msStartTime === 0 ? action.payload.nowMs : state.msStartTime
+        msTotalPaused: state.msTotalPaused + pauseDuration,
+        msPauseStart: 0,  // Nollställ eftersom vi inte är pausade längre
       };
       
       // pause + add total worked time
       case "PAUSE":
-        const sessionDuration = action.payload.nowMs - state.msStartTime;
-        
         return {
           ...state,
           isRunning: false,
-          msAccumulated: state.msAccumulated + sessionDuration
+          msPauseStart: action.payload.nowMs // Spara när pausen började
         };
         
       // auto update what time user sees on screen
       case "TICK":
+        // Aktiv tid = (nu - start) - total pausad tid
+        const elapsed = action.payload.nowMs - state.msStartTime;
+        const activeTime = elapsed - state.msTotalPaused;
+        
         return {
           ...state,
-          msDisplay: state.msAccumulated + (action.payload.nowMs - state.msStartTime)
+          msDisplay: activeTime
         };
       
       // format + unique id + save + reset
       case "SAVE":
-
         // incoming data
         const sessionData = action.payload.sessionData;
         
@@ -75,10 +89,11 @@ const timerReducer = (state, action) => {
         return {
           ...state,
           isRunning: false,
-          msAccumulated: 0,
           msStartTime: 0,
+          msPauseStart: 0,
+          msTotalPaused: 0,
           msDisplay: 0,
-          lastSession: sessionData  // Single object, not array
+          lastSession: sessionData
         };
       
     default:
@@ -118,8 +133,9 @@ export function TimerProvider({children}) {
   // import and initiate timer (logic + storage)
   const [state, dispatch] = useReducer(timerReducer, {
     isRunning: false,
-    msAccumulated: 0,
     msStartTime: 0,
+    msPauseStart: 0,
+    msTotalPaused: 0,
     msDisplay: 0,
     lastSession: null,
   });
@@ -143,17 +159,24 @@ export function TimerProvider({children}) {
   const pauseTimer = () => dispatch({ type: "PAUSE", payload: { nowMs: Date.now() } });
 
   const saveTimer = () => {
-    if (state.msAccumulated === 0 && !state.isRunning) {
+    // Check if timer has never been started
+    if (state.msStartTime === 0) {
       alert("Cannot save a session with 0 time! gotta work harder smh");
       return null;
     }
 
     const now = Date.now();
-    let finalDuration = state.msAccumulated;
-
-    if (state.isRunning) {
-      finalDuration += (now - state.msStartTime);
+    
+    // Calculate final duration using the new pause-tracking method
+    // finalDuration = (now - start) - totalPaused
+    let totalPaused = state.msTotalPaused;
+    
+    // If currently paused, add current pause duration
+    if (!state.isRunning && state.msPauseStart > 0) {
+      totalPaused += (now - state.msPauseStart);
     }
+    
+    const finalDuration = (now - state.msStartTime) - totalPaused;
 
     const startDate = new Date(state.msStartTime);
     const endDate = new Date(now);
@@ -167,7 +190,6 @@ export function TimerProvider({children}) {
     };
 
     dispatch({ type: "SAVE", payload: { sessionData } });
-
 
     return sessionData;
   };
