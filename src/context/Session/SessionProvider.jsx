@@ -9,7 +9,7 @@ function SessionReducer(state, action) {
       //Set default value if no input is given
       const sessionToAdd = {
         ...action.payload,
-        sessionName: action.payload.sessionName || "Untitled Session",
+        sessionName: action.payload.sessionName?.trim() || "Untitled Session",
         performance: action.payload.performance || "0 - Not Rated"
       }
       newState = [sessionToAdd, ...state]
@@ -23,9 +23,7 @@ function SessionReducer(state, action) {
         session.id === action.payload.id 
         ? { 
             ...session,
-            ...action.payload,
-            sessionName: action.payload.sessionName || "Untitled Session",
-            performance: action.payload.performance || "0 - Not Rated"
+            ...action.payload
         } 
         : session) 
       break
