@@ -20,7 +20,7 @@ function TimerPage() {
   //Create new session when save button is clicked
   const handleSave = () => {
     
-    // Now state.lastSession is a single object, not array
+    //Get timerData from Timer component
     const timerData = saveTimer()
     
     // Check if save was successful (timerData exists)
