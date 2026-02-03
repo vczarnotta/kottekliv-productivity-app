@@ -94,3 +94,7 @@ main {
 h1, h2, h3 {
   color: var(--color-text);
 }
+
+button {
+  cursor: pointer;
+}

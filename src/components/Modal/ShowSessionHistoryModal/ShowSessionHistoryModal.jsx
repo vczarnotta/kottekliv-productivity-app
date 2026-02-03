@@ -121,7 +121,10 @@ function ShowSessionHistoryModal({onClose}) {
               {editData.activeTime &&
                 <Input 
                   type="text"
+                  label="Active Time"
+                  name="activeTime"
                   value={editData.activeTime}
+                  onChange={handleChange}
                 />
               }
 

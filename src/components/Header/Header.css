@@ -20,12 +20,12 @@ h1 {
   margin-bottom: var(--space-lg);
 }
 
-ul {
+nav ul {
   list-style: none;
   padding: 0;
 }
 
-li {
+nav li {
   padding: var(--space-xs);
   text-align: start;
   height: 40px;
@@ -33,11 +33,11 @@ li {
   color: var(--color-text-muted);
 }
 
-li:hover {
+nav li:hover {
   cursor: pointer;
 }
 
-li.active {
+nav li.active {
   color: var(--color-text);
   font-weight: 500;
 }
