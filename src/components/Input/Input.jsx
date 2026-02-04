@@ -5,9 +5,10 @@ import { IoIosArrowDown } from "react-icons/io"
  * @param {string} label - The text displayed above the field
  * @param {string} id - A unique ID to link the label and input
  * @param {string} type - Type of input (text, number, date, etc.)
- * @param {array} options - A list of objects for the dropdown menu (only used if type="select")
+ * @param {array} options - A list of names for the dropdown menu (only used if type="select")
+ * @param {string} selectLabel - Placeholder text for the first disabled option
  */
-const Input = ({label, id, type = 'text', options = [], ...rest}) => {
+const Input = ({label, id, type = 'text', options = [], selectLabel, ...rest}) => {
 
   return(
     <div className = "input-container">
@@ -15,8 +16,8 @@ const Input = ({label, id, type = 'text', options = [], ...rest}) => {
 
       {type === "select" ? (
         <div className='select-container'>
-          <select id={id} defaultValue="">
-            <option value="" disabled >Select {label}</option>
+          <select id={id} {...rest}>
+            <option value="" disabled >{selectLabel}</option>
 
             {options.map((option, index) => (
               <option key={index}>

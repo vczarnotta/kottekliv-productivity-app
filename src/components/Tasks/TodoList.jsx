@@ -28,12 +28,11 @@ function TodoList() {
         value={text}
         onChange={(event => setText(event.target.value))}
         placeholder="Add a new task..." 
-      /> 
-      <Button 
-        type="submit"
-        onClick={() => {console.log()}}
-        label={"Add Task"} 
       />
+      
+      <Button type="submit" onClick={() => {console.log()}}>
+        Add Task
+      </Button>
     </form>
 
     <h3>{totalItems} items on your list</h3>

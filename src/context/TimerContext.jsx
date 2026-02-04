@@ -1,71 +1,99 @@
 import { createContext, useEffect, useReducer } from "react";
 
-// get saved list from previous session, or return empty list
-const getSavedTimers = () => {
-  const savedData = localStorage.getItem("user-timers")
+// Convert ms to human readable format
+// Examples: "45s", "3min 20s", "1h 30min", "2h 0min"
+function formatActiveTime(ms) {
+  const totalSeconds = Math.floor(ms / 1000);
+  const hours = Math.floor(totalSeconds / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
+  const seconds = totalSeconds % 60;
+  
+  // If there are hours, always show hours and minutes (even if 0min)
+  if (hours > 0) {
+    return `${hours}h ${minutes}min`;
+  }
+  
+  // If there are minutes, show minutes and seconds
+  if (minutes > 0) {
+    return `${minutes}min ${seconds}s`;
+  }
+  
+  // Less than a minute, just show seconds
+  return `${seconds}s`;
+}
 
-  return savedData ? JSON.parse(savedData) : [];
+// Extract HH:MM from Date object (so i know when session started and ended) (Sun Feb 01 2026 17:26:40 GMT+0100 ---> 17:26)
+function formatTime(date) {
+  const hour = date.getHours().toString().padStart(2, "0");
+  const minute = date.getMinutes().toString().padStart(2, "0");
+  return `${hour}:${minute}`;
+}
 
-// typeof(localStorage.getItem("users-todo-list")) ----> string ----> empty string == falsy
-};
-
+// Get YYYY-MM-DD from Date object (Sun Feb 01 2026 17:26:40 GMT+0100 ---> 2026-02-01)
+function formatDate(date) {
+  return date.toISOString().split("T")[0];
+}
 
 // timer data handling (using ms)
-// I can later convert that to human readable time
 // ALL USE ----> payload: {nowMs: Date.now()}
 const timerReducer = (state, action) => {
   switch (action.type) {
     
     // start + set current time
     case "START":
+      // Scenario 1: Allra första start (ingen tidigare session)
+      if (state.msStartTime === 0) {
+        return {
+          ...state,
+          isRunning: true,
+          msStartTime: action.payload.nowMs,
+        };
+      }
+      
+      // Scenario 2: Resume från paus
+      // Beräkna hur länge vi varit pausade
+      const pauseDuration = action.payload.nowMs - state.msPauseStart;
+      
       return {
         ...state,
         isRunning: true,
-        msStartTime: action.payload.nowMs
+        msTotalPaused: state.msTotalPaused + pauseDuration,
+        msPauseStart: 0,  // Nollställ eftersom vi inte är pausade längre
       };
       
       // pause + add total worked time
       case "PAUSE":
-        const sessionDuration = action.payload.nowMs - state.msStartTime;
-        
         return {
           ...state,
           isRunning: false,
-          msAccumulated: state.msAccumulated + sessionDuration
+          msPauseStart: action.payload.nowMs // Spara när pausen började
         };
         
       // auto update what time user sees on screen
       case "TICK":
+        // Aktiv tid = (nu - start) - total pausad tid
+        const elapsed = action.payload.nowMs - state.msStartTime;
+        const activeTime = elapsed - state.msTotalPaused;
+        
         return {
           ...state,
-          msDisplay: state.msAccumulated + (action.payload.nowMs - state.msStartTime)
+          msDisplay: activeTime
         };
       
       // format + unique id + save + reset
       case "SAVE":
-        let finalDuration = state.msAccumulated;
-
-        // if timer still active, add last ramaining time on top
-        if (state.isRunning) {
-          finalDuration += (action.payload.nowMs - state.msStartTime);
-        }
-
-        // saving format
-        const newSession = {
-          id: crypto.randomUUID(),
-          msStartTime: state.msStartTime,
-          msEndTime: action.payload.nowMs,
-          msTotalWorked: finalDuration,
-        }
+        // incoming data
+        const sessionData = action.payload.sessionData;
+        
         // resets and saves
         return {
           ...state,
           isRunning: false,
-          msAccumulated: 0,
           msStartTime: 0,
-          msEndTime: 0,
+          msPauseStart: 0,
+          msTotalPaused: 0,
           msDisplay: 0,
-          sessions: [...state.sessions, newSession]
+          lastSession: sessionData
         };
       
     default:
@@ -78,11 +106,11 @@ const timerReducer = (state, action) => {
  * All tools you get from TimerContext.
  *
  * @typedef {Object} TimerContextValue
- * @property {{ isRunning: boolean, msDisplay: number, msAccumulated: number, msStartTime: number, sessions: any[] }} state - Current timer state in ms.
- * @property {() => void} start - Start or resume the timer.
- * @property {() => void} pause - Pause and keep progress.
- * @property {() => void} save - Save current session and reset.
- * @property {() => number} currentTimer - Get current time in ms.
+ * @property {{ isRunning: boolean, msDisplay: number, msAccumulated: number, msStartTime: number, lastSession: {id: string, startDate: string, startTime: string, endTime: string, activeTime: string} | null }} state - Current timer state.
+ * @property {() => void} startTimer - Start or resume the timer.
+ * @property {() => void} pauseTimer - Pause and keep progress.
+ * @property {() => void} saveTimer - Save current session and reset (validates non-zero time).
+ * @property {() => number} currentTimer - Get current time in human readable format.
  * @property {string} test - Debug string for experiments.
  */
 
@@ -90,11 +118,11 @@ const timerReducer = (state, action) => {
  * Global timer context.
  *
  * Tools:
- * - `state`: current timer state in ms.
- * - `start()`: start or resume the timer.
- * - `pause()`: pause and keep progress.
- * - `save()`: save current session and reset.
- * - `currentTimer()`: get current time in ms.
+ * - `state`: current timer state with lastSession object.
+ * - `startTimer()`: start or resume the timer.
+ * - `pauseTimer()`: pause and keep progress.
+ * - `saveTimer()`: save current session with human-readable format and reset.
+ * - `currentTimer()`: get current time in human readable format.
  *
  * @type {import("react").Context<TimerContextValue>}
  */
@@ -105,10 +133,11 @@ export function TimerProvider({children}) {
   // import and initiate timer (logic + storage)
   const [state, dispatch] = useReducer(timerReducer, {
     isRunning: false,
-    msAccumulated: 0,
     msStartTime: 0,
+    msPauseStart: 0,
+    msTotalPaused: 0,
     msDisplay: 0,
-    sessions: getSavedTimers(),
+    lastSession: null,
   });
 
 
@@ -125,22 +154,53 @@ export function TimerProvider({children}) {
     return () => clearInterval(interval);
   }, [state.isRunning]);
 
-  // save to localstorage when new session is added
-  useEffect(() => {
-    localStorage.setItem("user-timers", JSON.stringify(state.sessions));
-  }, [state.sessions]);
-
   // functions that UI can use
-  const start = () => dispatch({ type: "START", payload: { nowMs: Date.now() } });
-  const pause = () => dispatch({ type: "PAUSE", payload: { nowMs: Date.now() } });
-  const save = () => dispatch({ type: "SAVE", payload: { nowMs: Date.now() } });
-  const currentTimer = () => new Date(state.msDisplay).getSeconds();
-  const startTime = new Date(-156563567);
+  const startTimer = () => dispatch({ type: "START", payload: { nowMs: Date.now() } });
+  const pauseTimer = () => dispatch({ type: "PAUSE", payload: { nowMs: Date.now() } });
+
+  const saveTimer = () => {
+    // Check if timer has never been started
+    if (state.msStartTime === 0) {
+      alert("Cannot save a session with 0 time! gotta work harder smh");
+      return null;
+    }
+
+    const now = Date.now();
+    
+    // Calculate final duration using the new pause-tracking method
+    // finalDuration = (now - start) - totalPaused
+    let totalPaused = state.msTotalPaused;
+    
+    // If currently paused, add current pause duration
+    if (!state.isRunning && state.msPauseStart > 0) {
+      totalPaused += (now - state.msPauseStart);
+    }
+    
+    const finalDuration = (now - state.msStartTime) - totalPaused;
+
+    const startDate = new Date(state.msStartTime);
+    const endDate = new Date(now);
+
+    const sessionData = {
+      id: crypto.randomUUID(),
+      startDate: formatDate(startDate),      // "2026-01-28"
+      startTime: formatTime(startDate),      // "08:30"
+      endTime: formatTime(endDate),          // "10:00"
+      activeTime: formatActiveTime(finalDuration) // "1h 30min"
+    };
+
+    dispatch({ type: "SAVE", payload: { sessionData } });
+
+    return sessionData;
+  };
+  const currentTimer = () => formatActiveTime(state.msDisplay);
 
   const test = "yas queen slay!";
 
+  const newestSession = state.lastSession
+
   return (
-    <TimerContext.Provider value={{test, state, start, pause, save, currentTimer, startTime}}>
+    <TimerContext.Provider value={{test, state, startTimer, pauseTimer, saveTimer, currentTimer, newestSession}}>
       {children}
     </TimerContext.Provider>
   )

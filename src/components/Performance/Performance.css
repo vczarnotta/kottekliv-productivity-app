@@ -22,3 +22,7 @@
 .performance-description {
   flex-grow: 1;
 }
+
+.selected {
+  border: 2px solid var(--color-primary);
+}
