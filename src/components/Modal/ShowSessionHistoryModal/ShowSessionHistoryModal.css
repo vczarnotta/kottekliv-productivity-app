@@ -18,8 +18,8 @@
   font-size: var(--font-size-sm);
 }
 
-/* Performance */
-.performance-text {
+/* Productivity */
+.productivity-text {
   font-size: var(--font-size-sm);
 }
 
@@ -31,7 +31,7 @@
   font-size: var(--font-size-sm);
   background: var(--color-bg);
   padding: var(--space-xs) var(--space-sm);
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-pill);
 }
 
 .separator {

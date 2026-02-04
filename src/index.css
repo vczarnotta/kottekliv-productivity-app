@@ -20,6 +20,10 @@
   --color-secondary-hover: #decbc3;
   --color-on-secondary: #6b3e2d;
 
+  --color-neutral: #f0edea;
+  --color-neutral-hover: #e6e2de;
+  --color-on-neutral: #504945;
+
   /* --- TYPOGRAPHY --- */
   --font-size-xs: 0.75rem; /* 12px */
   --font-size-sm: 0.875rem; /* 14px */
@@ -66,6 +70,10 @@
   --color-secondary: #3c3836;
   --color-secondary-hover: #4a4440;
   --color-on-secondary: #ebdbb2;
+
+  --color-neutral: #32302f;
+  --color-neutral-hover: #3c3836;
+  --color-on-neutral: #d5c4a1;
 }
 
 * {

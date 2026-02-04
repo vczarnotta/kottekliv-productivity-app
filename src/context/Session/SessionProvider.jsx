@@ -10,7 +10,7 @@ function SessionReducer(state, action) {
       const sessionToAdd = {
         ...action.payload,
         sessionName: action.payload.sessionName?.trim() || "Untitled Session",
-        performance: action.payload.performance || "0 - Not Rated"
+        productivity: action.payload.productivity || "0 - Not Rated"
       }
       newState = [sessionToAdd, ...state]
       break 
