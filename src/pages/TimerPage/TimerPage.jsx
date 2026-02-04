@@ -25,11 +25,6 @@ function TimerPage() {
     //Get timerData from Timer component
     const timerData = saveTimer()
     
-    // Check if save was successful (timerData exists)
-    if (!timerData) {
-      return; // saveTimer blocked it (0 time)
-    }
-
     const newSession = {
       id: timerData.id,
       sessionName: formData.sessionName,
