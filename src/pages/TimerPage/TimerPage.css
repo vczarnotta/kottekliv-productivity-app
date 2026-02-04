@@ -1,0 +1,52 @@
+.timer-circle {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  aspect-ratio: 1 / 1;
+  width: 90%;
+  max-width: 500px;
+  min-width: 400px;
+  border: 3px solid var(--color-primary);
+  border-radius: var(--radius-pill);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1), inset 0 0 15px rgba(0, 0, 0, 0.05);
+  padding: var(--space-xl);
+  gap: var(--space-lg);
+}
+
+.timer-circle > * {
+  width: 75%;
+}
+
+/* Inputs */
+.timer-circle input, 
+.timer-circle select {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--color-border-muted);
+  border-radius: 0;
+  text-align: center;
+  color: var(--color-text);
+}
+
+.timer-circle input:focus, 
+.timer-circle select:focus {
+  outline: none;
+  border-bottom: 2px solid var(--color-primary);
+}
+
+.timer-circle .select-icon {
+  right: 15%;
+  opacity: 0.5;
+}
+
+/* Buttons*/
+.timer-button-row {
+  display: flex;
+  gap: var(--space-md);
+  margin-top: var(--space-xxl);
+}
+
+.timer-button-row .button-base {
+  min-width: 120px;
+}

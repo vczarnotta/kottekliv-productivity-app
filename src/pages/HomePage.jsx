@@ -6,7 +6,7 @@ import TodoListDisplay from "../components/Tasks/TodoListDisplay"
 import WelcomeMessage from "../components/WelcomeMessage/WelcomeMessage"
 
 function HomePage() {
-  const {totalItems} = useContext(TodoContext);
+  const { totalItems } = useContext(TodoContext);
 
   return(
     <div className="main-container">
