@@ -3,7 +3,7 @@ import './App.css'
 import Header from './components/Header/Header'
 import HomePage from './pages/HomePage'
 import TaskPage from  "./pages/TaskPage"
-import TimerPage from "./pages/TimerPage"
+import TimerPage from "./pages/TimerPage/TimerPage"
 import HistoryPage from "./pages/HistoryPage"
 
 // Maps page names to components for dynamic rendering

@@ -1,12 +1,14 @@
-import Timer from "../components/Timer/Timer"
-import Input from "../components/Input/Input"
-import Button from "../components/Button/Button"
-import Modal from "../components/Modal/Modal"
-import Performance from "../components/Performance/Performance"
+import Timer from "../../components/Timer/Timer"
+import Input from "../../components/Input/Input"
+import Button from "../../components/Button/Button"
+import Modal from "../../components/Modal/Modal"
+import Performance from "../../components/Performance/Performance"
 
-import { TimerContext } from "../context/TimerContext"
-import SessionContext from "../context/Session/SessionContext"
+import { TimerContext } from "../../context/TimerContext"
+import SessionContext from "../../context/Session/SessionContext"
 import { useState, useContext } from "react"
+
+import "./TimerPage.css"
 
 function TimerPage() {
   const [ formData, setFormData ] = useState({sessionName: "", category: "Other"})
@@ -14,7 +16,7 @@ function TimerPage() {
   const [ isModalOpen, setIsModalOpen ] = useState(false)
   const [ chosenPerformance, setChosenPerformance ] = useState(null)
 
-  const { startTimer, pauseTimer, saveTimer } = useContext(TimerContext);
+  const { startTimer, pauseTimer, saveTimer, state } = useContext(TimerContext);
   const { addSession, editSession } = useContext(SessionContext)
 
   //Create new session when save button is clicked
@@ -60,33 +62,44 @@ function TimerPage() {
 
   return(
     <div className="main-container">
-      <Input
-        name={"sessionName"}
-        placeholder="Add session name..."
-        onChange={(e) => setFormData({...formData, sessionName: e.target.value})}
-      />
 
-      <Input 
-        name={"category"}
-        type={"select"} 
-        selectLabel={"Select Category"}
-        defaultValue={""}
-        onChange={(e) => setFormData({...formData, category: e.target.value})}
+      <div className="timer-circle">
+        <Input
+          name={"sessionName"}
+          placeholder="Add session name..."
+          onChange={(e) => setFormData({...formData, sessionName: e.target.value})}
+        />
 
-        options={[
-          "Deep Work",
-          "Admin",
-          "Meeting",
-          "Break",
-          "Other"
-        ]}
-      />
+        <Timer />
 
-      <Timer />
+        <Input 
+          name={"category"}
+          type={"select"} 
+          selectLabel={"Select Category"}
+          defaultValue={""}
+          onChange={(e) => setFormData({...formData, category: e.target.value})}
 
-      <Button size="small" onClick={startTimer}>Start</Button>
-      <Button size="small" onClick={pauseTimer}>Pause</Button>
-      <Button size="small" onClick={handleSave}>Save</Button>
+          options={[
+            "Deep Work",
+            "Admin",
+            "Meeting",
+            "Break",
+            "Other"
+          ]}
+        />
+      </div>
+
+      <div className="timer-button-row">
+        {/* Toggle between pause and start button */}
+        {state.isRunning ? 
+        <Button variant="secondary" onClick={pauseTimer}>Pause</Button>
+        :
+        <Button variant={state.msDisplay < 1 ? "primary" : "secondary"} onClick={startTimer}>Start</Button>
+        }
+        
+        {/* Disable save button if timer has not been started */}
+        <Button onClick={handleSave} disabled={state.msDisplay < 1}>Save</Button>
+      </div>
 
       {isModalOpen && (
         <Modal onClose={() => setIsModalOpen(false)}>

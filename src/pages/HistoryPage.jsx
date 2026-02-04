@@ -7,7 +7,7 @@ import ShowSessionHistoryModal from "../components/Modal/ShowSessionHistoryModal
 function HistoryPage() {
   const [ showAddSession, setShowAddSession ] = useState(false)
   const [ showSessionHistory, setShowSessionHistory ] = useState(false)
-  const [sessions, setSessions] = useState([]);
+  const [ sessions, setSessions ] = useState([]);
 
   const saveSession = (newSession) => {
     setSessions([...sessions, { ...newSession, id: Date.now() }]);
