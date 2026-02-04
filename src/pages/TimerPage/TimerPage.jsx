@@ -62,6 +62,7 @@ function TimerPage() {
         <Input
           name={"sessionName"}
           placeholder="Add session name..."
+          autoComplete="off"
           onChange={(e) => setFormData({...formData, sessionName: e.target.value})}
         />
 
