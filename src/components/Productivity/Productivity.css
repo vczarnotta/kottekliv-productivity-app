@@ -1,21 +1,29 @@
-.button-group {
+.productivity .button-group {
   display: flex;
   flex-direction: column;
   gap: var(--space-md);
+  margin: var(--space-lg) 0;
 }
 
-.button {
+.productivity button {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: var(--space-xs);
+}
+
+.productivity button:active {
+  transform: none;
 }
 
 .productivity-level {
-  background-color: var(--color-accent);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--color-primary);
   color: var(--color-bg);
-  padding: var(--space-xs);
-  width: var(--space-lg);
-  height: var(--space-lg);
+  width: var(--space-xl);
+  height: var(--space-xl);
   border-radius: var(--radius-pill);    
 }
 
@@ -23,6 +31,6 @@
   flex-grow: 1;
 }
 
-.selected {
-  border: 2px solid var(--color-primary);
+.container .productivity {
+  max-width: 320px;
 }

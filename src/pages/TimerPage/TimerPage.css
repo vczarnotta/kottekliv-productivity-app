@@ -50,3 +50,9 @@
 .timer-button-row .button-base {
   min-width: 120px;
 }
+
+.productivity-buttons {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-md);
+}

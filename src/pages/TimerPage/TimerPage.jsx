@@ -101,17 +101,21 @@ function TimerPage() {
         <Modal onClose={() => setIsModalOpen(false)}>
           {/* Productivity sends level through onLevelSelect callback */}
           <Productivity onLevelSelect={(level) => setChosenProductivity(level)}/>
-          <Button
-            onClick={() => addProductivity(chosenProductivity)}
-          >
-            Save Productivity
-          </Button>
 
-          <Button
-            onClick={() => setIsModalOpen(false)}
-          >
-            Skip
-          </Button>
+          <div className="productivity-buttons">
+            <Button
+              onClick={() => addProductivity(chosenProductivity)}
+            >
+              Save
+            </Button>
+
+            <Button
+              onClick={() => setIsModalOpen(false)}
+              variant="secondary"
+            >
+              Skip
+            </Button>
+          </div>
         </Modal>
       )}
 

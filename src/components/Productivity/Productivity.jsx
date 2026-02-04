@@ -1,4 +1,5 @@
 import { useState } from "react"
+import Button from "../Button/Button"
 import "./Productivity.css"
 
 function ProductivityLogger({onLevelSelect}) {
@@ -27,7 +28,7 @@ function ProductivityLogger({onLevelSelect}) {
 
 
   return(
-    <div>
+    <div className="productivity">
       <h3>How would you rate your productivity during the session?</h3>
 
       <div className="button-group">
@@ -37,14 +38,15 @@ function ProductivityLogger({onLevelSelect}) {
         const isSelected = productivity === `${productivityLevel.level} - ${productivityLevel.description}`
 
         return(
-          <button
-          className={`button ${isSelected ? "selected" : ""}`}
-          key={productivityLevel.level}
+          <Button
+          isSelected={isSelected}
+          variant="neutral"
           onClick={() => handleClick(productivityLevel)}
+          key={productivityLevel.level}
           >
               <span className="productivity-level">{productivityLevel.level}</span>
               <span className="productivity-description">{productivityLevel.description}</span>
-          </button>
+          </Button>
         )
       })}
       </div>
