@@ -54,10 +54,10 @@ function AddSessionModal({ onClose }) {
           />
 
           <Input
-            name={"performance"} 
+            name={"productivity"} 
             type={"select"}
-            label={"Performance"}
-            selectLabel={"Select Performance"}
+            label={"Productivity"}
+            selectLabel={"Select Productivity"}
             defaultValue={""}
 
             options={[

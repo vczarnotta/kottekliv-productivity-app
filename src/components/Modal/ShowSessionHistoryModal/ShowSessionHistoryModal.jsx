@@ -76,10 +76,10 @@ function ShowSessionHistoryModal({onClose}) {
 
               <Input 
                 type="select"
-                label="Performance"
-                name="performance"
-                value={editData.performance === "0 - Not Rated" ? "" : editData.performance}
-                selectLabel="Select Performance"
+                label="Productivity"
+                name="productivity"
+                value={editData.productivity === "0 - Not Rated" ? "" : editData.productivity}
+                selectLabel="Select Productivity"
                 onChange={handleChange}
 
                 options={[
@@ -156,7 +156,7 @@ function ShowSessionHistoryModal({onClose}) {
 
                 <div>
                   <p className="category-text">{session.category}</p>
-                  <p className="performance-text">Performance - {session.performance.split('-')[1]}</p>
+                  <p className="productivity-text">Productivity - {session.productivity.split('-')[1]}</p>
                 </div>
 
                 <p className="time-info">

@@ -2,7 +2,7 @@ import Timer from "../../components/Timer/Timer"
 import Input from "../../components/Input/Input"
 import Button from "../../components/Button/Button"
 import Modal from "../../components/Modal/Modal"
-import Performance from "../../components/Performance/Performance"
+import Productivity from "../../components/Productivity/Productivity"
 
 import { TimerContext } from "../../context/TimerContext"
 import SessionContext from "../../context/Session/SessionContext"
@@ -14,7 +14,7 @@ function TimerPage() {
   const [ formData, setFormData ] = useState({sessionName: "", category: "Other"})
   const [ currentId, setCurrentId ] = useState(null)
   const [ isModalOpen, setIsModalOpen ] = useState(false)
-  const [ chosenPerformance, setChosenPerformance ] = useState(null)
+  const [ chosenProductivity, setChosenProductivity ] = useState(null)
 
   const { startTimer, pauseTimer, saveTimer, state } = useContext(TimerContext);
   const { addSession, editSession } = useContext(SessionContext)
@@ -36,19 +36,19 @@ function TimerPage() {
     }
 
     addSession(newSession) //Adds to history
-    setCurrentId(timerData.id) //Saves id to know which session to add performance to
-    setIsModalOpen(true) //Opens the performance modal
+    setCurrentId(timerData.id) //Saves id to know which session to add productivity to
+    setIsModalOpen(true) //Opens the productivity modal
     setFormData({sessionName: "", category: "Other"}) //Reset formData
   }
 
   /**
-   * Update session with performance
-   * @param {string} level - (e.g. "3 - Good") from Performance-component.
+   * Update session with productivity
+   * @param {string} level - (e.g. "3 - Good") from Productivity-component.
    */
-  const addPerformance = (level) => {
+  const addProductivity = (level) => {
     editSession({
       id: currentId,
-      performance: level
+      productivity: level
     })
 
     setIsModalOpen(false) //Close modal
@@ -62,6 +62,7 @@ function TimerPage() {
         <Input
           name={"sessionName"}
           placeholder="Add session name..."
+          autoComplete="off"
           onChange={(e) => setFormData({...formData, sessionName: e.target.value})}
         />
 
@@ -98,19 +99,23 @@ function TimerPage() {
 
       {isModalOpen && (
         <Modal onClose={() => setIsModalOpen(false)}>
-          {/* Performance sends level through onLevelSelect callback */}
-          <Performance onLevelSelect={(level) => setChosenPerformance(level)}/>
-          <Button
-            onClick={() => addPerformance(chosenPerformance)}
-          >
-            Save Performance
-          </Button>
+          {/* Productivity sends level through onLevelSelect callback */}
+          <Productivity onLevelSelect={(level) => setChosenProductivity(level)}/>
 
-          <Button
-            onClick={() => setIsModalOpen(false)}
-          >
-            Skip
-          </Button>
+          <div className="productivity-buttons">
+            <Button
+              onClick={() => addProductivity(chosenProductivity)}
+            >
+              Save
+            </Button>
+
+            <Button
+              onClick={() => setIsModalOpen(false)}
+              variant="secondary"
+            >
+              Skip
+            </Button>
+          </div>
         </Modal>
       )}
 
