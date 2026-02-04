@@ -32,8 +32,8 @@ function HistoryPage() {
         />
 
         <Card 
-          title={"Performance peak"}
-          children={<p>Displays the time of day when the user typically has the highest performance levels.</p>}
+          title={"Productivity peak"}
+          children={<p>Displays the time of day when the user typically has the highest productivity levels.</p>}
         />
 
         <Card 

@@ -1,0 +1,56 @@
+import { useState } from "react"
+import "./Productivity.css"
+
+function ProductivityLogger({onLevelSelect}) {
+  // List of productivity levels with descriptions
+  const productivityLevels = [
+    {level: 1, description: "Poor" },
+    {level: 2, description: "Fair" },
+    {level: 3, description: "Good" },
+    {level: 4, description: "Very Good" },
+    {level: 5, description: "Excellent" }
+  ]
+
+  // Local state to track the selected productivity level
+  const [productivity, setProductivity] = useState("")
+
+  // Updates state and notifies parent component
+  const handleClick = (productivityLevels) => {
+    // Update state with the new level value
+    const newLevel = `${productivityLevels.level} - ${productivityLevels.description}`
+    setProductivity(newLevel)
+
+    // Forward value to history if callback is provided and a selection is made
+    onLevelSelect ? onLevelSelect(newLevel) : null
+  }
+
+
+
+  return(
+    <div>
+      <h3>How would you rate your productivity during the session?</h3>
+
+      <div className="button-group">
+      {/* Generate a button for each productivity level */}
+      {productivityLevels.map((productivityLevel) => {
+        //To style the chosen button
+        const isSelected = productivity === `${productivityLevel.level} - ${productivityLevel.description}`
+
+        return(
+          <button
+          className={`button ${isSelected ? "selected" : ""}`}
+          key={productivityLevel.level}
+          onClick={() => handleClick(productivityLevel)}
+          >
+              <span className="productivity-level">{productivityLevel.level}</span>
+              <span className="productivity-description">{productivityLevel.description}</span>
+          </button>
+        )
+      })}
+      </div>
+
+    </div>
+  )
+}
+
+export default ProductivityLogger
