@@ -1,26 +1,8 @@
 import { createContext, useEffect, useReducer } from "react";
+import { useFormatTime } from "../hooks/useFormatTime";
 
-// Convert ms to human readable format
-// Examples: "45s", "3min 20s", "1h 30min", "2h 0min"
-function formatActiveTime(ms) {
-  const totalSeconds = Math.floor(ms / 1000);
-  const hours = Math.floor(totalSeconds / 3600);
-  const minutes = Math.floor((totalSeconds % 3600) / 60);
-  const seconds = totalSeconds % 60;
-  
-  // If there are hours, always show hours and minutes (even if 0min)
-  if (hours > 0) {
-    return `${hours}h ${minutes}min`;
-  }
-  
-  // If there are minutes, show minutes and seconds
-  if (minutes > 0) {
-    return `${minutes}min ${seconds}s`;
-  }
-  
-  // Less than a minute, just show seconds
-  return `${seconds}s`;
-}
+const makeMsReadable = useFormatTime()
+
 
 // Extract HH:MM from Date object (so i know when session started and ended) (Sun Feb 01 2026 17:26:40 GMT+0100 ---> 17:26)
 function formatTime(date) {
@@ -186,14 +168,14 @@ export function TimerProvider({children}) {
       startDate: formatDate(startDate),      // "2026-01-28"
       startTime: formatTime(startDate),      // "08:30"
       endTime: formatTime(endDate),          // "10:00"
-      activeTime: formatActiveTime(finalDuration) // "1h 30min"
+      activeTime: makeMsReadable(finalDuration) // "1h 30min"
     };
 
     dispatch({ type: "SAVE", payload: { sessionData } });
 
     return sessionData;
   };
-  const currentTimer = () => formatActiveTime(state.msDisplay);
+  const currentTimer = () => makeMsReadable(state.msDisplay);
 
   const test = "yas queen slay!";
 
