@@ -1,8 +1,9 @@
 import { createContext, useEffect, useReducer } from "react";
 import { useFormatTime } from "../hooks/useFormatTime";
 
-const makeMsReadable = useFormatTime()
 
+
+// ---- HELPER FUNCTIONS ----
 
 // Extract HH:MM from Date object (so i know when session started and ended) (Sun Feb 01 2026 17:26:40 GMT+0100 ---> 17:26)
 function formatTime(date) {
@@ -15,6 +16,8 @@ function formatTime(date) {
 function formatDate(date) {
   return date.toISOString().split("T")[0];
 }
+
+// ---- LOGIC/BRAIN ----
 
 // timer data handling (using ms)
 // ALL USE ----> payload: {nowMs: Date.now()}
@@ -83,7 +86,7 @@ const timerReducer = (state, action) => {
   }
 }
 
-
+// ---- MANUAL ----
 /**
  * All tools you get from TimerContext.
  *
@@ -108,9 +111,14 @@ const timerReducer = (state, action) => {
  *
  * @type {import("react").Context<TimerContextValue>}
  */
+
+// ---- EXPORT/PROVIDER ----
+
 export const TimerContext = createContext();
 
 export function TimerProvider({children}) {
+
+  const makeMsReadable = useFormatTime()
 
   // import and initiate timer (logic + storage)
   const [state, dispatch] = useReducer(timerReducer, {
