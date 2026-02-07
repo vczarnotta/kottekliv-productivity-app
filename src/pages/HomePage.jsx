@@ -21,8 +21,10 @@ function HomePage() {
   const today = new Date().toISOString().split("T")[0];
   console.log("1: " + today)
 
-  // remove everything that isn't "today"
-  const todaySessions = sessions.filter(s => s.date === today);
+  // remove everything that isn't "today" AND "Deep Work"
+  const todaySessions = sessions.filter(s => 
+    s.date === today && s.category === "Deep Work"
+  );
   console.log("2: " + todaySessions)
   // add upp all ms for "today"
   const totalMsToday = todaySessions.reduce((sum, s) => sum + s.msDuration, 0);
@@ -39,7 +41,9 @@ function HomePage() {
   const mondayStr = monday.toISOString().split("T")[0];
 
   // den kör "lexikografiskt (alfabetisk ordning)" -> så går att jämföra strings, för 2026-01-03 är före 2026-01-05 i alfabetet. coolt.
-  const weekSessions = sessions.filter(s => s.date >= mondayStr);
+  const weekSessions = sessions.filter(s => 
+    s.date >= mondayStr && s.category === "Deep Work"
+  );
 
   // total ms för veckan
   const totalMsWeek = weekSessions.reduce((sum, s) => sum + s.msDuration, 0);
