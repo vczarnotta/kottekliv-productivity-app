@@ -1,5 +1,5 @@
 import { createContext, useEffect, useReducer } from "react";
-import { useFormatTime } from "../hooks/useFormatTime";
+import useFormatTime from "../hooks/useFormatTime";
 
 
 
@@ -176,7 +176,8 @@ export function TimerProvider({children}) {
       startDate: formatDate(startDate),      // "2026-01-28"
       startTime: formatTime(startDate),      // "08:30"
       endTime: formatTime(endDate),          // "10:00"
-      activeTime: makeMsReadable(finalDuration) // "1h 30min"
+      activeTime: makeMsReadable(finalDuration), // "1h 30min"
+      msDuration: finalDuration             // "16000" -> pure ms
     };
 
     dispatch({ type: "SAVE", payload: { sessionData } });

@@ -4,7 +4,7 @@
 
 // Convert ms to human readable format
 // Examples: "45s", "3min 20s", "1h 30min", "2h 0min"
-export function useFormatTime() {
+function useFormatTime() {
   const formatTime = (ms) => {
     const totalSeconds = Math.floor(ms / 1000);
     const hours = Math.floor(totalSeconds / 3600);
@@ -29,3 +29,5 @@ export function useFormatTime() {
 
 }
 
+
+export default useFormatTime
