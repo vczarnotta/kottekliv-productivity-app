@@ -19,7 +19,7 @@ function HistoryPage() {
     <div className="main-container">
 
       {/* Grid with 4 columns */}
-      <GridContainer columns={4}>
+      <GridContainer columns={2}>
         <Card 
           title={"Log Session"}
           children={<p>Manually log previous sessions and breaks.</p>}
@@ -32,15 +32,6 @@ function HistoryPage() {
           onClick={() => setShowSessionHistory(true)}
         />
 
-        <Card 
-          title={"Productivity peak"}
-          children={<p>Displays the time of day when the user typically has the highest productivity levels.</p>}
-        />
-
-        <Card 
-          title={"Average Time Between Breaks"}
-          children={<p>Helps the user understand if they need more frequent breaks during long sessions.</p>}
-        />
       </GridContainer>
 
       {/* Grid with 1 column that takes up the remaining height */}
