@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { getDayName, getMonthName } from "../../helpers/dateHelper";
+import { getDayName, getMonthName } from "../../utils/dateHelper";
 import "./WelcomeMessage.css"
 
 function WelcomeMessage() {

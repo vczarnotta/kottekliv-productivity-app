@@ -1,16 +1,36 @@
 import { useMemo, useReducer } from "react"
 import SessionContext from "./SessionContext"
+import useFormatTime from "../../hooks/useFormatTime";
+
+//Calculate msDuration if added manually
+const calculateDuration = (date, start, end) => {
+  const startTime = new Date(`${date} ${start}`);
+  const endTime = new Date(`${date} ${end}`);
+  
+  let msDuration = endTime - startTime;
+  
+  return msDuration; // Returns ms
+}
 
 function SessionReducer(state, action) {
   let newState = null
 
   switch(action.type) {
     case "ADD": {
+
+      if(!action.payload.msDuration) {
+        action.payload.msDuration = calculateDuration(
+          action.payload.date, 
+          action.payload.startTime, 
+          action.payload.endTime
+        )
+      }
+
       //Set default value if no input is given
       const sessionToAdd = {
         ...action.payload,
         sessionName: action.payload.sessionName?.trim() || "Untitled Session",
-        productivity: action.payload.productivity || "0 - Not Rated"
+        productivity: action.payload.productivity || "0 - Not Rated",
       }
       newState = [sessionToAdd, ...state]
       break 
@@ -37,8 +57,8 @@ function SessionReducer(state, action) {
 
 function SessionProvider({children}) {
   const initialState = JSON.parse(localStorage.getItem("sessions")) || []
-
   const [ state, dispatch ] = useReducer(SessionReducer, initialState)
+  const makeMsReadable = useFormatTime()
 
   //Sort the sessions newest to oldest
   const sortedSessions = useMemo(() => {
@@ -50,6 +70,18 @@ function SessionProvider({children}) {
   }, [state])
 
   const addSession = (completeSession) => {
+    //If added manually, add activetime and duration
+    if (!completeSession.activeTime) {
+      const ms = completeSession.msDuration || calculateDuration(
+        completeSession.date,
+        completeSession.startTime,
+        completeSession.endTime
+      )
+      
+      completeSession.activeTime = makeMsReadable(ms)
+      completeSession.msDuration = ms
+    }
+
     dispatch({ type: "ADD", payload: completeSession })
   }
 

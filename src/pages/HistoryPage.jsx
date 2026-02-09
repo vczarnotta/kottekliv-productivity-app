@@ -1,6 +1,7 @@
 import { useState } from "react"
 import GridContainer from "../components/GridContainer/GridContainer"
 import Card from "../components/Card/Card"
+import StatsGraph from "../components/StatsGraph/StatsGraph"
 import AddSessionModal from "../components/Modal/AddSessionModal/AddSessionModal"
 import ShowSessionHistoryModal from "../components/Modal/ShowSessionHistoryModal/ShowSessionHistoryModal"
 
@@ -45,8 +46,8 @@ function HistoryPage() {
       {/* Grid with 1 column that takes up the remaining height */}
       <GridContainer columns={1} fullheight={true}>
         <Card 
-          title={"Data Visualization"}
-          children={<p>Placeholder for graphs. Should support switching between different views.</p>}
+          title={<div style={{ textAlign: "center", width: "100%" }}>Data Visualization</div>}
+          children={<StatsGraph />}    
         />
       </GridContainer>
 

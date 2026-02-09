@@ -1,4 +1,6 @@
 .card-base {
+  display: flex;
+  flex-direction: column;
   padding: var(--space-lg);
   border-radius: var(--radius-md);
   border: 1px solid var(--color-border-muted);
@@ -10,6 +12,7 @@
 
 .card-content {
   color: var(--color-text-muted);
+  flex: 1;
 }
 
 .card-title {

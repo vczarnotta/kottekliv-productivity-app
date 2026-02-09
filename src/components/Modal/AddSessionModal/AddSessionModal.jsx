@@ -1,4 +1,4 @@
-import useSessions from "../../../Hooks/useSession";
+import useSessions from "../../../hooks/useSession";
 
 import Modal from "../Modal";
 import Input from "../../Input/Input";
