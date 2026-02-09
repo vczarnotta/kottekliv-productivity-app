@@ -33,7 +33,9 @@ function TimerPage() {
       startTime: timerData.startTime,
       endTime: timerData.endTime,
       activeTime: timerData.activeTime,
+      msDuration: timerData.msDuration
     }
+    console.log(newSession)
 
     addSession(newSession) //Adds to history
     setCurrentId(timerData.id) //Saves id to know which session to add productivity to

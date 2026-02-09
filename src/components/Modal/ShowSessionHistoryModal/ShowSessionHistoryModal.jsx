@@ -1,10 +1,11 @@
 import { useState } from "react";
-import useSessions from "../../../Hooks/useSession";
+import useSessions from "../../../hooks/useSession";
 
 import Modal from "../Modal";
 import Card from "../../Card/Card"
 import Button from "../../Button/Button";
 import Input from "../../Input/Input";
+import useFormatTime from "../../../hooks/useFormatTime";
 import "./ShowSessionHistoryModal.css"
 
 function ShowSessionHistoryModal({onClose}) {
@@ -14,23 +15,40 @@ function ShowSessionHistoryModal({onClose}) {
   //State to know which session is being edited and to keep the data
   const [ editingId, setEditingId ] = useState(null)
   const [ editData, setEditData ] = useState(({}))
+  const [ editActiveTime, setEditActiveTime ] = useState("")
+
+  const makeMsReadable = useFormatTime()
   
   //Start edit mode
   const startEdit = (id) => {
     const sessionToEdit = sessions.find(s => s.id === id) //find which one to edit
     setEditData(sessionToEdit) //Save the current data
+    setEditActiveTime(Math.round(sessionToEdit.msDuration / 60000)) //Change to human readable format (minutes)
     setEditingId(id)
   }
 
   //Use Session Context to update data and then leave edit mode
   const saveEdit = () => {
-    editSession(editData)
+    const finalMinutes = parseFloat(editActiveTime) || 0
+    const newMs = finalMinutes * 60000
+
+    const updatedSession = {
+      ...editData,
+      msDuration: newMs,
+      activeTime: makeMsReadable(newMs)
+    }
+
+    editSession(updatedSession)
     setEditingId(null)
     setEditData({})
   }
 
   const handleChange = (e) => {
-    setEditData({...editData, [e.target.name]: e.target.value})
+    if(e.target.name === "msDuration") {
+      setEditActiveTime(e.target.value)
+    } else {
+      setEditData({...editData, [e.target.name]: e.target.value})
+    }
   }
 
 
@@ -118,15 +136,13 @@ function ShowSessionHistoryModal({onClose}) {
                 </div>
               </div>
 
-              {editData.activeTime &&
-                <Input 
-                  type="text"
-                  label="Active Time"
-                  name="activeTime"
-                  value={editData.activeTime}
-                  onChange={handleChange}
-                />
-              }
+              <Input 
+                type="number"
+                label="Active Time (minutes)"
+                name="msDuration"
+                value={editActiveTime}
+                onChange={handleChange}
+              />
 
               <div className="button-row">
                 <Button
