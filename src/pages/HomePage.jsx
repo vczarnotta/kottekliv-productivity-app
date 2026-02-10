@@ -7,6 +7,8 @@ import WelcomeMessage from "../components/WelcomeMessage/WelcomeMessage"
 import useSessions from "../hooks/useSession"
 import useFormatTime from "../hooks/useFormatTime"
 
+import StatsGraph from "../components/StatsGraph/StatsGraph"
+
 function HomePage() {
   // --- hooks ---
   const { totalItems } = useContext(TodoContext);
@@ -83,7 +85,8 @@ function HomePage() {
       {/* fullheight={true} stretches the container to fill the rest of the page */}
       <GridContainer columns={2} fullheight={true}>
         <Card
-          title={"Start Timer"}
+          title={"Statistics"}
+          children={<StatsGraph />}
         />
 
         <Card
