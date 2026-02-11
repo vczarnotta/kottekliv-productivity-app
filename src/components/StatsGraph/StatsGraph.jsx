@@ -1,12 +1,14 @@
 import { useContext, useMemo } from 'react';
 import { CartesianGrid, Line, LineChart, XAxis, YAxis, ResponsiveContainer, Legend, Tooltip } from 'recharts';
 
+import useFormatTime from "../../hooks/useFormatTime.jsx"
 import SessionContext from '../../context/Session/SessionContext';
 import graphData from '../../utils/graphHelper.js';
 import "./StatsGraph.css"
 
 function StatsGraph() {
   const { sessions } = useContext(SessionContext)
+  const makeMsReadable = useFormatTime()
 
   const chartData = useMemo(() => {
     if(!sessions) {
@@ -44,6 +46,7 @@ function StatsGraph() {
           {/* Left Y-axis for time */}
           <YAxis 
             yAxisId="left"
+            tickFormatter={(value) => makeMsReadable(value * 60000)}
             tickLine={false}
             tickCount={5}
             domain={[0, 'auto']}
@@ -59,7 +62,14 @@ function StatsGraph() {
           />
           
           {/* Shows when hover */}
-          <Tooltip />
+          <Tooltip 
+            formatter={(value, name) => {
+              if (name.includes("Time")) {
+                return [makeMsReadable(value * 60000), name]
+              }
+              return [value, name];
+            }}
+          />
           
           {/* Describes the lines */}
           <Legend 
@@ -70,7 +80,7 @@ function StatsGraph() {
           {/* Deep work graph */}
           <Line
             {...lineProps}
-            name="Deep Work Time (min)"
+            name="Deep Work Time"
             yAxisId="left"
             dataKey="focusTime"
             stroke="#e78a4e" 
