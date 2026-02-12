@@ -3,6 +3,7 @@ header {
   flex-direction: column;
   background-color: var(--color-bg-surface);
   border-right: 1px solid var(--color-border-muted);
+  min-width: 205px;
 }
 
 .main-part {
