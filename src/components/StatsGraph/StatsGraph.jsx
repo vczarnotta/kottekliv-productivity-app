@@ -83,8 +83,8 @@ function StatsGraph() {
             name="Deep Work Time"
             yAxisId="left"
             dataKey="focusTime"
-            stroke="#e78a4e" 
-            dot={{ r: 4, outline: "#e78a4e", fill: "var(--color-bg-surface)" }} 
+            stroke="var(--color-graph-1)" 
+            dot={{ r: 4, stroke: "var(--color-graph-1)", fill: "var(--color-bg-surface)" }} 
           />
 
           {/* Productivity graph */}
@@ -93,8 +93,8 @@ function StatsGraph() {
             name="Productivity (1-5)"
             yAxisId="right"
             dataKey="productivity" 
-            stroke="#a9b665" 
-            dot={{ r: 4, outline: "#a9b665", fill: "var(--color-bg-surface)"  }} 
+            stroke="var(--color-graph-2)" 
+            dot={{ r: 4, stroke: "var(--color-graph-2)", fill: "var(--color-bg-surface)"  }} 
           />
         </LineChart>
       </ResponsiveContainer>
