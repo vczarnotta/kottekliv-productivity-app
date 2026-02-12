@@ -13,12 +13,12 @@ function useFormatTime() {
     
     // If there are hours, always show hours and minutes (even if 0min)
     if (hours > 0) {
-      return `${hours}h ${minutes}min`;
+      return `${hours}h ${minutes}m`;
     }
     
     // If there are minutes, show minutes and seconds
     if (minutes > 0) {
-      return `${minutes}min ${seconds}s`;
+      return `${minutes}m ${seconds}s`;
     }
     
     // Less than a minute, just show seconds

@@ -10,7 +10,15 @@ function graphData(sessions) {
     currentDate.setDate(currentDate.getDate() - i)
     
     const formattedDate = currentDate.toISOString().split('T')[0]
-    const dayName = getDayName(currentDate)
+    let dayName = null
+
+    if(i === 0) {
+      dayName = "Today"
+    } else if (i === 1) {
+      dayName = "Yesterday"
+    } else {
+      dayName = getDayName(currentDate)
+    }
 
     week.push({fullDate: formattedDate, displayName: dayName})
   }

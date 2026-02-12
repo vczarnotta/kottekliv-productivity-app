@@ -8,6 +8,7 @@ import useSessions from "../hooks/useSession"
 import useFormatTime from "../hooks/useFormatTime"
 
 import StatsGraph from "../components/StatsGraph/StatsGraph"
+import Quote from "../components/Quote/Quote"
 
 function HomePage() {
   // --- hooks ---
@@ -77,7 +78,7 @@ function HomePage() {
 
         {/* span={2} makes this card occupy two columns in the grid */}
         <Card
-          title={"LET'S GO!"}
+          children={<Quote />}
           span={2}
         />
       </GridContainer>
