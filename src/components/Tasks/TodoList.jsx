@@ -2,6 +2,7 @@ import { useState, useContext } from "react";
 import Button from "../Button/Button";
 import "./TodoList.css";
 import { TodoContext } from "../../context/TodoContext";
+import TodoListDisplay from "./TodoListDisplay";
 
 
 function TodoList() {
@@ -37,16 +38,7 @@ function TodoList() {
 
     <h3>{totalItems} items on your list</h3>
 
-    <ul>
-      {state.map((task) => (
-        <li key={task.id}>
-          {task.text}
-          <button onClick={() => dispatch({ type: "DELETE", payload: task.id})}>
-            X
-          </button>
-        </li>
-      ))}
-    </ul>
+    <TodoListDisplay showDeleteButton={false} />
 
     {/* bugfix // dev */}
     <button onClick={() => console.log(localStorage.getItem("users-todo-list"))}>console log</button>
