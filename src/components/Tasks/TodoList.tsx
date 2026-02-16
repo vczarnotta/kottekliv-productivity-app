@@ -12,7 +12,7 @@ function TodoList() {
 
 
 
-  const handleSubmit = (event) => { // avoids weird refresh i think?
+  const handleSubmit = (event: React.FormEvent) => { // avoids weird refresh i think?
       event.preventDefault();
       if (text.trim() === "") return;
 
