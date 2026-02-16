@@ -1,18 +1,19 @@
 import { IoMdClose } from "react-icons/io";
-
 import "./Modal.css"
 
-/**
- * @param {function} onClose - Function to close the modal
- */
-function Modal({children, onClose}) {
+interface ModalProps {
+  children: React.ReactNode
+  onClose: () => void
+}
+
+function Modal({children, onClose}: ModalProps) {
 
   const handleClickOutside = () => {
     onClose()
   }
   
   // Prevents clicks inside the modal from bubbling up to the overlay and closing the window
-  const stopClick = (e) => {
+  const stopClick = (e: React.MouseEvent) => {
     e.stopPropagation()
   }
 
