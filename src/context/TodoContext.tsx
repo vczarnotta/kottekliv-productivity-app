@@ -1,4 +1,4 @@
-import { createContext, useReducer, useEffect } from "react";
+import { createContext, useReducer, useEffect, useContext } from "react";
 
 interface Todo {
   id: number;
@@ -81,4 +81,15 @@ export function TodoProvider({ children }: { children: React.ReactNode }) {
       {children}
     </TodoContext.Provider>
   )
+}
+
+// kolla så conext ej är undefined
+export const useTodo = () => {
+  const context = useContext(TodoContext);
+
+  if (!context) {
+    throw new Error("useTodo mste användas inom en TodoProvider")
+  }
+
+  return context
 }

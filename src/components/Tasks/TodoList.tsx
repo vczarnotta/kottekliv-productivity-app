@@ -1,14 +1,15 @@
-import { useState, useContext } from "react";
+import { useState } from "react";
 import Button from "../Button/Button";
 import "./TodoList.css";
-import { TodoContext } from "../../context/TodoContext";
+import { useTodo } from "../../context/TodoContext";
 import TodoListDisplay from "./TodoListDisplay";
 
 
 function TodoList() {
 
   const [text, setText] = useState("");
-  const {state, dispatch, totalItems} = useContext(TodoContext);
+  const {dispatch, totalItems} = useTodo();
+
 
 
   const handleSubmit = (event) => { // avoids weird refresh i think?
