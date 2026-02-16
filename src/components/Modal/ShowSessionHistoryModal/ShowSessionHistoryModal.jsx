@@ -5,8 +5,11 @@ import Modal from "../Modal";
 import Card from "../../Card/Card"
 import Button from "../../Button/Button";
 import Input from "../../Input/Input";
+import Select from "../../Input/Select";
 import useFormatTime from "../../../hooks/useFormatTime";
 import "./ShowSessionHistoryModal.css"
+
+
 
 function ShowSessionHistoryModal({onClose}) {
   //TODO: Switch mocksessions to localstorage
@@ -75,9 +78,9 @@ function ShowSessionHistoryModal({onClose}) {
                 onChange={handleChange}
               />
 
-              <Input 
-                type="select"
+              <Select 
                 label="Category"
+                id="category"
                 name="category"
                 value={editData.category}
                 selectLabel="Select Category"
@@ -92,9 +95,9 @@ function ShowSessionHistoryModal({onClose}) {
                 ]}
               />
 
-              <Input 
-                type="select"
+              <Select 
                 label="Productivity"
+                id="productivity"
                 name="productivity"
                 value={editData.productivity === "0 - Not Rated" ? "" : editData.productivity}
                 selectLabel="Select Productivity"
