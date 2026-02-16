@@ -3,7 +3,7 @@ import { getDayName, getMonthName } from "../../utils/dateHelper";
 import "./WelcomeMessage.css"
 
 function WelcomeMessage() {
-  const [ isFirstTime, setIsFirstTime ] = useState(false)
+  const [ isFirstTime, setIsFirstTime ] = useState<boolean>(false)
   const today = new Date()
 
   //Check if it´s the first time visiting
