@@ -21,9 +21,24 @@ const getSavedTodos = () => {
 function toDoreducer(state, action) {
   switch (action.type) {
     case "ADD":
-      return [...state, { text: action.payload, id: Date.now()}]; // attatch unique id so i can delete later
+      return [...state, { text: action.payload, isCompleted: false, id: Date.now()}]; // attatch unique id so i can delete later -> using date so i can sort based on creation
     case "DELETE":
       return state.filter(task => task.id !== action.payload); // returnerar allt förutom det som matchade
+    case "TOGGLE":
+      // if ID matches, switch the toggle
+      return state.map(task => {
+        if (task.id === action.payload) {
+          const newIsCompleted = !task.isCompleted
+          // if yes -> reverse the isCompleted boolean and save timestamp
+          return { 
+            ...task, 
+            isCompleted: newIsCompleted,
+            completedAt: newIsCompleted ? Date.now() : null
+          }
+        }
+        // if no -> don't change it
+        return task
+        })
     default:
       return state;
   }

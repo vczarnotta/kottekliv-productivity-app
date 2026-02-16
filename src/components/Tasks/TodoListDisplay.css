@@ -1,0 +1,18 @@
+.todo-item {
+  display: flex;
+  justify-content: left;
+  padding: 0.3rem;
+  transition: opacity 0.2s ease;
+}
+
+.todo-item.completed {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
+.todo-checkbox {
+  cursor: pointer;
+  width: 18px;
+  height: 18px;
+  margin-left: 1rem;
+}

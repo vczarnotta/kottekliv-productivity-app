@@ -24,6 +24,9 @@
   --color-neutral-hover: #e6e2de;
   --color-on-neutral: #504945;
 
+  --color-graph-1: #c35e0a;
+  --color-graph-2: #6c782e;
+
   /* --- TYPOGRAPHY --- */
   --font-size-xs: 0.75rem; /* 12px */
   --font-size-sm: 0.875rem; /* 14px */
@@ -74,11 +77,19 @@
   --color-neutral: #32302f;
   --color-neutral-hover: #3c3836;
   --color-on-neutral: #d5c4a1;
+
+  --color-graph-1: #e78a4e;
+  --color-graph-2: #a9b665;
 }
 
 * {
   box-sizing: border-box;
   margin: 0;
+  transition: 
+    background-color 0.2s ease, 
+    border-color 0.2s ease, 
+    stroke 0.2s ease, 
+    fill 0.2s ease;
 }
 
 main {

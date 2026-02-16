@@ -6,6 +6,7 @@
 /* Axis lines */
 .recharts-cartesian-axis-line {
   stroke: var(--color-border-muted);
+  transition: inherit;
 }
 
 /* Text on axis lines */
