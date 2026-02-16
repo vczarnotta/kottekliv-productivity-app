@@ -1,5 +1,6 @@
 import Timer from "../../components/Timer/Timer"
 import Input from "../../components/Input/Input"
+import Select from "../../components/Input/Select"
 import Button from "../../components/Button/Button"
 import Modal from "../../components/Modal/Modal"
 import Productivity from "../../components/Productivity/Productivity"
@@ -70,9 +71,8 @@ function TimerPage() {
 
         <Timer />
 
-        <Input 
+        <Select 
           name={"category"}
-          type={"select"} 
           selectLabel={"Select Category"}
           defaultValue={""}
           onChange={(e) => setFormData({...formData, category: e.target.value})}

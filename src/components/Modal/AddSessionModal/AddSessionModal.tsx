@@ -2,10 +2,15 @@ import useSessions from "../../../hooks/useSession";
 
 import Modal from "../Modal";
 import Input from "../../Input/Input";
+import Select from "../../Input/Select";
 import Button from "../../Button/Button";
 import "./AddSessionModal.css"
 
-function AddSessionModal({ onClose }) {
+interface AddSessionModalProps {
+  onClose: () => void
+}
+
+function AddSessionModal({onClose}: AddSessionModalProps) {
 
   const { addSession } = useSessions()
 
@@ -36,9 +41,9 @@ function AddSessionModal({ onClose }) {
         />
 
         <div className="input-row">
-          <Input
+          <Select
             name={"category"}
-            type={"select"} 
+            id="category"
             label={"Category*"}
             selectLabel={"Select Category"}
             defaultValue={""}
@@ -53,9 +58,9 @@ function AddSessionModal({ onClose }) {
             ]}
           />
 
-          <Input
-            name={"productivity"} 
-            type={"select"}
+          <Select
+            name={"productivity"}
+            id="productivity"
             label={"Productivity"}
             selectLabel={"Select Productivity"}
             defaultValue={""}
@@ -74,6 +79,7 @@ function AddSessionModal({ onClose }) {
         <Input 
           name={"date"}
           type={"date"}
+          id="date"
           label={"Date*"}
           defaultValue={new Date().toISOString().split('T')[0]} // Default to today's date
           required

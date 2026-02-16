@@ -1,16 +1,7 @@
 import { useMemo, useReducer } from "react"
 import SessionContext from "./SessionContext"
 import useFormatTime from "../../hooks/useFormatTime";
-
-//Calculate msDuration if added manually
-const calculateDuration = (date, start, end) => {
-  const startTime = new Date(`${date} ${start}`);
-  const endTime = new Date(`${date} ${end}`);
-  
-  let msDuration = endTime - startTime;
-  
-  return msDuration; // Returns ms
-}
+import calculateDuration from "../../utils/calculateDurationHelper";
 
 function SessionReducer(state, action) {
   let newState = null
