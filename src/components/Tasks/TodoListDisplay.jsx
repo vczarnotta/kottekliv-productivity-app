@@ -18,7 +18,6 @@ function TodoListDisplay({ showDeleteButton = false }) {
       return (a.completedAt || 0) - (b.completedAt || 0)
     })
     
-    console.log(sortedTasks);
     // returns an unordered list with all tasks
     return (
         <ul>
