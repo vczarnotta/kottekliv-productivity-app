@@ -1,11 +1,12 @@
 import Timer from "../../components/Timer/Timer"
 import Input from "../../components/Input/Input"
+import Select from "../../components/Input/Select"
 import Button from "../../components/Button/Button"
 import Modal from "../../components/Modal/Modal"
 import Productivity from "../../components/Productivity/Productivity"
 
 import { TimerContext } from "../../context/TimerContext"
-import SessionContext from "../../context/Session/SessionContext"
+import { useSessions } from "../../context/SessionContext"
 import { useState, useContext } from "react"
 
 import "./TimerPage.css"
@@ -17,7 +18,7 @@ function TimerPage() {
   const [ chosenProductivity, setChosenProductivity ] = useState(null)
 
   const { startTimer, pauseTimer, saveTimer, state } = useContext(TimerContext);
-  const { addSession, editSession } = useContext(SessionContext)
+  const { addSession, editSession } = useSessions()
 
   //Create new session when save button is clicked
   const handleSave = () => {
@@ -70,9 +71,8 @@ function TimerPage() {
 
         <Timer />
 
-        <Input 
+        <Select 
           name={"category"}
-          type={"select"} 
           selectLabel={"Select Category"}
           defaultValue={""}
           onChange={(e) => setFormData({...formData, category: e.target.value})}

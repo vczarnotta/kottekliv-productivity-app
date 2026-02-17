@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import "./Quote.css"
 
 function Quote() {
-  const [ quote, setQuote ] = useState("")
+  const [ quote, setQuote ] = useState<string>("")
   
   useEffect(() => {
     const fetchQuote = async () => {

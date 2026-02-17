@@ -1,13 +1,15 @@
 import './Card.css'
 
-/**
- * @param {string} title - The title of the card
- * @param {number} span - Number of columns the card should occupy (default 1)
- * @param {function} onClick - Function to execute if the card is clickable
- */
-const Card = ({ children, title, span = 1, onClick }) => {
+interface CardProps { 
+  children: React.ReactNode,
+  title?: string,
+  span?: number,
+  onClick?: () => void
+}
 
-  const addSpan = {
+function Card({ children, title, span = 1, onClick }: CardProps) {
+
+  const addSpan: React.CSSProperties = {
     gridColumn: `span ${span}`
   }
 
@@ -23,12 +25,11 @@ const Card = ({ children, title, span = 1, onClick }) => {
       {title && <h2 className="card-title">{title}</h2>}
 
       <div className="card-content">
-        {/* Accepts children for custom content */}
         {children}
       </div>
 
     </div>
-  );
-};
+  )
+}
 
 export default Card
