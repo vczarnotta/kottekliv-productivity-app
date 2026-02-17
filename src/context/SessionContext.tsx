@@ -11,7 +11,7 @@ export interface Session {
   startTime: string,
   endTime: string,
   msDuration: number,
-  activeTime?: string,
+  activeTime: string,
 }
 
 interface SessionContextValue {
