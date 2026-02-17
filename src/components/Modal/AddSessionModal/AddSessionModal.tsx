@@ -1,4 +1,4 @@
-import useSessions from "../../../hooks/useSession";
+import { useSessions, type Session } from "../../../context/SessionProvider";
 
 import Modal from "../Modal";
 import Input from "../../Input/Input";
@@ -14,15 +14,15 @@ function AddSessionModal({onClose}: AddSessionModalProps) {
 
   const { addSession } = useSessions()
 
-  const handleForm = (e) => {
+  const handleForm = (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault()
     const formData = new FormData(e.target)
     const data = Object.fromEntries(formData)
 
     //add id to the data
-    const newSession = { ...data, id: Date.now() }
+    const newSession = { ...data, id: crypto.randomUUID() }
 
-    addSession(newSession)
+    addSession(newSession as unknown as Session)
     onClose()
   }
 
