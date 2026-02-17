@@ -1,4 +1,4 @@
-export function getDayName(date) {
+export function getDayName(date: Date) {
     const dayNames = [
         "Sunday",
         "Monday",
@@ -9,10 +9,10 @@ export function getDayName(date) {
         "Saturday",
     ];
 
-    return dayNames[date.getDay()];
+    return dayNames[date.getDay()] as string
 }
 
-export function getMonthName(date) {
+export function getMonthName(date: Date) {
     const monthNames = [
         "January",
         "February",
@@ -28,5 +28,5 @@ export function getMonthName(date) {
         "December",
     ];
 
-    return monthNames[date.getMonth()];
+    return monthNames[date.getMonth()] as string
 }

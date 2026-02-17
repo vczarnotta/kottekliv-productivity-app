@@ -1,16 +1,22 @@
+import type { Session } from "../context/SessionContext"
 import { getDayName } from "./dateHelper"
 
-function graphData(sessions) {
+interface WeekDayRange {
+  fullDate: string // "2026-02-17"
+  displayName: string // "Today", "Yesterday", "Monday"
+}
+
+function graphData(sessions: Session[]) {
 
   //Get the date for the last 7 days
-  const week = []
+  const week: WeekDayRange[] = []
 
   for(let i = 6; i >= 0; i--) {
     const currentDate = new Date()
     currentDate.setDate(currentDate.getDate() - i)
     
-    const formattedDate = currentDate.toISOString().split('T')[0]
-    let dayName = null
+    const formattedDate = currentDate.toISOString().split('T')[0]!
+    let dayName: string
 
     if(i === 0) {
       dayName = "Today"
@@ -41,13 +47,12 @@ function graphData(sessions) {
     let sessionsWithRating = 0
 
     sessionsThisDay.forEach(session => {
-      if(session && session.productivity) {
-        const score = parseFloat(session.productivity.split(" - ")[0]) //keep only number and change from string
-  
-        if(score > 0) {
-          totalProductivityScore += score
-          sessionsWithRating ++ //Keep track how many sessions were rated
-        }
+      const scoreString: string = session.productivity.split(" - ")[0]! //Keep only number value as string
+      const score: number = parseFloat(scoreString) //Cchange from string to number
+
+      if(score > 0) {
+        totalProductivityScore += score
+        sessionsWithRating ++ //Keep track how many sessions were rated
       }
     })
 
