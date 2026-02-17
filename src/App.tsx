@@ -4,6 +4,7 @@ import HomePage from './pages/HomePage'
 import TaskPage from  "./pages/TaskPage"
 import TimerPage from "./pages/TimerPage/TimerPage"
 import HistoryPage from "./pages/HistoryPage"
+import NotFound from './pages/NotFound/NotFound'
 import './App.css'
 
 function App() {
@@ -17,7 +18,7 @@ function App() {
           <Route path='/Tasks' element={<TaskPage/>} />
           <Route path='/Timer' element={<TimerPage/>} />
           <Route path='/History' element={<HistoryPage/>} />
-          <Route path='*' element={"Page not found"} />
+          <Route path='*' element={<NotFound />} />
         </Routes>
       </main>
     </div>
