@@ -1,7 +1,27 @@
-import { useMemo, useReducer } from "react"
-import SessionContext, { type Session } from "./SessionContext"
-import useFormatTime from "../../hooks/useFormatTime";
-import calculateDuration from "../../utils/calculateDurationHelper";
+import { useMemo, useReducer, createContext, useContext } from "react"
+import useFormatTime from "../hooks/useFormatTime";
+import calculateDuration from "../utils/calculateDurationHelper";
+
+export interface Session {
+  id: string | number,
+  sessionName: string,
+  category: string,
+  productivity: string,
+  date: string,
+  startTime: string,
+  endTime: string,
+  msDuration: number,
+  activeTime?: string,
+}
+
+interface SessionContextValue {
+  sessions: Session[],
+  addSession: (session: Session) => void,
+  deleteSession: (id: number) => void,
+  editSession: (session: Session) => void,
+}
+
+const SessionContext = createContext<SessionContextValue | null>(null)
 
 type SessionAction =
   | {type: "ADD", payload: Session}
@@ -99,6 +119,15 @@ function SessionProvider({children}: {children: React.ReactNode}) {
     </SessionContext.Provider>
   )
 
+}
+
+export function useSessions() {
+  const context = useContext(SessionContext)
+  if(!context) {
+    throw new Error("useSessions must be used within a SessionProvider")
+  }
+
+  return context
 }
 
 export default SessionProvider

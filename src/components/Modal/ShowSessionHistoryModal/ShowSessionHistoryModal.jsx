@@ -1,12 +1,12 @@
 import { useState } from "react";
-import useSessions from "../../../hooks/useSession";
+import { useSessions } from "../../../context/SessionProvider";
+import useFormatTime from "../../../hooks/useFormatTime";
 
 import Modal from "../Modal";
 import Card from "../../Card/Card"
 import Button from "../../Button/Button";
 import Input from "../../Input/Input";
 import Select from "../../Input/Select";
-import useFormatTime from "../../../hooks/useFormatTime";
 import "./ShowSessionHistoryModal.css"
 
 

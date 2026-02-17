@@ -1,13 +1,13 @@
-import { useContext, useMemo } from 'react';
+import { useMemo } from 'react';
 import { CartesianGrid, Line, LineChart, XAxis, YAxis, ResponsiveContainer, Legend, Tooltip } from 'recharts';
 
 import useFormatTime from "../../hooks/useFormatTime.jsx"
-import SessionContext from '../../context/Session/SessionContext';
+import { useSessions } from '../../context/SessionProvider.js';
 import graphData from '../../utils/graphHelper.js';
 import "./StatsGraph.css"
 
 function StatsGraph() {
-  const { sessions } = useContext(SessionContext)
+  const { sessions } = useSessions()
   const makeMsReadable = useFormatTime()
 
   const chartData = useMemo(() => {

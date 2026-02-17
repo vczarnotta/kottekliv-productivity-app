@@ -6,7 +6,7 @@ import Modal from "../../components/Modal/Modal"
 import Productivity from "../../components/Productivity/Productivity"
 
 import { TimerContext } from "../../context/TimerContext"
-import SessionContext from "../../context/Session/SessionContext"
+import { useSessions } from "../../context/SessionProvider"
 import { useState, useContext } from "react"
 
 import "./TimerPage.css"
@@ -18,7 +18,7 @@ function TimerPage() {
   const [ chosenProductivity, setChosenProductivity ] = useState(null)
 
   const { startTimer, pauseTimer, saveTimer, state } = useContext(TimerContext);
-  const { addSession, editSession } = useContext(SessionContext)
+  const { addSession, editSession } = useSessions()
 
   //Create new session when save button is clicked
   const handleSave = () => {
