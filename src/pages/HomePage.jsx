@@ -16,22 +16,18 @@ function HomePage() {
   const { sessions } = useSessions();
   const makeMsReadable = useFormatTime();
 
-  console.log(sessions[0]?.msDuration)
 
   // ---- calculations/logic ----
 
   // define "TODAY" for accurate filter
   const today = new Date().toISOString().split("T")[0];
-  console.log("1: " + today)
 
   // remove everything that isn't "today" AND "Deep Work"
   const todaySessions = sessions.filter(s => 
     s.date === today && s.category === "Deep Work"
   );
-  console.log("2: " + todaySessions)
   // add upp all ms for "today"
   const totalMsToday = todaySessions.reduce((sum, s) => sum + s.msDuration, 0);
-  console.log("3: " + totalMsToday)
   // human format
   const timeToday = makeMsReadable(totalMsToday);
 
@@ -54,7 +50,7 @@ function HomePage() {
   // human format
   const timeWeek = makeMsReadable(totalMsWeek);
 
-  console.log(timeToday)
+
 
   // ---- HTML ----
 
