@@ -1,36 +1,40 @@
 import { useMemo, useReducer } from "react"
-import SessionContext from "./SessionContext"
+import SessionContext, { type Session } from "./SessionContext"
 import useFormatTime from "../../hooks/useFormatTime";
 import calculateDuration from "../../utils/calculateDurationHelper";
 
-function SessionReducer(state, action) {
-  let newState = null
+type SessionAction =
+  | {type: "ADD", payload: Session}
+  | {type: "DELETE", payload: number | string}
+  | {type: "EDIT", payload: Session}
+
+function SessionReducer(state: Session[], action: SessionAction): Session[] {
+  let updatedSessions: Session[] = state
 
   switch(action.type) {
     case "ADD": {
 
-      if(!action.payload.msDuration) {
-        action.payload.msDuration = calculateDuration(
-          action.payload.date, 
-          action.payload.startTime, 
-          action.payload.endTime
-        )
-      }
+      const duration: number = action.payload.msDuration || calculateDuration({
+        date: action.payload.date, 
+        start: action.payload.startTime, 
+        end: action.payload.endTime
+      })
 
       //Set default value if no input is given
-      const sessionToAdd = {
+      const newSession = {
         ...action.payload,
+        msDuration: duration,
         sessionName: action.payload.sessionName?.trim() || "Untitled Session",
         productivity: action.payload.productivity || "0 - Not Rated",
       }
-      newState = [sessionToAdd, ...state]
+      updatedSessions = [newSession, ...state]
       break 
     }
     case "DELETE":
-      newState = state.filter(session => session.id !== action.payload)
+      updatedSessions = state.filter(session => session.id !== action.payload)
       break
     case "EDIT":
-      newState = state.map(session => 
+      updatedSessions = state.map(session => 
         session.id === action.payload.id 
         ? { 
             ...session,
@@ -42,12 +46,12 @@ function SessionReducer(state, action) {
       return state
   }
 
-  localStorage.setItem("sessions", JSON.stringify(newState))
-  return newState
+  localStorage.setItem("sessions", JSON.stringify(updatedSessions))
+  return updatedSessions
 }
 
-function SessionProvider({children}) {
-  const initialState = JSON.parse(localStorage.getItem("sessions")) || []
+function SessionProvider({children}: {children: React.ReactNode}) {
+  const initialState: Session[] = JSON.parse(localStorage.getItem("sessions") || "[]") as Session[]
   const [ state, dispatch ] = useReducer(SessionReducer, initialState)
   const makeMsReadable = useFormatTime()
 
@@ -60,29 +64,32 @@ function SessionProvider({children}) {
     })
   }, [state])
 
-  const addSession = (completeSession) => {
+  const addSession = (incomingSession: Session) => {
+    let draftSession = { ...incomingSession }
+
     //If added manually, add activetime and duration
-    if (!completeSession.activeTime) {
-      const ms = completeSession.msDuration || calculateDuration(
-        completeSession.date,
-        completeSession.startTime,
-        completeSession.endTime
-      )
+    if (!draftSession.activeTime) {
+      const ms = draftSession.msDuration || calculateDuration({
+        date: draftSession.date,
+        start: draftSession.startTime,
+        end: draftSession.endTime
+      }
+    )
       
-      completeSession.activeTime = makeMsReadable(ms)
-      completeSession.msDuration = ms
+      draftSession.activeTime = makeMsReadable(ms)
+      draftSession.msDuration = ms
     }
 
-    dispatch({ type: "ADD", payload: completeSession })
+    dispatch({ type: "ADD", payload: draftSession })
   }
 
-  const deleteSession = (id) => {
+  const deleteSession = (id: string | number) => {
     if(window.confirm("Are you sure you want to delete this session?")){
         dispatch({ type: "DELETE", payload: id });
     }
   };
 
-  const editSession = (updatedSession) => {
+  const editSession = (updatedSession: Session) => {
     dispatch({ type: "EDIT", payload: updatedSession });
   };
 
