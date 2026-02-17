@@ -3,7 +3,7 @@ import useFormatTime from "../hooks/useFormatTime";
 import calculateDuration from "../utils/calculateDurationHelper";
 
 export interface Session {
-  id: string | number,
+  id: string,
   sessionName: string,
   category: string,
   productivity: string,
@@ -17,7 +17,7 @@ export interface Session {
 interface SessionContextValue {
   sessions: Session[],
   addSession: (session: Session) => void,
-  deleteSession: (id: number) => void,
+  deleteSession: (id: string) => void,
   editSession: (session: Session) => void,
 }
 
@@ -25,7 +25,7 @@ const SessionContext = createContext<SessionContextValue | null>(null)
 
 type SessionAction =
   | {type: "ADD", payload: Session}
-  | {type: "DELETE", payload: number | string}
+  | {type: "DELETE", payload: string}
   | {type: "EDIT", payload: Session}
 
 function SessionReducer(state: Session[], action: SessionAction): Session[] {
@@ -103,15 +103,15 @@ function SessionProvider({children}: {children: React.ReactNode}) {
     dispatch({ type: "ADD", payload: draftSession })
   }
 
-  const deleteSession = (id: string | number) => {
+  const deleteSession = (id: string) => {
     if(window.confirm("Are you sure you want to delete this session?")){
-        dispatch({ type: "DELETE", payload: id });
+        dispatch({ type: "DELETE", payload: id })
     }
-  };
+  }
 
   const editSession = (updatedSession: Session) => {
-    dispatch({ type: "EDIT", payload: updatedSession });
-  };
+    dispatch({ type: "EDIT", payload: updatedSession })
+  }
 
   return(
     <SessionContext.Provider value={{ sessions: sortedSessions, addSession, deleteSession, editSession }}>

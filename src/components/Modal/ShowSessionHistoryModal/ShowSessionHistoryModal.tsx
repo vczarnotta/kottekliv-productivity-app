@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useSessions } from "../../../context/SessionProvider";
+import { type Session, useSessions } from "../../../context/SessionProvider";
 import useFormatTime from "../../../hooks/useFormatTime";
 
 import Modal from "../Modal";
@@ -9,29 +9,31 @@ import Input from "../../Input/Input";
 import Select from "../../Input/Select";
 import "./ShowSessionHistoryModal.css"
 
-
-
-function ShowSessionHistoryModal({onClose}) {
+function ShowSessionHistoryModal({onClose}: {onClose: () => void}) {
   //TODO: Switch mocksessions to localstorage
   const { sessions, deleteSession, editSession } = useSessions()
   
   //State to know which session is being edited and to keep the data
-  const [ editingId, setEditingId ] = useState(null)
-  const [ editData, setEditData ] = useState(({}))
-  const [ editActiveTime, setEditActiveTime ] = useState("")
+  const [ editingId, setEditingId ] = useState<string>("")
+  const [ editData, setEditData ] = useState<Session | null>(null)
+  const [ editActiveTime, setEditActiveTime ] = useState<string>("")
 
   const makeMsReadable = useFormatTime()
   
   //Start edit mode
-  const startEdit = (id) => {
-    const sessionToEdit = sessions.find(s => s.id === id) //find which one to edit
-    setEditData(sessionToEdit) //Save the current data
-    setEditActiveTime(Math.round(sessionToEdit.msDuration / 60000)) //Change to human readable format (minutes)
+  const startEdit = (id: string) => {
+    const incomingSession = sessions.find(s => s.id === id) //find which one to edit
+    if(!incomingSession) return
+
+    setEditData(incomingSession) //Save the current data
+    setEditActiveTime(String(Math.round(incomingSession.msDuration / 60000))) //Change to human readable format (minutes)
     setEditingId(id)
   }
 
   //Use Session Context to update data and then leave edit mode
   const saveEdit = () => {
+    if(!editData) return
+
     const finalMinutes = parseFloat(editActiveTime) || 0
     const newMs = finalMinutes * 60000
 
@@ -42,15 +44,15 @@ function ShowSessionHistoryModal({onClose}) {
     }
 
     editSession(updatedSession)
-    setEditingId(null)
-    setEditData({})
+    setEditingId("")
+    setEditData(null)
   }
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     if(e.target.name === "msDuration") {
       setEditActiveTime(e.target.value)
     } else {
-      setEditData({...editData, [e.target.name]: e.target.value})
+      setEditData(prev => prev ? { ...prev, [e.target.name]: e.target.value } : null)
     }
   }
 
@@ -74,7 +76,7 @@ function ShowSessionHistoryModal({onClose}) {
                 label="Session Name"
                 id="sessionName"
                 name="sessionName"
-                value={editData.sessionName}
+                value={editData?.sessionName || ""}
                 onChange={handleChange}
               />
 
@@ -82,7 +84,7 @@ function ShowSessionHistoryModal({onClose}) {
                 label="Category"
                 id="category"
                 name="category"
-                value={editData.category}
+                value={editData?.category || ""}
                 selectLabel="Select Category"
                 onChange={handleChange}
 
@@ -99,7 +101,7 @@ function ShowSessionHistoryModal({onClose}) {
                 label="Productivity"
                 id="productivity"
                 name="productivity"
-                value={editData.productivity === "0 - Not Rated" ? "" : editData.productivity}
+                value={editData?.productivity || ""}
                 selectLabel="Select Productivity"
                 onChange={handleChange}
 
@@ -117,7 +119,8 @@ function ShowSessionHistoryModal({onClose}) {
                   type="date"
                   label="Date"
                   name="date"
-                  value={editData.date}
+                  id="date"
+                  value={editData?.date || ""}
                   onChange={handleChange}
                 />
 
@@ -126,14 +129,16 @@ function ShowSessionHistoryModal({onClose}) {
                     type="time"
                     label="Start Time"
                     name="startTime"
-                    value={editData.startTime}
+                    id="startTime"
+                    value={editData?.startTime || ""}
                     onChange={handleChange}
                   />
                   <Input
                     type="time"
                     label="End Time"
                     name="endTime"
-                    value={editData.endTime}
+                    id="endTime"
+                    value={editData?.endTime || ""}
                     onChange={handleChange}
                   />
                 </div>
@@ -143,6 +148,7 @@ function ShowSessionHistoryModal({onClose}) {
                 type="number"
                 label="Active Time (minutes)"
                 name="msDuration"
+                id="msDuration"
                 value={editActiveTime}
                 onChange={handleChange}
               />
@@ -156,7 +162,7 @@ function ShowSessionHistoryModal({onClose}) {
                 </Button>
 
                 <Button
-                  onClick={() => { setEditingId(null); setEditData({}) }}
+                  onClick={() => { setEditingId(""); setEditData(null) }}
                   variant="secondary"
                   size="small"
                 >
