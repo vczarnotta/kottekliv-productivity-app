@@ -21,12 +21,9 @@ h1 {
   margin-bottom: var(--space-lg);
 }
 
-nav ul {
-  list-style: none;
-  padding: 0;
-}
-
-nav li {
+.nav-item {
+  display: flex;
+  text-decoration: none;
   padding: var(--space-xs);
   text-align: start;
   height: 40px;
@@ -34,11 +31,11 @@ nav li {
   color: var(--color-text-muted);
 }
 
-nav li:hover {
+.nav-item:hover {
   cursor: pointer;
 }
 
-nav li.active {
+.nav-item.active {
   color: var(--color-text);
   font-weight: 500;
 }
