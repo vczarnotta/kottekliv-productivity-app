@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { CartesianGrid, Line, LineChart, XAxis, YAxis, ResponsiveContainer, Legend, Tooltip } from 'recharts';
+import { CartesianGrid, Line, LineChart, XAxis, YAxis, ResponsiveContainer, Legend, Tooltip, type LineProps } from 'recharts';
 
 import useFormatTime from "../../hooks/useFormatTime.jsx"
 import { useSessions } from '../../context/SessionContext.js';
@@ -19,7 +19,7 @@ function StatsGraph() {
   }, [sessions])
 
   /* Line styleing */
-  const lineProps = {
+  const lineProps: Partial<LineProps> = {
     type: "monotone",
     strokeWidth: 2,
     activeDot: { r: 6, strokeWidth: 0 }
@@ -62,12 +62,15 @@ function StatsGraph() {
           />
           
           {/* Shows when hover */}
-          <Tooltip 
+          <Tooltip<number, string>
             formatter={(value, name) => {
-              if (name.includes("Time")) {
-                return [makeMsReadable(value * 60000), name]
+              if (value === undefined) return [0, name ?? "Unknown"]
+              const displayName = name ?? "Unknown"
+
+              if (displayName.includes("Time")) {
+                return [makeMsReadable(value * 60000), displayName]
               }
-              return [value, name];
+              return [value, displayName];
             }}
           />
           
