@@ -1,4 +1,4 @@
-import { useSessions, type Session } from "../../../context/SessionProvider";
+import { useSessions, type Session } from "../../../context/SessionContext";
 
 import Modal from "../Modal";
 import Input from "../../Input/Input";

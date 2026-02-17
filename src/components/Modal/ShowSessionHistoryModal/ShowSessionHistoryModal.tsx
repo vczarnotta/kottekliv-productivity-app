@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { type Session, useSessions } from "../../../context/SessionProvider";
+import { type Session, useSessions } from "../../../context/SessionContext";
 import useFormatTime from "../../../hooks/useFormatTime";
 
 import Modal from "../Modal";

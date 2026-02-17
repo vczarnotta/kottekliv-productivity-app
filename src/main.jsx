@@ -4,7 +4,7 @@ import './index.css'
 import App from './App.jsx'
 import { TodoProvider } from './context/TodoContext.jsx'
 import { TimerProvider } from './context/TimerContext.jsx'
-import SessionProvider from './context/SessionProvider.js'
+import SessionProvider from './context/SessionContext.js'
 
 // TodoProvider gör så att den går att använda hela vägen neråt i DOM trädet. det blir som en antenn
 

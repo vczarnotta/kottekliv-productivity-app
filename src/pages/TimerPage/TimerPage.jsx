@@ -6,7 +6,7 @@ import Modal from "../../components/Modal/Modal"
 import Productivity from "../../components/Productivity/Productivity"
 
 import { TimerContext } from "../../context/TimerContext"
-import { useSessions } from "../../context/SessionProvider"
+import { useSessions } from "../../context/SessionContext"
 import { useState, useContext } from "react"
 
 import "./TimerPage.css"

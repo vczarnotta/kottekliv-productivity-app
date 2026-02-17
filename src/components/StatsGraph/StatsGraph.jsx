@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { CartesianGrid, Line, LineChart, XAxis, YAxis, ResponsiveContainer, Legend, Tooltip } from 'recharts';
 
 import useFormatTime from "../../hooks/useFormatTime.jsx"
-import { useSessions } from '../../context/SessionProvider.js';
+import { useSessions } from '../../context/SessionContext.js';
 import graphData from '../../utils/graphHelper.js';
 import "./StatsGraph.css"
 

@@ -4,7 +4,7 @@ import { TodoContext } from "../context/TodoContext"
 import { useContext } from "react"
 import TodoListDisplay from "../components/Tasks/TodoListDisplay"
 import WelcomeMessage from "../components/WelcomeMessage/WelcomeMessage"
-import { useSessions } from "../context/SessionProvider"
+import { useSessions } from "../context/SessionContext"
 import useFormatTime from "../hooks/useFormatTime"
 
 import StatsGraph from "../components/StatsGraph/StatsGraph"
