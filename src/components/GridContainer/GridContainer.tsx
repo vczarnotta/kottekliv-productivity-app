@@ -2,7 +2,7 @@ import "./GridContainer.css"
 
 interface GridContainerProps {
   children: React.ReactNode,
-  columns: number,
+  columns?: number,
   fullheight?: boolean
 }
 
