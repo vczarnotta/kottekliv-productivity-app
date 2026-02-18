@@ -1,10 +1,11 @@
 import { useParams } from "react-router-dom";
 import { useTodo } from "../../context/TodoContext";
+import { Circle, CheckCircle2 } from "lucide-react"
 import "./TodoListDisplay.css";
 
 
 // Can choose if "delete" button should be visible
-function TodoListDisplay({ showDeleteButton = false, isOverview = false }) {
+function TodoListDisplay({isOverview = false }) {
 
   // imports global info
   const { state, dispatch } = useTodo()
@@ -34,29 +35,28 @@ function TodoListDisplay({ showDeleteButton = false, isOverview = false }) {
   
   // returns an unordered list with all tasks
   return (
-    <ul>
+    <ul className="todo-list">
       {sortedTasks.map((task) => (
         <li 
-          key={task.id}
-          className={task.isCompleted ? "todo-item completed" : "todo-item"}
+        key={task.id}
+        className={task.isCompleted ? "todo-item completed" : "todo-item"}
         >
-          <span>
-            {task.text}
-            {(isOverview || !urlListId) && <small className="list-tag"> ({state.find(l => l.id === task.listId)?.title})</small>}
-          </span>
-          <div>
-            {showDeleteButton && (
-              <button onClick={() => dispatch({ type: "DELETE_TODO", payload: {todoId: task.id, listId: urlListId || task.listId} })}>
-                X
-              </button>
-            )}
-            <input
-              type="checkbox"
-              className="todo-checkbox"
-              checked={task.isCompleted}
-              onChange={() => dispatch({ type: "TOGGLE_TODO", payload: {todoId: task.id, listId: urlListId || task.listId} })}
-            />
+          <div className="todo-checkbox">
+            <button 
+              onClick={() => dispatch({ type: "TOGGLE_TODO", payload: {todoId: task.id, listId: urlListId || task.listId} })}
+              className="check-btn"
+            >
+              {task.isCompleted ? (
+                <CheckCircle2 size={20} color="var(--color-primary)" fill="var(--color-primary-light)" />
+              ) : (
+                <Circle size={20} color="var(--color-primary)" />
+              )}
+            </button>
           </div>
+          <p>
+            <span className="todo-text">{task.text}</span>
+            {isOverview && <span className="list-tag"> ({state.find(l => l.id === task.listId)?.title})</span>}
+          </p>
         </li>
       ))}
     </ul>

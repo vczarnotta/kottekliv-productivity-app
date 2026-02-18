@@ -8,6 +8,8 @@
 
   background-color: var(--color-bg-surface);
   box-shadow: var(--shadow-md);
+  max-width: 100%;
+  min-width: 0
 }
 
 .card-content {
