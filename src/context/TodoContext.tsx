@@ -1,4 +1,5 @@
 import { createContext, useReducer, useEffect, useContext } from "react";
+import TodoList from "../components/Tasks/TodoListForm";
 
 interface Todo {
   id: number;
@@ -7,16 +8,24 @@ interface Todo {
   completedAt?: number | null;
 }
 
+interface TodoList {
+  id: string;
+  title: string;
+  todos: Todo[];
+}
+
 type TodoAction =
-  | { type: "ADD"; payload: string }
-  | { type: "DELETE"; payload: number}
-  | { type: "TOGGLE"; payload: number};
+  | { type: "CREATE_LIST"; payload: string }
+  | { type: "DELETE_LIST"; payload: string}
+  | { type: "ADD_TODO"; payload: {text: string, listId: string} }
+  | { type: "TOGGLE_TODO"; payload: {todoId: number, listId: string}}
+  | { type: "DELETE_TODO"; payload: {todoId: number, listId: string}}
 //
 // använda "createContext" som en radio som skickar info till komponenter
 //
 
 interface TodoContextType {
-  state: Todo[];
+  state: TodoList[];
   dispatch: React.Dispatch<TodoAction>;
   totalItems: number;
 }
@@ -26,36 +35,64 @@ export const TodoContext = createContext<TodoContextType | undefined>(undefined)
 
 
 // get saved list from previous session, or return empty list
-const getSavedTodos = (): Todo[] => {
+const getSavedTodos = (): TodoList[] => {
   const savedData = localStorage.getItem("users-todo-list")
 
-  return savedData ? JSON.parse(savedData) as Todo[] : [];
+  return savedData ? JSON.parse(savedData) : [];
 
 // typeof(localStorage.getItem("users-todo-list")) ----> string ----> empty string = falsy
 };
 
 
-function toDoreducer(state: Todo[], action: TodoAction) {
+function toDoreducer(state: TodoList[], action: TodoAction) {
   switch (action.type) {
-    case "ADD":
-      return [...state, { text: action.payload, isCompleted: false, id: Date.now()}]; // attatch unique id so i can delete later -> using date so i can sort based on creation
-    case "DELETE":
-      return state.filter(task => task.id !== action.payload); // returnerar allt förutom det som matchade
-    case "TOGGLE":
-      // if ID matches, switch the toggle
-      return state.map(task => {
-        if (task.id === action.payload) {
-          const newIsCompleted = !task.isCompleted
-          // if yes -> reverse the isCompleted boolean and save timestamp
-          return { 
-            ...task, 
-            isCompleted: newIsCompleted,
-            completedAt: newIsCompleted ? Date.now() : null
+    case "CREATE_LIST":
+      return [...state, {id: Date.now().toString(), title: action.payload, todos: []}]
+    case "DELETE_LIST":
+      return state.filter((list: TodoList) => list.id !== action.payload)
+    case "ADD_TODO":
+      return state.map((list) => {
+        if (list.id === action.payload.listId) {
+          return {
+            ...list,
+            todos: [...list.todos, {text: action.payload.text, isCompleted: false, id: Date.now()}] // attatch unique id so i can delete later -> using date so i can sort based on creation
           }
         }
-        // if no -> don't change it
-        return task
-        })
+        return list
+      })      
+    case "DELETE_TODO":
+      return state.map((list) => {
+        if(list.id === action.payload.listId) {
+          return {
+            ...list,
+            todos: list.todos.filter((task: Todo) => task.id !== action.payload.todoId) // returnerar allt förutom det som matchade
+          }
+        }
+        return list
+      })
+    case "TOGGLE_TODO":
+      // if ID matches, switch the toggle
+      return state.map(list => {
+        if(list.id === action.payload.listId) {
+          return {
+            ...list,
+            todos: list.todos.map((task: Todo) => {
+              if (task.id === action.payload.todoId) {
+                const newIsCompleted = !task.isCompleted
+                // if yes -> reverse the isCompleted boolean and save timestamp
+                return { 
+                  ...task, 
+                  isCompleted: newIsCompleted,
+                  completedAt: newIsCompleted ? Date.now() : null
+                }
+              }
+              // if no -> don't change it
+              return task
+            })
+          }
+        }
+        return list
+      })
     default:
       return state;
   }
@@ -69,7 +106,7 @@ export function TodoProvider({ children }: { children: React.ReactNode }) {
     localStorage.setItem("users-todo-list", JSON.stringify(state));
   }, [state])
 
-  const totalItems = Object.keys(state).length;
+  const totalItems = state.reduce((acc, list) => acc + list?.todos?.length, 0)
 
 
   // value=  är antenn signalerna som skickas. 
