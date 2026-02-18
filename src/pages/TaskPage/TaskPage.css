@@ -1,3 +1,10 @@
+.todo-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/*Arrows*/
 .nav-wrapper {
   display: flex;
   align-items: center;
@@ -18,14 +25,7 @@
   stroke: var(--color-primary);
 }
 
-.todo-container {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  padding-bottom: var(--space-lg);
-  width: 100%;
-}
-
+/* Navigation */
 .todo-nav {
   display: flex;
   gap: var(--space-sm);
@@ -35,14 +35,15 @@
 }
 
 .todo-nav-item {
+  display: flex;
+  align-items: center;
   padding: var(--space-xs) var(--space-sm);
   border-radius: var(--radius-pill);
-  text-decoration: none;
-  color: var(--color-text-muted);
   font-size: var(--font-size-sm);
-  white-space: nowrap;
+  color: var(--color-text-muted);
   transition: all 0.2s ease;
   border: 1px solid transparent;
+  text-decoration: none;
 }
 
 .todo-nav-item.active {
@@ -54,4 +55,38 @@
 
 .todo-nav-item:hover:not(.active) {
   background-color: var(--color-border-muted);
+}
+
+/*Delete button*/
+.delete-list-button {
+  display: inline-flex;
+  justify-content: right;
+  background-color: transparent;
+  border: none;
+  opacity: 0;
+  transition: all 0.2s ease;
+  margin: 0;
+  width: 0;
+  padding: 0;
+}
+
+.delete-list-button svg {
+  stroke: var(--color-text-muted);
+  width: 14px;
+}
+
+.delete-list-btn:hover svg {
+  stroke: var(--color-primary);
+}
+
+.todo-nav-item.active .delete-list-button,
+.todo-nav-item:hover .delete-list-button {
+  opacity: 1;
+  margin-left: var(--space-md);
+  width: 24px;
+}
+
+.delete-list-button:hover svg {
+  stroke: var(--color-primary);
+  transform: scale(1.1); /* En liten extra feedback vid hover */
 }

@@ -1,5 +1,8 @@
 .todo-list {
   padding: 0;
+  flex: 1;
+  overflow-y: auto;
+  min-height: 0;
 }
 
 .todo-item {
@@ -27,9 +30,26 @@
 .todo-checkbox button {
   background-color: transparent;
   border: none;
-
 }
 
 .list-tag {
   font-size: var(--font-size-sm);
+}
+
+/* Scroll bar */
+.todo-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.todo-list::-webkit-scrollbar-track {
+  background: transparent; 
+}
+
+.todo-list::-webkit-scrollbar-thumb {
+  background-color: var(--color-neutral);
+  border-radius: var(--radius-pill);
+}
+
+.todo-list::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-neutral-hover);
 }

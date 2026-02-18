@@ -47,7 +47,7 @@ function TodoListDisplay({isOverview = false }) {
               className="check-btn"
             >
               {task.isCompleted ? (
-                <CheckCircle2 size={20} color="var(--color-primary)" fill="var(--color-primary-light)" />
+                <CheckCircle2 size={20} color="var(--color-primary)" fill="var(--color-bg-surface)" />
               ) : (
                 <Circle size={20} color="var(--color-primary)" />
               )}

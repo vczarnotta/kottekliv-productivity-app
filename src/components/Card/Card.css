@@ -12,9 +12,29 @@
   min-width: 0
 }
 
+.card-base {
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-lg);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border-muted);
+  text-align: left;
+
+  background-color: var(--color-bg-surface);
+  box-shadow: var(--shadow-md);
+  max-width: 100%;
+  min-width: 0;
+  height: 100%;
+  min-height: 0;
+}
+
 .card-content {
   color: var(--color-text-muted);
   flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
 }
 
 .card-title {
@@ -22,6 +42,7 @@
   margin-bottom: var(--space-md);
   font-size: var(--font-size-lg);
   font-weight: 700;
+  flex-shrink: 0;
 }
 
 .is-clickable {

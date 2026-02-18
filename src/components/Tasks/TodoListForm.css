@@ -1,5 +1,6 @@
 .todo-form {
-  margin-top: auto;
+  flex-shrink: 0;
+  padding-top: var(--space-md);
 }
 
 .todo-form form {
