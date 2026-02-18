@@ -1,5 +1,7 @@
 import { useState } from "react";
+import { useParams } from "react-router-dom";
 import Button from "../Button/Button";
+import Input from "../Input/Input";
 import "./TodoList.css";
 import { useTodo } from "../../context/TodoContext";
 import TodoListDisplay from "./TodoListDisplay";
@@ -8,16 +10,17 @@ import TodoListDisplay from "./TodoListDisplay";
 function TodoList() {
 
   const [text, setText] = useState("");
+  const {listId} = useParams<{listId: string}>() //Get ID from URL
   const {dispatch, totalItems} = useTodo();
 
 
 
-  const handleSubmit = (event: React.FormEvent) => { // avoids weird refresh i think?
+  const handleSubmit = (event: React.SubmitEvent) => { // avoids weird refresh i think?
       event.preventDefault();
-      if (text.trim() === "") return;
+      if (text.trim() === "" || !listId) return
 
       // sends text as payload and then deletes it from text useState
-      dispatch({ type: "ADD", payload: text}) 
+      dispatch({ type: "ADD_TODO", payload: {text, listId}}) 
       setText("");
   };
 
@@ -25,14 +28,15 @@ function TodoList() {
   return (
   <>
     <form onSubmit={handleSubmit}>
-      <input 
+      <Input
         type="text"
         value={text}
+        id="taskInput"
         onChange={(event => setText(event.target.value))}
         placeholder="Add a new task..." 
       />
       
-      <Button type="submit" onClick={() => {console.log()}}>
+      <Button type="submit">
         Add Task
       </Button>
     </form>
@@ -40,9 +44,6 @@ function TodoList() {
     <h3>{totalItems} items on your list</h3>
 
     <TodoListDisplay showDeleteButton={false} />
-
-    {/* bugfix // dev */}
-    <button onClick={() => console.log(localStorage.getItem("users-todo-list"))}>console log</button>
   </>
   )
 }

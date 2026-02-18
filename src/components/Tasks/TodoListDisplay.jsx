@@ -1,16 +1,30 @@
-import { useContext } from "react";
-import { TodoContext } from "../../context/TodoContext";
+import { useParams } from "react-router-dom";
+import { useTodo } from "../../context/TodoContext";
 import "./TodoListDisplay.css";
 
 
 // Can choose if "delete" button should be visible
-function TodoListDisplay({ showDeleteButton = false }) {
+function TodoListDisplay({ showDeleteButton = false, isOverview = false }) {
 
     // imports global info
-    const { state, dispatch } = useContext(TodoContext);
+    const { state, dispatch } = useTodo()
+    const { listId: urlListId } = useParams()
+
+    //Find which todos to show
+    let tasksToDisplay = []
+
+    if (isOverview || !urlListId) {
+        // If in a specific list
+        tasksToDisplay = state.flatMap((list) =>
+        (list.todos || []).map((todo) => ({ ...todo, listId: list.id })))
+    } else {
+        // If in overview - show all lists and tag with listId
+        const currentList = state.find((list) => list.id.toString() === urlListId);
+        tasksToDisplay = currentList ? currentList.todos : []
+    }
 
     // new array that is sorted based on completion status
-    const sortedTasks = [...state].sort((a, b) => {
+    const sortedTasks = [...tasksToDisplay].sort((a, b) => {
       if (a.isCompleted !== b.isCompleted) {
         return a.isCompleted - b.isCompleted // sort by completion status
       }
@@ -26,10 +40,13 @@ function TodoListDisplay({ showDeleteButton = false }) {
                 key={task.id}
                 className={task.isCompleted ? "todo-item completed" : "todo-item"}
             >
-                <span>{task.text}</span>
+                <span>
+                    {task.text}
+                    {(isOverview || !urlListId) && <small className="list-tag"> ({state.find(l => l.id === task.listId)?.title})</small>}
+                </span>
                 <div>
                     {showDeleteButton && (
-                        <button onClick={() => dispatch({ type: "DELETE", payload: task.id })}>
+                        <button onClick={() => dispatch({ type: "DELETE_TODO", payload: {todoId: task.id, listId: urlListId || task.listId} })}>
                             X
                         </button>
                     )}
@@ -37,7 +54,7 @@ function TodoListDisplay({ showDeleteButton = false }) {
                         type="checkbox"
                         className="todo-checkbox"
                         checked={task.isCompleted}
-                        onChange={() => dispatch({ type: "TOGGLE", payload: task.id })}
+                        onChange={() => dispatch({ type: "TOGGLE_TODO", payload: {todoId: task.id, listId: urlListId || task.listId} })}
                     />
                 </div>
             </li>
