@@ -10,6 +10,7 @@
 
 .todo-stats {
   margin-bottom: var(--space-sm);
+  font-size: var(--font-size-sm);
 }
 
 /*Arrows*/
