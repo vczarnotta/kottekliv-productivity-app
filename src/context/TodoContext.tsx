@@ -1,4 +1,4 @@
-import { createContext, useReducer, useEffect, useContext } from "react";
+import { createContext, useReducer, useEffect, useContext, useCallback } from "react";
 import TodoList from "../components/Tasks/TodoListForm";
 
 interface Todo {
@@ -15,10 +15,11 @@ interface TodoList {
 }
 
 type TodoAction =
-  | { type: "CREATE_LIST"; payload: string }
+  | { type: "CREATE_LIST"; payload: {title: string, id: string} }
   | { type: "DELETE_LIST"; payload: string}
   | { type: "ADD_TODO"; payload: {text: string, listId: string} }
   | { type: "TOGGLE_TODO"; payload: {todoId: number, listId: string}}
+  | { type: "EDIT_TODO"; payload: {todoId: number, listId: string, newText: string}}
   | { type: "DELETE_TODO"; payload: {todoId: number, listId: string}}
 //
 // använda "createContext" som en radio som skickar info till komponenter
@@ -27,7 +28,7 @@ type TodoAction =
 interface TodoContextType {
   state: TodoList[];
   dispatch: React.Dispatch<TodoAction>;
-  totalItems: number;
+  getProgress: (todos: Todo[]) => { totalTodos: number; finishedTodos: number }
 }
 
 // sändaren
@@ -47,7 +48,7 @@ const getSavedTodos = (): TodoList[] => {
 function toDoreducer(state: TodoList[], action: TodoAction) {
   switch (action.type) {
     case "CREATE_LIST":
-      return [...state, {id: Date.now().toString(), title: action.payload, todos: []}]
+      return [...state, {id: action.payload.id, title: action.payload.title, todos: []}]
     case "DELETE_LIST":
       return state.filter((list: TodoList) => list.id !== action.payload)
     case "ADD_TODO":
@@ -66,6 +67,24 @@ function toDoreducer(state: TodoList[], action: TodoAction) {
           return {
             ...list,
             todos: list.todos.filter((task: Todo) => task.id !== action.payload.todoId) // returnerar allt förutom det som matchade
+          }
+        }
+        return list
+      })
+    case "EDIT_TODO":
+      return state.map((list) => {
+        if(list.id === action.payload.listId) {
+          return {
+            ...list,
+            todos: list.todos.map((todo) => {
+              if(todo.id === action.payload.todoId) {
+                return {
+                  ...todo,
+                  text: action.payload.newText
+                }
+              }
+              return todo
+            })
           }
         }
         return list
@@ -106,7 +125,12 @@ export function TodoProvider({ children }: { children: React.ReactNode }) {
     localStorage.setItem("users-todo-list", JSON.stringify(state));
   }, [state])
 
-  const totalItems = state.reduce((acc, list) => acc + list?.todos?.length, 0)
+  const getProgress = useCallback((todos: Todo[] = []) => {
+    const totalTodos = todos.length;
+    const finishedTodos = todos.filter(t => t.isCompleted).length;
+    
+    return { totalTodos, finishedTodos }
+  }, [])
 
 
   // value=  är antenn signalerna som skickas. 
@@ -114,7 +138,7 @@ export function TodoProvider({ children }: { children: React.ReactNode }) {
   // dispatch -> use to update state object (reducer function)
   // totalItems -> returns total items on todo list
   return (
-    <TodoContext.Provider value={{ state, dispatch, totalItems }}> 
+    <TodoContext.Provider value={{ state, dispatch, getProgress }}> 
       {children}
     </TodoContext.Provider>
   )

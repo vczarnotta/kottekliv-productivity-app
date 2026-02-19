@@ -9,7 +9,7 @@ function TodoList() {
 
   const [text, setText] = useState("");
   const {listId} = useParams<{listId: string}>() //Get ID from URL
-  const {dispatch, totalItems} = useTodo();
+  const {dispatch} = useTodo();
 
 
 
@@ -33,7 +33,7 @@ function TodoList() {
           placeholder="Add a new task..." 
         />
         
-        <Button type="submit">
+        <Button type="submit" variant="secondary">
           +
         </Button>
       </form>

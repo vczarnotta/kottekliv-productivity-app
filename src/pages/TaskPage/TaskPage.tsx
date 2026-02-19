@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Outlet, NavLink, useParams } from "react-router-dom"
+import { Outlet, NavLink, useParams, useNavigate } from "react-router-dom"
 import { useTodo } from "../../context/TodoContext"
 import { ChevronRight, ChevronLeft, X } from "lucide-react"
 
@@ -8,7 +8,9 @@ import GridContainer from "../../components/GridContainer/GridContainer"
 import "./TaskPage.css"
 
 function TaskPage() {
-  const { state, dispatch } = useTodo()
+  const navigate = useNavigate();
+
+  const { state, dispatch, getProgress } = useTodo()
   const { listId } = useParams()
   
   const [isAdding, setIsAdding] = useState(false)
@@ -18,14 +20,38 @@ function TaskPage() {
     e.preventDefault();
     if (newListTitle.trim() === "") return
 
-    dispatch({ type: "CREATE_LIST", payload: newListTitle })
+    const newId = Date.now().toString()
+
+    dispatch({ type: "CREATE_LIST", payload: {title: newListTitle, id: newId} })
     setNewListTitle("")
+
+    navigate(`/tasks/${newId}`); //Redirect to the new page
+    setIsAdding(false);
+  }
+
+  // handle click outside input, if nothing is filled, close, if filled, save
+  const handleBlur = () => {
+    const newId = Date.now().toString()
+
+    if (newListTitle.trim() !== "") {
+      dispatch({ type: "CREATE_LIST", payload: {title: newListTitle, id: newId} });
+      setNewListTitle("");
+      navigate(`/tasks/${newId}`); //Redirect to the new page
+    }
+    setIsAdding(false);
   }
 
   const scroll = (offset: number) => {
     const nav = document.getElementById('todo-nav')!
     nav.scrollBy({ left: offset, behavior: 'smooth' })
   }
+
+  //Find total tasks and finished tasks for the current list
+  const currentList = state.find(list => list.id.toString() === listId); //Will be undefined (overview) or the current list
+  const relevantTodos = currentList 
+    ? currentList.todos 
+    : state.flatMap(list => list.todos || []); //If undefined (overview) go through all lists
+  const { totalTodos, finishedTodos } = getProgress(relevantTodos);
 
   //If listId is missing in url then we are in overview
   const showingOverview = !listId
@@ -59,7 +85,7 @@ function TaskPage() {
 
                   {!isAdding ? (
                       <button 
-                        className="add-list-btn" 
+                        className="add-list-button" 
                         onClick={() => setIsAdding(true)}
                       >
                         +
@@ -73,7 +99,7 @@ function TaskPage() {
                           placeholder="Name your list..." 
                           value={newListTitle}
                           onChange={(e) => setNewListTitle(e.target.value)}
-                          onBlur={() => !newListTitle && setIsAdding(false)} // Close if click outside and nothing is filled
+                          onBlur={handleBlur}
                         />
                       </form>
                     )}
@@ -81,7 +107,9 @@ function TaskPage() {
               <button onClick={() => scroll(150)} className="nav-arrow"> <ChevronRight  /> </button>
             </div>
 
-            <h2>{state.find(list => list.id.toString() === listId)?.title || "Overview"}</h2>
+            <h2 className="todo-title">{state.find(list => list.id.toString() === listId)?.title || "Overview"}</h2>
+
+            {totalTodos > 0 ? <p className="todo-stats">{finishedTodos}/{totalTodos} finished</p> : "Start by adding a task!"}
             <Outlet />
           </div>
         </Card>

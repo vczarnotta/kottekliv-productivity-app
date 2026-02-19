@@ -3,6 +3,19 @@
   flex: 1;
   overflow-y: auto;
   min-height: 0;
+  overflow-anchor: none; /*Don´t let the window jump to top when tasks are sorted*/
+}
+
+/* Effect for completed tasks */
+@keyframes taskFadeIn {
+  from { 
+    opacity: 0; 
+    transform: translateY(-5px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
 }
 
 .todo-item {
@@ -10,21 +23,26 @@
   justify-content: left;
   align-items: center;
   gap: var(--space-sm);
-  padding: var(--space-xs) 0;
+  padding: var(--space-xs) var(--space-md) var(--space-xs) 0;
   border-bottom: 1px solid var(--color-border-muted);
   transition: opacity 0.2s ease;
+  animation: taskFadeIn 0.3s ease-out;
+  contain: layout;
+}
+
+.todo-item p {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  gap: var(--space-xs);
+  transition: all 0.3s ease;
+  position: relative;
 }
 
 .todo-item.completed p {
   opacity: 0.4;
   filter: grayscale(100%);
   transition: all 0.3s ease;
-}
-
-.todo-item p {
-  display: flex;
-  align-items: center;
-  gap: var(--space-xs);
 }
 
 .todo-checkbox button {
@@ -52,4 +70,43 @@
 
 .todo-list::-webkit-scrollbar-thumb:hover {
   background-color: var(--color-neutral-hover);
+}
+
+/*Edit and delete todo buttons*/
+.todo-button-wrapper {
+  display: flex;
+  gap: var(--space-md);
+}
+
+.edit-todo-button {
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--color-text-muted);
+}
+
+.todo-item:hover .edit-todo-button {
+  opacity: 1;
+}
+
+.edit-todo-button:hover {
+  color: var(--color-primary);
+  transform: scale(1.1);
+}
+
+/* Input for editing tasks */
+.todo-edit-form {
+  margin: 0;
+}
+
+.todo-edit-form input {
+  background: var(--color-bg-surface);
+  border: none;
+  border-radius: 0;
+  font-size: var(--font-size-base);
+  font-family: inherit;
+  color: var(--color-text-muted);
+  padding: 0;
 }

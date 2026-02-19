@@ -4,10 +4,19 @@
   height: 100%;
 }
 
+.todo-title {
+  margin-bottom: var(--space-xs);
+}
+
+.todo-stats {
+  margin-bottom: var(--space-sm);
+}
+
 /*Arrows*/
 .nav-wrapper {
   display: flex;
   align-items: center;
+  margin-bottom: var(--space-md);
 }
 
 .nav-arrow {
@@ -18,11 +27,14 @@
 .nav-arrow svg {
   stroke: var(--color-text-muted);
   transition: stroke 0.2s ease;
+  opacity: 0.5;
   width: 18px;
 }
 
 .nav-arrow:hover svg {
   stroke: var(--color-primary);
+  opacity: 1;
+  transform: scale(1.1);
 }
 
 /* Navigation */
@@ -44,6 +56,7 @@
   transition: all 0.2s ease;
   border: 1px solid transparent;
   text-decoration: none;
+  white-space: nowrap;
 }
 
 .todo-nav-item.active {
@@ -88,5 +101,43 @@
 
 .delete-list-button:hover svg {
   stroke: var(--color-primary);
-  transform: scale(1.1); /* En liten extra feedback vid hover */
+  transform: scale(1.1);
+}
+
+/* Add list button */
+.add-list-button {
+  padding: var(--space-xs) var(--space-sm);
+  background-color: transparent;
+  border: 1px dashed var(--color-border-muted);
+  border-radius: var(--radius-pill);
+  color: var(--color-text-muted);
+  transition: all 0.2s ease;
+  min-width: 45px;
+  aspect-ratio: 1 / 1;
+  font-size: var(--font-size-lg);
+}
+
+.add-list-button:hover {
+  background-color: var(--color-secondary);
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+  border-style: solid;
+}
+
+/* Add list form */
+.create-list-form {
+  margin: 0;
+}
+
+.create-list-form input {
+  height: 45px;
+  padding: var(--space-xs) var(--space-sm);
+  font-size: var(--font-size-sm);
+  width: 150px;
+  animation: expandIn 0.2s ease-out;
+}
+
+@keyframes expandIn {
+  from { width: 45px; opacity: 0; }
+  to { width: 150px; opacity: 1; }
 }

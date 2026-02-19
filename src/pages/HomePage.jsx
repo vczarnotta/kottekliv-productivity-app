@@ -1,7 +1,5 @@
 import GridContainer from "../components/GridContainer/GridContainer"
 import Card from "../components/Card/Card"
-import { TodoContext } from "../context/TodoContext"
-import { useContext } from "react"
 import TodoListDisplay from "../components/Tasks/TodoListDisplay"
 import WelcomeMessage from "../components/WelcomeMessage/WelcomeMessage"
 import { useSessions } from "../context/SessionContext"
@@ -12,7 +10,6 @@ import Quote from "../components/Quote/Quote"
 
 function HomePage() {
   // --- hooks ---
-  const { totalItems } = useContext(TodoContext);
   const { sessions } = useSessions();
   const makeMsReadable = useFormatTime();
 
@@ -87,7 +84,7 @@ function HomePage() {
         />
 
         <Card
-          title={`Tasks (${totalItems})`}
+          title="Tasks"
           children={
             <>
               <TodoListDisplay showDeleteButton={false}></TodoListDisplay>

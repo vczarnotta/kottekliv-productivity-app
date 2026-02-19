@@ -1,6 +1,11 @@
+import { useState } from "react";
 import { useParams } from "react-router-dom";
+
 import { useTodo } from "../../context/TodoContext";
-import { Circle, CheckCircle2 } from "lucide-react"
+import Input from "../Input/Input";
+
+import { IoRadioButtonOffOutline, IoRadioButtonOn } from "react-icons/io5";
+import { FiEdit3, FiTrash } from "react-icons/fi";
 import "./TodoListDisplay.css";
 
 
@@ -10,6 +15,9 @@ function TodoListDisplay({isOverview = false }) {
   // imports global info
   const { state, dispatch } = useTodo()
   const { listId: urlListId } = useParams()
+
+  const [ editingId, setEditingId ] = useState(null)
+  const [ editText, setEditText ] = useState("")
 
   //Find which todos to show
   let tasksToDisplay = []
@@ -32,6 +40,27 @@ function TodoListDisplay({isOverview = false }) {
     // If both completed, sort by when they were completed (earliest first, latest last)
     return (a.completedAt || 0) - (b.completedAt || 0)
   })
+
+  const handleStartEdit = (task) => {
+    setEditingId(task.id);
+    setEditText(task.text);
+  }
+
+  const handleSaveEdit = (e, task) => {
+    e.preventDefault();
+    if (editText.trim() === "") return;
+
+    dispatch({
+      type: "EDIT_TODO",
+      payload: {
+        todoId: task.id,
+        listId: urlListId || task.listId,
+        newText: editText
+      }
+    });
+    setEditingId(null); // Close edit mode
+    setEditText("")
+  };
   
   // returns an unordered list with all tasks
   return (
@@ -47,16 +76,43 @@ function TodoListDisplay({isOverview = false }) {
               className="check-btn"
             >
               {task.isCompleted ? (
-                <CheckCircle2 size={20} color="var(--color-primary)" fill="var(--color-bg-surface)" />
+                <IoRadioButtonOn size={20} color="var(--color-primary)"/>
               ) : (
-                <Circle size={20} color="var(--color-primary)" />
+                <IoRadioButtonOffOutline size={20} color="var(--color-primary)" />
               )}
             </button>
           </div>
-          <p>
-            <span className="todo-text">{task.text}</span>
-            {isOverview && <span className="list-tag"> ({state.find(l => l.id === task.listId)?.title})</span>}
-          </p>
+          {editingId === task.id ? (
+            <form action="submit" onSubmit={(e) => handleSaveEdit(e, task)} className="todo-edit-form">
+              <Input
+                autoFocus
+                value={editText}
+                onChange={(e) => setEditText(e.target.value)}
+                onBlur={(e) => handleSaveEdit(e, task)}
+              />
+            </form>
+          ) : (
+            <p>
+              <span className="todo-text">{task.text}</span>
+              {isOverview && <span className="list-tag"> ({state.find(l => l.id === task.listId)?.title})</span>}
+            </p>
+          )}
+          {!editingId &&
+          <div className="todo-button-wrapper">
+            <button className="edit-todo-button" onClick={() => handleStartEdit(task)}>
+              <FiEdit3/>
+            </button>
+            <button className="edit-todo-button" onClick={() => {
+              dispatch({ 
+                type: "DELETE_TODO", 
+                payload: { todoId: task.id, listId: urlListId || task.listId } 
+              })
+            }}
+            >
+              <FiTrash/>
+            </button>
+          </div>
+          }
         </li>
       ))}
     </ul>
