@@ -1,6 +1,7 @@
 .graph-container {
   height: 100%;
   min-height: 250px;
+  overflow: hidden;
 }
 
 /* Axis lines */
