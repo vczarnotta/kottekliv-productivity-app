@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router-dom'
 import Header from './components/Header/Header'
 import HomePage from './pages/HomePage'
-import TaskPage from  "./pages/TaskPage"
+import TaskPage from  "./pages/TaskPage/TaskPage"
 import TodoListDisplay from './components/Tasks/TodoListDisplay'
 import TimerPage from "./pages/TimerPage/TimerPage"
 import HistoryPage from "./pages/HistoryPage"

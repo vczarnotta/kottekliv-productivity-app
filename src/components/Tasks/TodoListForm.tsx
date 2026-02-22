@@ -1,17 +1,15 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import Button from "../Button/Button";
-import Input from "../Input/Input";
-import "./TodoList.css";
 import { useTodo } from "../../context/TodoContext";
-import TodoListDisplay from "./TodoListDisplay";
+import "./TodoListForm.css";
 
 
 function TodoList() {
 
   const [text, setText] = useState("");
   const {listId} = useParams<{listId: string}>() //Get ID from URL
-  const {dispatch, totalItems} = useTodo();
+  const {dispatch} = useTodo();
 
 
 
@@ -26,25 +24,20 @@ function TodoList() {
 
 
   return (
-  <>
-    <form onSubmit={handleSubmit}>
-      <Input
-        type="text"
-        value={text}
-        id="taskInput"
-        onChange={(event => setText(event.target.value))}
-        placeholder="Add a new task..." 
-      />
-      
-      <Button type="submit">
-        Add Task
-      </Button>
-    </form>
-
-    <h3>{totalItems} items on your list</h3>
-
-    <TodoListDisplay showDeleteButton={false} />
-  </>
+    <div className="todo-form">
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          value={text}
+          onChange={(event => setText(event.target.value))}
+          placeholder="Add a new task..." 
+        />
+        
+        <Button type="submit" variant="secondary">
+          +
+        </Button>
+      </form>
+    </div>
   )
 }
 
