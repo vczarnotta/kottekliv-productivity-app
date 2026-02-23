@@ -2,7 +2,7 @@ import './Card.css'
 
 interface CardProps { 
   children: React.ReactNode,
-  title?: string,
+  title?: React.ReactNode,
   span?: number,
   onClick?: () => void
 }

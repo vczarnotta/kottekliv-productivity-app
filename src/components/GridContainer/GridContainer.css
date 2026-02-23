@@ -10,6 +10,8 @@
 
 .grid-layout.full-height {
   flex: 1;
+  overflow: hidden;
+  height: 100%;
 }
 
 /* Media queries needs to be added */
