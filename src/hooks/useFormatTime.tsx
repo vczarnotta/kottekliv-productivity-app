@@ -2,10 +2,12 @@
 // output -> human readable: hours, minutes, seconds, autoFormat (displays best format based on current time) -> maybe i just keep last 1?
 
 
+
+
 // Convert ms to human readable format
 // Examples: "45s", "3min 20s", "1h 30min", "2h 0min"
 function useFormatTime() {
-  const formatTime = (ms) => {
+  const formatTime = (ms: number): string => {
     const totalSeconds = Math.floor(ms / 1000);
     const hours = Math.floor(totalSeconds / 3600);
     const minutes = Math.floor((totalSeconds % 3600) / 60);
