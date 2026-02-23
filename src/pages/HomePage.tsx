@@ -25,7 +25,7 @@ function HomePage() {
   const daysFromMonday = dayOfWeek === 0 ? 6 : dayOfWeek - 1;
   const monday = new Date(todayDate);
   monday.setDate(todayDate.getDate() - daysFromMonday);
-  const mondayStr = monday.toISOString().split("T")[0];
+  const mondayStr: string = monday.toISOString().split("T")[0]!;
 
   const weekSessions = sessions.filter(s =>
     s.date >= mondayStr && s.category === "Deep Work"
@@ -66,7 +66,7 @@ function HomePage() {
           title="Tasks"
           children={
             <>
-              <TodoListDisplay showDeleteButton={false} />
+              <TodoListDisplay />
             </>
           }
         />

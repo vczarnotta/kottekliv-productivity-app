@@ -72,6 +72,7 @@ function TimerPage() {
       <div className="timer-circle">
         <Input
           name={"sessionName"}
+          id="sessionName"
           placeholder="Add session name..."
           autoComplete="off"
           onChange={(e) => setFormData({ ...formData, sessionName: e.target.value })}
@@ -81,6 +82,7 @@ function TimerPage() {
 
         <Select
           name={"category"}
+          id="category"
           selectLabel={"Select Category"}
           defaultValue={""}
           onChange={(e) => setFormData({ ...formData, category: e.target.value })}

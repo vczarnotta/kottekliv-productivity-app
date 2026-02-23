@@ -4,6 +4,8 @@ import Card from "../components/Card/Card"
 import StatsGraph from "../components/StatsGraph/StatsGraph"
 import AddSessionModal from "../components/Modal/AddSessionModal/AddSessionModal"
 import ShowSessionHistoryModal from "../components/Modal/ShowSessionHistoryModal/ShowSessionHistoryModal"
+import { type Session} from "../context/SessionContext"
+
 
 
 // update/finish when storage logic gets updated
@@ -15,10 +17,10 @@ interface ManualSession {
 function HistoryPage() {
   const [showAddSession, setShowAddSession] = useState(false)
   const [showSessionHistory, setShowSessionHistory] = useState(false)
-  const [sessions, setSessions] = useState<ManualSession[]>([]);
+  const [sessions, setSessions] = useState<Session[]>([]);
 
-  const saveSession = (newSession: Omit<ManualSession, "id">) => {
-    setSessions([...sessions, { ...newSession, id: Date.now() }]);
+  const saveSession = (newSession: Omit<Session, "id">) => {
+    setSessions([...sessions, { ...newSession, id: crypto.randomUUID()}]);
     /* TODO: Implement storage logic */
   };
 
@@ -49,7 +51,6 @@ function HistoryPage() {
       {showAddSession && (
         <AddSessionModal
           onClose={() => setShowAddSession(false)}
-          onSave={saveSession}
         />
       )}
 

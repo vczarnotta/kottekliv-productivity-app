@@ -90,6 +90,7 @@ function TodoListDisplay({ isOverview = false }: TodoListDisplayProps) {
               <Input
                 autoFocus
                 value={editText}
+                id="editTodoText"
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEditText(e.target.value)}
                 onBlur={(e: React.FocusEvent<HTMLInputElement>) => handleSaveEdit(e, task)}
               />
