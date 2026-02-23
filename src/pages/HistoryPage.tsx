@@ -5,22 +5,28 @@ import StatsGraph from "../components/StatsGraph/StatsGraph"
 import AddSessionModal from "../components/Modal/AddSessionModal/AddSessionModal"
 import ShowSessionHistoryModal from "../components/Modal/ShowSessionHistoryModal/ShowSessionHistoryModal"
 
-function HistoryPage() {
-  const [ showAddSession, setShowAddSession ] = useState(false)
-  const [ showSessionHistory, setShowSessionHistory ] = useState(false)
-  const [ sessions, setSessions ] = useState([]);
 
-  const saveSession = (newSession) => {
+// update/finish when storage logic gets updated
+interface ManualSession {
+  id: number;
+  [key: string]: unknown;
+}
+
+function HistoryPage() {
+  const [showAddSession, setShowAddSession] = useState(false)
+  const [showSessionHistory, setShowSessionHistory] = useState(false)
+  const [sessions, setSessions] = useState<ManualSession[]>([]);
+
+  const saveSession = (newSession: Omit<ManualSession, "id">) => {
     setSessions([...sessions, { ...newSession, id: Date.now() }]);
     /* TODO: Implement storage logic */
   };
 
-  return(
+  return (
     <div className="main-container">
 
-      {/* Grid with 4 columns */}
       <GridContainer columns={2}>
-        <Card 
+        <Card
           title={"Log Session"}
           children={<p>Manually log previous sessions and breaks.</p>}
           onClick={() => setShowAddSession(true)}
@@ -31,18 +37,15 @@ function HistoryPage() {
           children={<p>Manage and correct your saved sessions.</p>}
           onClick={() => setShowSessionHistory(true)}
         />
-
       </GridContainer>
 
-      {/* Grid with 1 column that takes up the remaining height */}
       <GridContainer columns={1} fullheight={true}>
-        <Card 
+        <Card
           title={<div style={{ textAlign: "center", width: "100%" }}>Data Visualization</div>}
-          children={<StatsGraph />}    
+          children={<StatsGraph />}
         />
       </GridContainer>
 
-      {/* Pop-up rutor */}
       {showAddSession && (
         <AddSessionModal
           onClose={() => setShowAddSession(false)}

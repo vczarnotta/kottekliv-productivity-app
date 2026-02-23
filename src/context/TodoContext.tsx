@@ -1,14 +1,14 @@
 import { createContext, useReducer, useEffect, useContext, useCallback } from "react";
 import TodoList from "../components/Tasks/TodoListForm";
 
-interface Todo {
+export interface Todo {
   id: number;
   text: string;
   isCompleted: boolean;
   completedAt?: number | null;
 }
 
-interface TodoList {
+export interface TodoList {
   id: string;
   title: string;
   todos: Todo[];
