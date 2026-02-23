@@ -1,34 +1,39 @@
 import { useEffect, useState } from "react"
+import useAxiosApi from "../../hooks/useAxiosApi"
 import "./Quote.css"
+
+const baseURL = "https://api.adviceslip.com"
+
+interface AdviceResponse {
+  slip: {
+    id: number;
+    advice: string;
+  }
+}
 
 function Quote() {
   const [ quote, setQuote ] = useState<string>("")
+  const [ loading, setLoading ] = useState(false)
+  const [ error, setError ] = useState("")
   
   useEffect(() => {
-    const fetchQuote = async () => {
-      const url = "https://api.adviceslip.com/advice"
-  
+    (async () => {
       try {
-        const res = await fetch(url)
-        const data = await res.json()
-        const adviceQuote = data.slip
-
-
-        setQuote(adviceQuote.advice)
-
+        setLoading(true)
+        const adviceApi = await useAxiosApi(baseURL)
+        const res = await adviceApi.get<AdviceResponse>("/advice")
+        setQuote(res.data.slip.advice)
       } catch (error) {
-        console.error(`Error getting quote: ${error}`)
+        setError("An error does not become a mistake until you refuse to correct it.")
+      } finally {
+        setLoading(false)
       }
-    }
-
-    fetchQuote()
+    })()
   }, [])
 
-  return(
-    <div className="quote-container">
-      {quote ? (
-        <p className="quote">{quote}</p>
-      ) : (
+  if(loading) {
+    return(
+      <div className="quote-container">
         <p className="quote loading-text">
           Loading quote
           <span className="dots">
@@ -37,7 +42,23 @@ function Quote() {
             <span>.</span>
           </span>
         </p>
-      )}
+      </div>
+    )
+  }
+
+  if(error) {
+    return(
+      <div className="quote-container">
+        <p className="quote">
+          {error}
+        </p>
+      </div>
+    )
+  }
+
+  return(
+    <div className="quote-container">
+      <p className="quote">{quote}</p>
     </div>
   )
 }
