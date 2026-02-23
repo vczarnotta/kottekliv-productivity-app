@@ -18,7 +18,6 @@ header {
 
 h1 {
   font-size: var(--font-size-xl);
-  margin-bottom: var(--space-lg);
 }
 
 .nav-item {
@@ -47,4 +46,17 @@ h1 {
 .icon svg {
   transform: translateY(2px);
   color: var(--color-primary);
+}
+
+/* Logo */
+.logo-container {
+  display: flex;
+  gap: var(--space-xs);
+  align-items: center;
+  margin-bottom: var(--space-md);
+}
+
+.logo {
+  width: 40px;
+  height: 40px;
 }
