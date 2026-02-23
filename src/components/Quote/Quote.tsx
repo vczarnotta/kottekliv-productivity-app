@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import useAxiosApi from "../../hooks/useAxiosApi"
 import "./Quote.css"
 
-const baseURL = "https://api.adviceslip.com"
+const adviceBaseURL = "https://api.adviceslip.com"
 
 interface AdviceResponse {
   slip: {
@@ -20,7 +20,7 @@ function Quote() {
     (async () => {
       try {
         setLoading(true)
-        const adviceApi = await useAxiosApi(baseURL)
+        const adviceApi = await useAxiosApi(adviceBaseURL)
         const res = await adviceApi.get<AdviceResponse>("/advice")
         setQuote(res.data.slip.advice)
       } catch (error) {
