@@ -14,17 +14,17 @@ const menuItems: menuItem[] = [
   },
 
   {title: "Tasks",
-    path: "/Tasks",
+    path: "/tasks",
     icon: <GoCheckbox />,
   },
 
   {title: "Timer",
-    path: "/Timer",
+    path: "/timer",
     icon: <GoClock />,
   },
 
   {title: "History",
-    path: "/History",
+    path: "/history",
     icon: <GoGraph />,
   },
 ]

@@ -9,11 +9,7 @@ import { IoRadioButtonOffOutline, IoRadioButtonOn } from "react-icons/io5";
 import { FiEdit3, FiTrash } from "react-icons/fi";
 import "./TodoListDisplay.css";
 
-interface TodoListDisplayProps {
-  isOverview?: boolean;
-}
-
-function TodoListDisplay({ isOverview = false }: TodoListDisplayProps) {
+function TodoListDisplay() {
 
   const { state, dispatch } = useTodo()
   const { listId: urlListId } = useParams()
@@ -24,7 +20,7 @@ function TodoListDisplay({ isOverview = false }: TodoListDisplayProps) {
   // Find which todos to show
   let tasksToDisplay: (Todo & { listId: string })[] = []
 
-  if (isOverview || !urlListId) {
+  if (!urlListId) {
     // show all todos from all lists, tagged with their listId
     tasksToDisplay = state.flatMap((list: TodoList) =>
       (list.todos || []).map((todo) => ({ ...todo, listId: list.id }))
@@ -98,7 +94,7 @@ function TodoListDisplay({ isOverview = false }: TodoListDisplayProps) {
           ) : (
             <p>
               <span className="todo-text">{task.text}</span>
-              {isOverview && <span className="list-tag"> ({state.find((l: TodoList) => l.id === task.listId)?.title})</span>}
+              {!urlListId && <span className="list-tag"> ({state.find((l: TodoList) => l.id === task.listId)?.title})</span>}
             </p>
           )}
           {!editingId &&

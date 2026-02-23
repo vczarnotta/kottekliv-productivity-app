@@ -53,9 +53,6 @@ function TaskPage() {
     : state.flatMap(list => list.todos || []); //If undefined (overview) go through all lists
   const { totalTodos, finishedTodos } = getProgress(relevantTodos);
 
-  //If listId is missing in url then we are in overview
-  const showingOverview = !listId
-
   return(
     <div className="main-container">
       <GridContainer fullheight={true}>
