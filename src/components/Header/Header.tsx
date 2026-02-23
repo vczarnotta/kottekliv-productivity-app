@@ -8,7 +8,7 @@ function Header() {
   return (
     <header>
       <div className="main-part">
-        <h1>Project Name</h1>
+        <h1>Kottekliv logo</h1>
         
         <nav>
           {menuItems.map((item) => (
