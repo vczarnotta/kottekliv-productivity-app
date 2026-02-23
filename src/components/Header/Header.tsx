@@ -1,6 +1,7 @@
 import { NavLink } from "react-router-dom";
 import ThemeToggle from "../ThemeToggle/ThemeToggle";
 import menuItems from "./navData"
+import logo from "../../assets/kottekliv-logo.png"
 import "./Header.css"
 
 function Header() {
@@ -8,7 +9,11 @@ function Header() {
   return (
     <header>
       <div className="main-part">
-        <h1>Kottekliv logo</h1>
+
+        <div className="logo-container">
+          <img src={logo} alt="logo" className="logo"/>
+          <h1>Kottekliv</h1>
+        </div>
         
         <nav>
           {menuItems.map((item) => (
