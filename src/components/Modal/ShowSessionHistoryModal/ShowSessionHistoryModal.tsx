@@ -20,7 +20,19 @@ function ShowSessionHistoryModal({onClose}: {onClose: () => void}) {
   const [ editActiveTime, setEditActiveTime ] = useState<string>("")
   const [ isSaved, setIsSaved ] = useState(false);
 
+  //State for loading sessions
+  const [visibleCount, setVisibleCount] = useState(10) //Start with 10 sessions
+
   const makeMsReadable = useFormatTime()
+
+  //Calculate which sessions to show and if there are any more to load
+  const visibleSessions = sessions.slice(0, visibleCount);
+  const hasMore = sessions.length > visibleCount;
+
+  //Function for loading more sessions
+  const loadMore = () => {
+    setVisibleCount(prev => prev + 20)
+  }
   
   //Start edit mode
   const startEdit = (id: string) => {
@@ -185,8 +197,8 @@ function ShowSessionHistoryModal({onClose}: {onClose: () => void}) {
         {sessions.length === 0 && <p className="empty-message">No saved sessions found.</p>}
 
         <GridContainer columns={2}>
-          {sessions.map((session) => (
-              <div key={session.id} className="card-return-animation">
+          {visibleSessions.map((session) => (
+              <div key={session.id} className="session-card">
                 <Card>
                   <div className="content">
                     <h3>{session.sessionName || "Untitled Session"}</h3>
@@ -225,6 +237,11 @@ function ShowSessionHistoryModal({onClose}: {onClose: () => void}) {
               </div>
           ))}
         </GridContainer>
+        {hasMore &&
+          <Button variant="neutral" size="small" onClick={loadMore}>
+            Show more Sessions ({sessions.length - visibleCount} remaining)
+          </Button>
+        }
       </div>
     </Modal>
   )
