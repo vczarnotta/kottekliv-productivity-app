@@ -1,10 +1,10 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import { BrowserRouter } from 'react-router-dom'
 import { TodoProvider } from './context/TodoContext.js'
 import { TimerProvider } from './context/TimerContext.jsx'
 import SessionProvider from './context/SessionContext.js'
-import App from './App.jsx'
+import { RouterProvider } from 'react-router-dom'
+import { router } from './router.js'
 import './index.css'
 
 const rootElement = document.getElementById('root')
@@ -15,14 +15,14 @@ if (!rootElement) {
 
 createRoot(rootElement).render(
   <StrictMode>
-    <BrowserRouter>
+    
       <SessionProvider>
         <TimerProvider>
           <TodoProvider>
-            <App />
+            <RouterProvider router={router}/>
           </TodoProvider>
         </TimerProvider>
       </SessionProvider>
-    </BrowserRouter>
+    
   </StrictMode>,
 )
