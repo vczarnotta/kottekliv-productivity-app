@@ -2,6 +2,7 @@ import GridContainer from "../components/GridContainer/GridContainer"
 import Card from "../components/Card/Card"
 import TodoListDisplay from "../components/Tasks/TodoListDisplay"
 import WelcomeMessage from "../components/WelcomeMessage/WelcomeMessage"
+import DeepWorkStats from "../components/DeepWorkStats/DeepWorkStats"
 import { useSessions } from "../context/SessionContext"
 import useFormatTime from "../hooks/useFormatTime"
 
@@ -43,11 +44,20 @@ function HomePage() {
         <Card
           title={timeToday}
           children={<p>Deep work today</p>}
+          className="desktop-only"
         />
 
         <Card
           title={timeWeek}
           children={<p>Deep work this week</p>}
+          className="desktop-only"
+        />
+
+        {/* Mobile: Combined Deep Work card */}
+        <Card
+          title="Deep Work"
+          className="mobile-only"
+          children={<DeepWorkStats today={timeToday} week={timeWeek} />}
         />
 
         <Card

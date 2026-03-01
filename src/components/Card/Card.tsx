@@ -4,18 +4,27 @@ interface CardProps {
   children: React.ReactNode,
   title?: React.ReactNode,
   span?: number,
-  onClick?: () => void
+  onClick?: () => void,
+  className?: string
 }
 
-function Card({ children, title, span = 1, onClick }: CardProps) {
+function Card({ children, title, span = 1, onClick, className }: CardProps) {
 
   const addSpan: React.CSSProperties = {
     gridColumn: `span ${span}`
   }
 
+
+  // have these classes + any entered as a prop
+  const cardClasses = [
+    "card-base",
+    onClick ? "is-clickable" : "",
+    className || ""
+  ].filter(Boolean).join(" ");
+
   return (
     <div
-    className={onClick ? "card-base is-clickable" : "card-base"}
+    className={cardClasses}
     style={addSpan}
     onClick={onClick}
     role={onClick ? "button" : undefined}

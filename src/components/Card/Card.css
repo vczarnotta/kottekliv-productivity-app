@@ -47,3 +47,18 @@
 .is-clickable:active {
   transform: scale(0.98);
 }
+
+/* Responsive visibility classes */
+.mobile-only {
+  display: none;
+}
+
+@media (max-width: 1024px) {
+  .desktop-only {
+    display: none;
+  }
+
+  .mobile-only {
+    display: flex;
+  }
+}

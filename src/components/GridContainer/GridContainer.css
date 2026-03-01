@@ -20,4 +20,11 @@
   .grid-layout {
     grid-template-columns: 1fr;
   }
+
+  /* Force all grid items to span full width on mobile */
+  /* Bug fix: Card span prop was causing layout issues on mobile by trying to span multiple columns */
+  /* took a while to figure out */
+  .grid-layout > * {
+    grid-column: 1 / -1 !important;
+  }
 }
