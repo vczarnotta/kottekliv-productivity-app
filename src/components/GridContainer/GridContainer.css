@@ -15,3 +15,9 @@
 }
 
 /* Media queries needs to be added */
+
+@media (max-width: 1024px) {  
+  .grid-layout {
+    grid-template-columns: 1fr;
+  }
+}
