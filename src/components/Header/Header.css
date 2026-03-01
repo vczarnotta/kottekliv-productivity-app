@@ -96,6 +96,13 @@ h1 {
     font-size: var(--font-size-xl);
   }
 
+  /* Highlight active nav icon on mobile */
+  .nav-item.active .icon svg {
+    color: var(--color-text);
+    transition-duration: 1s;
+    transform: scale(1.2);
+  }
+
   /* Hide text labels */
   .logo-container {
     display: none;
