@@ -60,3 +60,65 @@ h1 {
   width: 40px;
   height: 40px;
 }
+
+@media (max-width: 1024px) {  
+  /* Transform sidebar into bottom navigation bar */
+  
+  header {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    flex-direction: row-reverse;
+    border-top: 1px solid var(--color-border-muted);
+    z-index: 1000;
+  }
+
+  .main-part {
+    padding: var(--space-sm);
+  }
+
+  .theme-part {
+    border-top: none;
+    padding: var(--space-sm);
+  }
+
+  nav {
+    display: flex;
+    justify-content: space-evenly;
+    gap: 7px; 
+  }
+
+  .icon {
+    margin-right: 0;
+  }
+
+  .icon svg {
+    font-size: var(--font-size-xl);
+  }
+
+  /* Highlight active nav icon on mobile */
+  .nav-item.active .icon svg {
+    color: var(--color-text);
+    transition-duration: 1s;
+    transform: scale(1.2);
+  }
+
+  /* Hide text labels */
+  .logo-container {
+    display: none;
+  }
+  
+  .nav-item > span:not(.icon) {
+    display: none;
+  }
+
+  /* Hide theme toggle text */
+  .theme-toggle-content {
+    font-size: 0;
+  }
+
+  .theme-toggle-content svg {
+    font-size: var(--font-size-xl);
+  }
+
+  }

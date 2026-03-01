@@ -1,9 +1,0 @@
-#root {
-  background-color: var(--color-bg);
-  text-align: center;
-}
-
-html, body, #root {
-  height: 100vh;
-  margin: 0;
-}
