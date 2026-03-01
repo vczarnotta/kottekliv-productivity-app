@@ -133,3 +133,15 @@ h1, h2, h3 {
 button {
   cursor: pointer;
 }
+
+@media (max-width: 1024px) {
+  #root {
+    min-height: 100vh;
+    height: auto;
+  }
+
+  main {
+    padding-bottom: 80px;
+  }
+
+}

@@ -1,16 +1,3 @@
-.card-base {
-  display: flex;
-  flex-direction: column;
-  padding: var(--space-lg);
-  border-radius: var(--radius-md);
-  border: 1px solid var(--color-border-muted);
-  text-align: left;
-
-  background-color: var(--color-bg-surface);
-  box-shadow: var(--shadow-md);
-  max-width: 100%;
-  min-width: 0
-}
 
 .card-base {
   display: flex;
@@ -59,4 +46,19 @@
 
 .is-clickable:active {
   transform: scale(0.98);
+}
+
+/* Responsive visibility classes */
+.mobile-only {
+  display: none;
+}
+
+@media (max-width: 1024px) {
+  .desktop-only {
+    display: none;
+  }
+
+  .mobile-only {
+    display: flex;
+  }
 }
