@@ -97,6 +97,16 @@
     box-shadow 0.2s ease
 }
 
+#root {
+  background-color: var(--color-bg);
+  text-align: center;
+}
+
+html, body, #root {
+  height: 100vh;
+  margin: 0;
+}
+
 main {
   flex: 1;
   padding: var(--space-lg);
